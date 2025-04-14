@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Compile Update="clsTMScan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="frmAbout.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="frmExport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="frmExtraction.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="frmHelp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="frmIndexing.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="frmLicInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="frmLicReg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="frmLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="frmIDP.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="frmLookup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="frmNotification.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="frmProcSumm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="frmProjList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="frmRemarks.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="frmReScan1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="frmReScanBox1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="frmScan1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="frmScanBox1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="frmScannerCfg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="frmStation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="frmVerify.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="frmVerifyScan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="MDIMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,235 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Development\\SRDocScanIDP\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{ED244A7A-2B56-43AE-9DAD-8078680FB56D}|SRDocScanIDP.csproj|c:\\development\\srdocscanidp\\frmextraction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ED244A7A-2B56-43AE-9DAD-8078680FB56D}|SRDocScanIDP.csproj|solutionrelative:frmextraction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ED244A7A-2B56-43AE-9DAD-8078680FB56D}|SRDocScanIDP.csproj|c:\\development\\srdocscanidp\\clsidp.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ED244A7A-2B56-43AE-9DAD-8078680FB56D}|SRDocScanIDP.csproj|solutionrelative:clsidp.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ED244A7A-2B56-43AE-9DAD-8078680FB56D}|SRDocScanIDP.csproj|c:\\development\\srdocscanidp\\clsdisresult.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ED244A7A-2B56-43AE-9DAD-8078680FB56D}|SRDocScanIDP.csproj|solutionrelative:clsdisresult.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ED244A7A-2B56-43AE-9DAD-8078680FB56D}|SRDocScanIDP.csproj|c:\\development\\srdocscanidp\\clsanalysisresult.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ED244A7A-2B56-43AE-9DAD-8078680FB56D}|SRDocScanIDP.csproj|solutionrelative:clsanalysisresult.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ED244A7A-2B56-43AE-9DAD-8078680FB56D}|SRDocScanIDP.csproj|c:\\development\\srdocscanidp\\clsdocufile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ED244A7A-2B56-43AE-9DAD-8078680FB56D}|SRDocScanIDP.csproj|solutionrelative:clsdocufile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ED244A7A-2B56-43AE-9DAD-8078680FB56D}|SRDocScanIDP.csproj|c:\\development\\srdocscanidp\\frmscanbox1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ED244A7A-2B56-43AE-9DAD-8078680FB56D}|SRDocScanIDP.csproj|solutionrelative:frmscanbox1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ED244A7A-2B56-43AE-9DAD-8078680FB56D}|SRDocScanIDP.csproj|c:\\development\\srdocscanidp\\frmrescan1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ED244A7A-2B56-43AE-9DAD-8078680FB56D}|SRDocScanIDP.csproj|solutionrelative:frmrescan1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ED244A7A-2B56-43AE-9DAD-8078680FB56D}|SRDocScanIDP.csproj|c:\\development\\srdocscanidp\\frmrescanbox1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ED244A7A-2B56-43AE-9DAD-8078680FB56D}|SRDocScanIDP.csproj|solutionrelative:frmrescanbox1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ED244A7A-2B56-43AE-9DAD-8078680FB56D}|SRDocScanIDP.csproj|c:\\development\\srdocscanidp\\frmscan1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ED244A7A-2B56-43AE-9DAD-8078680FB56D}|SRDocScanIDP.csproj|solutionrelative:frmscan1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ED244A7A-2B56-43AE-9DAD-8078680FB56D}|SRDocScanIDP.csproj|C:\\Development\\SRDocScanIDP\\frmextraction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{ED244A7A-2B56-43AE-9DAD-8078680FB56D}|SRDocScanIDP.csproj|solutionrelative:frmextraction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ED244A7A-2B56-43AE-9DAD-8078680FB56D}|SRDocScanIDP.csproj|c:\\development\\srdocscanidp\\bin\\debug\\net8.0-windows10.0.18362.0\\docscan.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{ED244A7A-2B56-43AE-9DAD-8078680FB56D}|SRDocScanIDP.csproj|solutionrelative:bin\\debug\\net8.0-windows10.0.18362.0\\docscan.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ED244A7A-2B56-43AE-9DAD-8078680FB56D}|SRDocScanIDP.csproj|c:\\development\\srdocscanidp\\docscan.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{ED244A7A-2B56-43AE-9DAD-8078680FB56D}|SRDocScanIDP.csproj|solutionrelative:docscan.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ED244A7A-2B56-43AE-9DAD-8078680FB56D}|SRDocScanIDP.csproj|c:\\development\\srdocscanidp\\srdocscanidp.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{ED244A7A-2B56-43AE-9DAD-8078680FB56D}|SRDocScanIDP.csproj|solutionrelative:srdocscanidp.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 6,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "clsAnalysisResult.cs",
+              "DocumentMoniker": "C:\\Development\\SRDocScanIDP\\clsAnalysisResult.cs",
+              "RelativeDocumentMoniker": "clsAnalysisResult.cs",
+              "ToolTip": "C:\\Development\\SRDocScanIDP\\clsAnalysisResult.cs",
+              "RelativeToolTip": "clsAnalysisResult.cs",
+              "ViewState": "AgIAABkAAAAAAAAAAAA5wAwAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-07T08:42:44.633Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "clsDISResult.cs",
+              "DocumentMoniker": "C:\\Development\\SRDocScanIDP\\clsDISResult.cs",
+              "RelativeDocumentMoniker": "clsDISResult.cs",
+              "ToolTip": "C:\\Development\\SRDocScanIDP\\clsDISResult.cs",
+              "RelativeToolTip": "clsDISResult.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-07T08:35:24.815Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "clsDocuFile.cs",
+              "DocumentMoniker": "C:\\Development\\SRDocScanIDP\\clsDocuFile.cs",
+              "RelativeDocumentMoniker": "clsDocuFile.cs",
+              "ToolTip": "C:\\Development\\SRDocScanIDP\\clsDocuFile.cs",
+              "RelativeToolTip": "clsDocuFile.cs",
+              "ViewState": "AgIAAJ8KAAAAAAAAAAAwwMIKAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-04T08:57:04.564Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "frmReScanBox1.cs",
+              "DocumentMoniker": "C:\\Development\\SRDocScanIDP\\frmReScanBox1.cs",
+              "RelativeDocumentMoniker": "frmReScanBox1.cs",
+              "ToolTip": "C:\\Development\\SRDocScanIDP\\frmReScanBox1.cs",
+              "RelativeToolTip": "frmReScanBox1.cs",
+              "ViewState": "AgIAACkaAAAAAAAAAAAuwBcZAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-04T06:50:35.369Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "frmScan1.cs",
+              "DocumentMoniker": "C:\\Development\\SRDocScanIDP\\frmScan1.cs",
+              "RelativeDocumentMoniker": "frmScan1.cs",
+              "ToolTip": "C:\\Development\\SRDocScanIDP\\frmScan1.cs",
+              "RelativeToolTip": "frmScan1.cs",
+              "ViewState": "AgIAAE4QAAAAAAAAAADwv1gQAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-25T02:28:26.601Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "frmExtraction.cs",
+              "DocumentMoniker": "C:\\Development\\SRDocScanIDP\\frmExtraction.cs",
+              "RelativeDocumentMoniker": "frmExtraction.cs",
+              "ToolTip": "C:\\Development\\SRDocScanIDP\\frmExtraction.cs",
+              "RelativeToolTip": "frmExtraction.cs",
+              "ViewState": "AgIAAEIPAAAAAAAAAAAIwFkPAABbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-14T02:28:09.729Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "clsIDP.cs",
+              "DocumentMoniker": "C:\\Development\\SRDocScanIDP\\clsIDP.cs",
+              "RelativeDocumentMoniker": "clsIDP.cs",
+              "ToolTip": "C:\\Development\\SRDocScanIDP\\clsIDP.cs",
+              "RelativeToolTip": "clsIDP.cs",
+              "ViewState": "AgIAADgAAAAAAAAAAAAUwBIAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-16T09:48:03.795Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "frmReScan1.cs",
+              "DocumentMoniker": "C:\\Development\\SRDocScanIDP\\frmReScan1.cs",
+              "RelativeDocumentMoniker": "frmReScan1.cs",
+              "ToolTip": "C:\\Development\\SRDocScanIDP\\frmReScan1.cs",
+              "RelativeToolTip": "frmReScan1.cs",
+              "ViewState": "AgIAAFcZAAAAAAAAAADwv14ZAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-04T02:05:03.803Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "frmScanBox1.cs",
+              "DocumentMoniker": "C:\\Development\\SRDocScanIDP\\frmScanBox1.cs",
+              "RelativeDocumentMoniker": "frmScanBox1.cs",
+              "ToolTip": "C:\\Development\\SRDocScanIDP\\frmScanBox1.cs",
+              "RelativeToolTip": "frmScanBox1.cs",
+              "ViewState": "AgIAACsVAAAAAAAAAAAwwBIVAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-04T01:33:40.151Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "frmExtraction.cs [Design]",
+              "DocumentMoniker": "C:\\Development\\SRDocScanIDP\\frmExtraction.cs",
+              "RelativeDocumentMoniker": "frmExtraction.cs",
+              "ToolTip": "C:\\Development\\SRDocScanIDP\\frmExtraction.cs [Design]",
+              "RelativeToolTip": "frmExtraction.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-14T02:09:16.527Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "DocScan.config",
+              "DocumentMoniker": "C:\\Development\\SRDocScanIDP\\DocScan.config",
+              "RelativeDocumentMoniker": "DocScan.config",
+              "ToolTip": "C:\\Development\\SRDocScanIDP\\DocScan.config",
+              "RelativeToolTip": "DocScan.config",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2025-01-16T08:00:29.313Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "DocScan.config",
+              "DocumentMoniker": "C:\\Development\\SRDocScanIDP\\bin\\Debug\\net8.0-windows10.0.18362.0\\DocScan.config",
+              "RelativeDocumentMoniker": "bin\\Debug\\net8.0-windows10.0.18362.0\\DocScan.config",
+              "ToolTip": "C:\\Development\\SRDocScanIDP\\bin\\Debug\\net8.0-windows10.0.18362.0\\DocScan.config",
+              "RelativeToolTip": "bin\\Debug\\net8.0-windows10.0.18362.0\\DocScan.config",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2025-01-20T08:45:49.062Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "SRDocScanIDP.csproj",
+              "DocumentMoniker": "C:\\Development\\SRDocScanIDP\\SRDocScanIDP.csproj",
+              "RelativeDocumentMoniker": "SRDocScanIDP.csproj",
+              "ToolTip": "C:\\Development\\SRDocScanIDP\\SRDocScanIDP.csproj",
+              "RelativeToolTip": "SRDocScanIDP.csproj",
+              "ViewState": "AgIAAFsAAAAAAAAAAAAAAGYAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-01-16T09:28:23.531Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

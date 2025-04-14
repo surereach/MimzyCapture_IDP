@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35527.113
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SRDocScanIDP", "SRDocScanIDP.csproj", "{ED244A7A-2B56-43AE-9DAD-8078680FB56D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LicLibGENNet", "..\LicLibGENNet\LicLibGENNet.csproj", "{4C2981BD-F7B7-49D5-942B-674E119B27C2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ED244A7A-2B56-43AE-9DAD-8078680FB56D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED244A7A-2B56-43AE-9DAD-8078680FB56D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED244A7A-2B56-43AE-9DAD-8078680FB56D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED244A7A-2B56-43AE-9DAD-8078680FB56D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C2981BD-F7B7-49D5-942B-674E119B27C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C2981BD-F7B7-49D5-942B-674E119B27C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C2981BD-F7B7-49D5-942B-674E119B27C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C2981BD-F7B7-49D5-942B-674E119B27C2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

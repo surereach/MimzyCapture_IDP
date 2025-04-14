@@ -1,0 +1,127 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows10.0.18362.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <StartupObject>SRDocScanIDP.Program</StartupObject>
+    <ApplicationIcon>Resources\logo_MIMZYcapture_128_col_white.ico</ApplicationIcon>
+    <Description>Mimzy Capture Application with IDP for general operation</Description>
+    <Title>Mimzy Capture Application General</Title>
+    <Copyright>Copyright © SR Inc. 2022</Copyright>
+    <AssemblyVersion>1.8.26.068</AssemblyVersion>
+    <FileVersion>1.8.26.068</FileVersion>
+	<Version>1.8.26.068</Version>
+    <Company>SureReach Group Private Limited</Company>
+    <Product>SureReach Mimzy Capture</Product>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\logo_MIMZYcapture_128_col_white.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="bin\Debug\net8.0-windows10.0.18362.0\DocScan.config" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BarCode" Version="2023.4.1" />
+    <PackageReference Include="IronOcr" Version="2024.6.3" />
+    <PackageReference Include="IronPdf" Version="2024.5.2" />
+    <PackageReference Include="IronSoftware.Common" Version="2024.1.7" />
+    <PackageReference Include="IronSoftware.Native.PdfModel" Version="2024.5.11" />
+    <PackageReference Include="IronSoftware.System.Drawing" Version="2024.6.1" />
+    <PackageReference Include="System.Data.Odbc" Version="9.0.1" />
+    <PackageReference Include="System.Data.OleDb" Version="9.0.1" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.9.0" />
+    <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="6.0.1" />
+    <PackageReference Include="System.Diagnostics.EventLog" Version="9.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="clsUtilComnNet">
+      <HintPath>bin\clsUtilComnNet.dll</HintPath>
+      <Aliases>global, clsUtilComn</Aliases>
+      <Private>True</Private>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Dynamsoft.BarcodeGenerator">
+      <HintPath>bin\Dynamsoft.BarcodeGenerator.dll</HintPath>
+    </Reference>
+    <Reference Include="Dynamsoft.BarcodeReader">
+      <HintPath>bin\Dynamsoft.BarcodeReader.dll</HintPath>
+    </Reference>
+    <Reference Include="Dynamsoft.Forms.Viewer">
+      <HintPath>bin\Dynamsoft.Forms.Viewer.dll</HintPath>
+    </Reference>
+    <Reference Include="Dynamsoft.ImageCore">
+      <HintPath>bin\Dynamsoft.ImageCore.dll</HintPath>
+    </Reference>
+    <Reference Include="Dynamsoft.OCR">
+      <HintPath>bin\Dynamsoft.OCR.dll</HintPath>
+    </Reference>
+    <Reference Include="Dynamsoft.PDF">
+      <HintPath>bin\Dynamsoft.PDF.dll</HintPath>
+    </Reference>
+    <Reference Include="Dynamsoft.Twain">
+      <HintPath>bin\Dynamsoft.Twain.dll</HintPath>
+    </Reference>
+    <Reference Include="DynamsoftCommon">
+      <HintPath>bin\DynamsoftCommon.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp">
+      <HintPath>bin\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="LicLibGENNet">
+      <HintPath>bin\LicLibGENNet.dll</HintPath>
+      <Private>True</Private>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>bin\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp">
+      <HintPath>bin\PdfSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Compression.Base">
+      <HintPath>bin\Syncfusion.Compression.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.OCRProcessor.Base">
+      <HintPath>bin\Syncfusion.OCRProcessor.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Pdf.Base">
+      <HintPath>bin\Syncfusion.Pdf.Base.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+</Project>
