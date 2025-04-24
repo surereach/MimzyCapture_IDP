@@ -349,8 +349,7 @@ namespace SRDocScanIDP
             }
             catch (Exception ex)
             {
-                mGlobal.Write2Log("Work.." + ex.Message);
-                mGlobal.Write2Log("Work.." + ex.StackTrace.ToString());
+                mGlobal.Write2Log("Work.." + ex.Message + Environment.NewLine + ex.StackTrace.ToString());
                 MessageBox.Show("Error! " + ex.Message, "Message");
             }
             finally
@@ -1137,8 +1136,8 @@ namespace SRDocScanIDP
         private static void savePDFByDocTypeMany(string sSet)
         {
             //PdfSharp.Pdf.PdfDocument docPDF = null;
-            Syncfusion.Pdf.PdfDocument docPDF = null;
-            //IronPdf.PdfDocument docPDF = null;
+            //Syncfusion.Pdf.PdfDocument docPDF = null;
+            IronPdf.PdfDocument docPDF = null;
             string[] sFiles = null;
             string sStatus = "'V','TF'";
             string PDFFilename = "";
@@ -1158,8 +1157,8 @@ namespace SRDocScanIDP
                     sStatus = "'I','TF'";
 
                 initExportInfo(1);
-                //Task<IronPdf.PdfDocument> t1;
-                Task<Syncfusion.Pdf.PdfDocument> t1;
+                Task<IronPdf.PdfDocument> t1;
+                //Task<Syncfusion.Pdf.PdfDocument> t1;
                 Task st1;
 
                 if (sSet.ToLower() == "scanned")
@@ -1173,9 +1172,9 @@ namespace SRDocScanIDP
                     IronPdf.License.LicenseKey = mGlobal.GetAppCfg("IRPDFLicKey");
                     Tiff2PdfConverter.clsTiffSplitter oTiff = new Tiff2PdfConverter.clsTiffSplitter(MDIMain.strIronLic);
                     //docPDF = new PdfSharp.Pdf.PdfDocument();
-                    docPDF = new Syncfusion.Pdf.PdfDocument();
-                    docPDF.EnableMemoryOptimization = true;
-                    docPDF.Compression = Syncfusion.Pdf.PdfCompressionLevel.Best;
+                    //docPDF = new Syncfusion.Pdf.PdfDocument();
+                    //docPDF.EnableMemoryOptimization = true;
+                    //docPDF.Compression = Syncfusion.Pdf.PdfCompressionLevel.Best;
 
                     string sFmt = "", sValue = ""; int i = 0, iHdr = 0; string sDir = ""; FileInfo fi = null;
 
@@ -1190,7 +1189,6 @@ namespace SRDocScanIDP
                         {
                             sSetNum = sFiles[iType].Split('|').GetValue(5).ToString().Trim().PadLeft(sSetNumFmt.Length, '0');
                         }
-
                         //stcXmlInfo.BatchCodes[iType] = sBatchCode;
                         //stcXmlInfo.DocTypes[iType] = sDocType;
                         //stcXmlInfo.Setnum[iType] = sSetNum;
@@ -1213,8 +1211,8 @@ namespace SRDocScanIDP
                                         else
                                         {
                                             //docPDF = oTiff.tiff2PDF(fi.FullName, docPDF);
-                                            //t1 = Task<IronPdf.PdfDocument>.Factory.StartNew(() => oTiff.tiff2PDF(fi.FullName, docPDF));
-                                            t1 = Task<Syncfusion.Pdf.PdfDocument>.Factory.StartNew(() => oTiff.tiff2PDF(fi.FullName, docPDF));
+                                            t1 = Task<IronPdf.PdfDocument>.Factory.StartNew(() => oTiff.tiff2PDF(fi.FullName, docPDF));
+                                            //t1 = Task<Syncfusion.Pdf.PdfDocument>.Factory.StartNew(() => oTiff.tiff2PDF(fi.FullName, docPDF));
                                             lTasks.Add(t1);
                                             Task.WaitAll(t1); //this will wait till t1 get finished.
                                             docPDF = t1.Result; //get the result of tiff2PDF method like this.
@@ -1225,8 +1223,8 @@ namespace SRDocScanIDP
                                     else
                                     {
                                         //docPDF = oTiff.tiff2PDF(fi.FullName, docPDF);
-                                        //t1 = Task<IronPdf.PdfDocument>.Factory.StartNew(() => oTiff.tiff2PDF(fi.FullName, docPDF));
-                                        t1 = Task<Syncfusion.Pdf.PdfDocument>.Factory.StartNew(() => oTiff.tiff2PDF(fi.FullName, docPDF));
+                                        t1 = Task<IronPdf.PdfDocument>.Factory.StartNew(() => oTiff.tiff2PDF(fi.FullName, docPDF));
+                                        //t1 = Task<Syncfusion.Pdf.PdfDocument>.Factory.StartNew(() => oTiff.tiff2PDF(fi.FullName, docPDF));
                                         lTasks.Add(t1);
                                         Task.WaitAll(t1); //this will wait till t1 get finished.
                                         docPDF = t1.Result; //get the result of tiff2PDF method like this.
@@ -1317,8 +1315,8 @@ namespace SRDocScanIDP
                             //stcXmlInfo.TotPages.Add(docPDF.PageCount);
                             if (docPDF.Pages.Count > 0)
                             {
-                                docPDF.Save(PDFFilename);
-                                //docPDF.SaveAs(PDFFilename);
+                                //docPDF.Save(PDFFilename);
+                                docPDF.SaveAs(PDFFilename); //uncomment this line for IronPDF.
 
                                 if (staMain.stcProjCfg.ExpSearchPDF.Trim().ToUpper() == "Y")
                                 {
@@ -1344,21 +1342,21 @@ namespace SRDocScanIDP
 
                             stcXmlInfo.TotPages.Add(docPDF.Pages.Count);
 
-                            docPDF.Close();
+                            //docPDF.Close();
                             docPDF.Dispose();
 
                             //docPDF = new PdfSharp.Pdf.PdfDocument();
-                            docPDF = new Syncfusion.Pdf.PdfDocument();
-                            docPDF.EnableMemoryOptimization = true;
-                            docPDF.Compression = Syncfusion.Pdf.PdfCompressionLevel.Best;
-                            //docPDF = null; //uncomment this line for IronPDF.
+                            //docPDF = new Syncfusion.Pdf.PdfDocument();
+                            //docPDF.EnableMemoryOptimization = true;
+                            //docPDF.Compression = Syncfusion.Pdf.PdfCompressionLevel.Best;
+                            docPDF = null; //uncomment this line for IronPDF.
                         }
                         else
                         {
-                            docPDF = new Syncfusion.Pdf.PdfDocument(); //Init.
-                            docPDF.EnableMemoryOptimization = true;
-                            docPDF.Compression = Syncfusion.Pdf.PdfCompressionLevel.Best;
-                            //docPDF = null; //uncomment this line for IronPDF.
+                            //docPDF = new Syncfusion.Pdf.PdfDocument(); //Init.
+                            //docPDF.EnableMemoryOptimization = true;
+                            //docPDF.Compression = Syncfusion.Pdf.PdfCompressionLevel.Best;
+                            docPDF = null; //uncomment this line for IronPDF.
                         }
 
                         iType += 1;
@@ -1368,15 +1366,14 @@ namespace SRDocScanIDP
             }
             catch (Exception ex)
             {
-                mGlobal.Write2Log(ex.Message);
-                mGlobal.Write2Log(PDFFilename + ".." + ex.StackTrace.ToString());
+                mGlobal.Write2Log(ex.Message + Environment.NewLine + PDFFilename + ".." + ex.StackTrace.ToString());
                 throw new Exception(ex.Message);
             }
             finally
             {
                 if (docPDF != null)
                 {
-                    docPDF.Close();
+                    //docPDF.Close();
                     docPDF.Dispose();
                 }
             }
@@ -1385,8 +1382,8 @@ namespace SRDocScanIDP
         private static void savePDFByDocTypeMerge(string sSet)
         {
             //PdfSharp.Pdf.PdfDocument docPDF = null;
-            Syncfusion.Pdf.PdfDocument docPDF = null;
-            //IronPdf.PdfDocument docPDF = null;
+            //Syncfusion.Pdf.PdfDocument docPDF = null;
+            IronPdf.PdfDocument docPDF = null;
             string[] sFiles = null;
             string sStatus = "'V','TF'";
             string PDFFilename = "";
@@ -1406,8 +1403,8 @@ namespace SRDocScanIDP
                     sStatus = "'I','TF'";
 
                 initExportInfo(1);
-                //Task<IronPdf.PdfDocument> t1;
-                Task<Syncfusion.Pdf.PdfDocument> t1;
+                Task<IronPdf.PdfDocument> t1;
+                //Task<Syncfusion.Pdf.PdfDocument> t1;
                 Task st1;
 
                 if (sSet.ToLower() == "scanned")
@@ -1421,9 +1418,9 @@ namespace SRDocScanIDP
                     IronPdf.License.LicenseKey = mGlobal.GetAppCfg("IRPDFLicKey");
                     Tiff2PdfConverter.clsTiffSplitter oTiff = new Tiff2PdfConverter.clsTiffSplitter(MDIMain.strIronLic);
                     //docPDF = new PdfSharp.Pdf.PdfDocument();
-                    docPDF = new Syncfusion.Pdf.PdfDocument();
-                    docPDF.EnableMemoryOptimization = true;
-                    docPDF.Compression = Syncfusion.Pdf.PdfCompressionLevel.Best;
+                    //docPDF = new Syncfusion.Pdf.PdfDocument();
+                    //docPDF.EnableMemoryOptimization = true;
+                    //docPDF.Compression = Syncfusion.Pdf.PdfCompressionLevel.Best;
                     string sFmt = "", sValue = ""; int i = 0, iHdr = 0; string sDir = ""; FileInfo fi = null;
 
                     int iF = 0; int iType = 0; int iTotType = 1; int iTotPages = 0;
@@ -1437,7 +1434,6 @@ namespace SRDocScanIDP
                         {
                             sSetNum = sFiles[iType].Split('|').GetValue(5).ToString().Trim().PadLeft(sSetNumFmt.Length, '0');
                         }
-
                         //stcXmlInfo.BatchCodes[iType] = sBatchCode;
                         //stcXmlInfo.DocTypes[iType] = sDocType;
                         //stcXmlInfo.Setnum[iType] = sSetNum;
@@ -1478,8 +1474,8 @@ namespace SRDocScanIDP
                                                     if (!ReadFromImageBarcode(fi.FullName))
                                                     {
                                                         //docPDF = oTiff.tiff2PDF(fi.FullName, docPDF);
-                                                        //t1 = Task<IronPdf.PdfDocument>.Factory.StartNew(() => oTiff.tiff2PDF(fi.FullName, docPDF));
-                                                        t1 = Task<Syncfusion.Pdf.PdfDocument>.Factory.StartNew(() => oTiff.tiff2PDF(fi.FullName, docPDF));
+                                                        t1 = Task<IronPdf.PdfDocument>.Factory.StartNew(() => oTiff.tiff2PDF(fi.FullName, docPDF));
+                                                        //t1 = Task<Syncfusion.Pdf.PdfDocument>.Factory.StartNew(() => oTiff.tiff2PDF(fi.FullName, docPDF));
                                                         lTasks.Add(t1);
                                                         Task.WaitAll(t1); //this will wait till t1 get finished.
                                                         //docPDF = t1.Result; //get the result of tiff2PDF method like this.
@@ -1491,8 +1487,8 @@ namespace SRDocScanIDP
                                                 else
                                                 {
                                                     //docPDF = oTiff.tiff2PDF(fi.FullName, docPDF);
-                                                    //t1 = Task<IronPdf.PdfDocument>.Factory.StartNew(() => oTiff.tiff2PDF(fi.FullName, docPDF));
-                                                    t1 = Task<Syncfusion.Pdf.PdfDocument>.Factory.StartNew(() => oTiff.tiff2PDF(fi.FullName, docPDF));
+                                                    t1 = Task<IronPdf.PdfDocument>.Factory.StartNew(() => oTiff.tiff2PDF(fi.FullName, docPDF));
+                                                    //t1 = Task<Syncfusion.Pdf.PdfDocument>.Factory.StartNew(() => oTiff.tiff2PDF(fi.FullName, docPDF));
                                                     lTasks.Add(t1);                                                    
                                                     Task.WaitAll(t1); //this will wait till t1 get finished.
                                                     //docPDF = t1.Result; //get the result of tiff2PDF method like this.
@@ -1596,8 +1592,8 @@ namespace SRDocScanIDP
                                     //stcXmlInfo.TotPages.Add(docPDF.PageCount);
                                     if (docPDF.Pages.Count > 0)
                                     {
-                                        docPDF.Save(PDFFilename);
-                                        //docPDF.SaveAs(PDFFilename);
+                                        //docPDF.Save(PDFFilename);
+                                        docPDF.SaveAs(PDFFilename);
 
                                         if (staMain.stcProjCfg.ExpSearchPDF.Trim().ToUpper() == "Y")
                                         {
@@ -1624,23 +1620,23 @@ namespace SRDocScanIDP
 
                                     stcXmlInfo.TotPages.Add(docPDF.Pages.Count);
 
-                                    docPDF.Close();
+                                    //docPDF.Close();
                                     docPDF.Dispose();
 
                                     //docPDF = new PdfSharp.Pdf.PdfDocument();
-                                    docPDF = new Syncfusion.Pdf.PdfDocument();
-                                    docPDF.EnableMemoryOptimization = true;
-                                    docPDF.Compression = Syncfusion.Pdf.PdfCompressionLevel.Best;
-                                    //docPDF = null; //uncomment this line for IronPDF.
+                                    //docPDF = new Syncfusion.Pdf.PdfDocument();
+                                    //docPDF.EnableMemoryOptimization = true;
+                                    //docPDF.Compression = Syncfusion.Pdf.PdfCompressionLevel.Best;
+                                    docPDF = null; //uncomment this line for IronPDF.
 
                                     iTotType = 1;
                                 }
                                 else
                                 {
-                                    //docPDF = null; //uncomment this line for IronPDF.
-                                    docPDF = new Syncfusion.Pdf.PdfDocument();
-                                    docPDF.EnableMemoryOptimization = true;
-                                    docPDF.Compression = Syncfusion.Pdf.PdfCompressionLevel.Best;
+                                    docPDF = null; //uncomment this line for IronPDF.
+                                    //docPDF = new Syncfusion.Pdf.PdfDocument();
+                                    //docPDF.EnableMemoryOptimization = true;
+                                    //docPDF.Compression = Syncfusion.Pdf.PdfCompressionLevel.Best;
                                 }
                             }
                         }
@@ -1664,8 +1660,8 @@ namespace SRDocScanIDP
                                                 if (!ReadFromImageBarcode(fi.FullName))
                                                 {
                                                     //docPDF = oTiff.tiff2PDF(fi.FullName, docPDF);
-                                                    //t1 = Task<IronPdf.PdfDocument>.Factory.StartNew(() => oTiff.tiff2PDF(fi.FullName, docPDF));
-                                                    t1 = Task<Syncfusion.Pdf.PdfDocument>.Factory.StartNew(() => oTiff.tiff2PDF(fi.FullName, docPDF));
+                                                    t1 = Task<IronPdf.PdfDocument>.Factory.StartNew(() => oTiff.tiff2PDF(fi.FullName, docPDF));
+                                                    //t1 = Task<Syncfusion.Pdf.PdfDocument>.Factory.StartNew(() => oTiff.tiff2PDF(fi.FullName, docPDF));
                                                     lTasks.Add(t1);
                                                     Task.WaitAll(t1); //this will wait till t1 get finished.
                                                     docPDF = t1.Result; //get the result of tiff2PDF method like this.
@@ -1676,7 +1672,8 @@ namespace SRDocScanIDP
                                             else
                                             {
                                                 //docPDF = oTiff.tiff2PDF(fi.FullName, docPDF);
-                                                t1 = Task<Syncfusion.Pdf.PdfDocument>.Factory.StartNew(() => oTiff.tiff2PDF(fi.FullName, docPDF));
+                                                t1 = Task<IronPdf.PdfDocument>.Factory.StartNew(() => oTiff.tiff2PDF(fi.FullName, docPDF));
+                                                //t1 = Task<Syncfusion.Pdf.PdfDocument>.Factory.StartNew(() => oTiff.tiff2PDF(fi.FullName, docPDF));
                                                 lTasks.Add(t1);
                                                 Task.WaitAll(t1); //this will wait till t1 get finished.
                                                 docPDF = t1.Result; //get the result of tiff2PDF method like this.
@@ -1777,8 +1774,8 @@ namespace SRDocScanIDP
                                 //    mGlobal.Write2Log("PDF file is zero pages! The file is not saved. " + PDFFilename);
                                 if (docPDF.Pages.Count > 0)
                                 {
-                                    docPDF.Save(PDFFilename);
-                                    //docPDF.SaveAs(PDFFilename);
+                                    //docPDF.Save(PDFFilename);
+                                    docPDF.SaveAs(PDFFilename);
 
                                     if (staMain.stcProjCfg.ExpSearchPDF.Trim().ToUpper() == "Y")
                                     {
@@ -1806,23 +1803,23 @@ namespace SRDocScanIDP
                                 //stcXmlInfo.TotPages.Add(docPDF.PageCount);
                                 stcXmlInfo.TotPages.Add(docPDF.Pages.Count);
 
-                                docPDF.Close();
+                                //docPDF.Close();
                                 docPDF.Dispose();
 
                                 //docPDF = new PdfSharp.Pdf.PdfDocument();
-                                docPDF = new Syncfusion.Pdf.PdfDocument();
-                                docPDF.EnableMemoryOptimization = true;
-                                docPDF.Compression = Syncfusion.Pdf.PdfCompressionLevel.Best;
-                                //docPDF = null; //uncomment this line for IronPDF.
+                                //docPDF = new Syncfusion.Pdf.PdfDocument();
+                                //docPDF.EnableMemoryOptimization = true;
+                                //docPDF.Compression = Syncfusion.Pdf.PdfCompressionLevel.Best;
+                                docPDF = null; //uncomment this line for IronPDF.
 
                                 iTotType = 1;
                             }
                             else
                             {
-                                //docPDF = null; //uncomment this line for IronPDF.
-                                docPDF = new Syncfusion.Pdf.PdfDocument();
-                                docPDF.EnableMemoryOptimization = true;
-                                docPDF.Compression = Syncfusion.Pdf.PdfCompressionLevel.Best;
+                                docPDF = null; //uncomment this line for IronPDF.
+                                //docPDF = new Syncfusion.Pdf.PdfDocument();
+                                //docPDF.EnableMemoryOptimization = true;
+                                //docPDF.Compression = Syncfusion.Pdf.PdfCompressionLevel.Best;
                             }
                         }
 
@@ -1832,15 +1829,14 @@ namespace SRDocScanIDP
             }
             catch (Exception ex)
             {
-                mGlobal.Write2Log(PDFFilename + ".." + ex.Message);
-                mGlobal.Write2Log(ex.StackTrace.ToString());
+                mGlobal.Write2Log(PDFFilename + ".." + ex.Message + Environment.NewLine + ex.StackTrace.ToString());
                 throw new Exception(ex.Message);
             }
             finally
             {
                 if (docPDF != null)
                 {
-                    docPDF.Close();
+                    //docPDF.Close();
                     docPDF.Dispose();
                 }
             }
@@ -2032,8 +2028,7 @@ namespace SRDocScanIDP
             }
             catch (Exception ex)
             {
-                mGlobal.Write2Log("PDF many.." + ex.Message);
-                mGlobal.Write2Log(ex.StackTrace.ToString());
+                mGlobal.Write2Log("PDF many.." + ex.Message + Environment.NewLine + ex.StackTrace.ToString());
                 //throw new Exception(ex.Message);
             }
         }
@@ -2419,8 +2414,7 @@ namespace SRDocScanIDP
             }
             catch (Exception ex)
             {
-                mGlobal.Write2Log(ex.Message);
-                mGlobal.Write2Log(ex.StackTrace.ToString());
+                mGlobal.Write2Log(ex.Message + Environment.NewLine + ex.StackTrace.ToString());
                 throw new Exception(ex.Message);
             }
         }
