@@ -29,169 +29,162 @@ namespace SRDocScanIDP
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.cbxStatus = new System.Windows.Forms.ComboBox();
-            this.grbFileTypes = new System.Windows.Forms.GroupBox();
-            this.rdbTIFF = new System.Windows.Forms.RadioButton();
-            this.rdbPDF = new System.Windows.Forms.RadioButton();
-            this.btnExport = new System.Windows.Forms.Button();
-            this.btnCancel = new System.Windows.Forms.Button();
-            this.btnOpenFolder = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.rdbXML = new System.Windows.Forms.RadioButton();
-            this.rdbCSV = new System.Windows.Forms.RadioButton();
-            this.grbFileTypes.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.SuspendLayout();
+            label1 = new Label();
+            cbxStatus = new ComboBox();
+            grbFileTypes = new GroupBox();
+            rdbTIFF = new RadioButton();
+            rdbPDF = new RadioButton();
+            btnExport = new Button();
+            btnCancel = new Button();
+            btnOpenFolder = new Button();
+            groupBox1 = new GroupBox();
+            rdbXML = new RadioButton();
+            rdbCSV = new RadioButton();
+            grbFileTypes.SuspendLayout();
+            groupBox1.SuspendLayout();
+            SuspendLayout();
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(21, 24);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(104, 17);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Document Sets";
+            label1.Location = new Point(18, 20);
+            label1.Name = "label1";
+            label1.Size = new Size(193, 25);
+            label1.TabIndex = 0;
+            label1.Text = "Document Sets";
+            label1.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // cbxStatus
             // 
-            this.cbxStatus.FormattingEnabled = true;
-            this.cbxStatus.Location = new System.Drawing.Point(158, 23);
-            this.cbxStatus.Name = "cbxStatus";
-            this.cbxStatus.Size = new System.Drawing.Size(329, 24);
-            this.cbxStatus.TabIndex = 1;
+            cbxStatus.FormattingEnabled = true;
+            cbxStatus.Location = new Point(218, 20);
+            cbxStatus.Name = "cbxStatus";
+            cbxStatus.Size = new Size(208, 23);
+            cbxStatus.TabIndex = 1;
             // 
             // grbFileTypes
             // 
-            this.grbFileTypes.Controls.Add(this.rdbTIFF);
-            this.grbFileTypes.Controls.Add(this.rdbPDF);
-            this.grbFileTypes.Location = new System.Drawing.Point(24, 65);
-            this.grbFileTypes.Name = "grbFileTypes";
-            this.grbFileTypes.Size = new System.Drawing.Size(463, 58);
-            this.grbFileTypes.TabIndex = 10;
-            this.grbFileTypes.TabStop = false;
-            this.grbFileTypes.Text = "Export File Type";
+            grbFileTypes.Controls.Add(rdbTIFF);
+            grbFileTypes.Controls.Add(rdbPDF);
+            grbFileTypes.Location = new Point(21, 61);
+            grbFileTypes.Name = "grbFileTypes";
+            grbFileTypes.Size = new Size(405, 86);
+            grbFileTypes.TabIndex = 10;
+            grbFileTypes.TabStop = false;
+            grbFileTypes.Text = "Export File Type";
             // 
             // rdbTIFF
             // 
-            this.rdbTIFF.AutoSize = true;
-            this.rdbTIFF.Location = new System.Drawing.Point(172, 27);
-            this.rdbTIFF.Name = "rdbTIFF";
-            this.rdbTIFF.Size = new System.Drawing.Size(44, 21);
-            this.rdbTIFF.TabIndex = 1;
-            this.rdbTIFF.Text = "tiff";
-            this.rdbTIFF.UseVisualStyleBackColor = true;
+            rdbTIFF.Location = new Point(150, 25);
+            rdbTIFF.Name = "rdbTIFF";
+            rdbTIFF.Size = new Size(100, 35);
+            rdbTIFF.TabIndex = 1;
+            rdbTIFF.Text = "tiff";
+            rdbTIFF.UseVisualStyleBackColor = true;
             // 
             // rdbPDF
             // 
-            this.rdbPDF.AutoSize = true;
-            this.rdbPDF.Checked = true;
-            this.rdbPDF.Location = new System.Drawing.Point(40, 27);
-            this.rdbPDF.Name = "rdbPDF";
-            this.rdbPDF.Size = new System.Drawing.Size(49, 21);
-            this.rdbPDF.TabIndex = 0;
-            this.rdbPDF.TabStop = true;
-            this.rdbPDF.Text = "pdf";
-            this.rdbPDF.UseVisualStyleBackColor = true;
+            rdbPDF.Checked = true;
+            rdbPDF.Location = new Point(35, 25);
+            rdbPDF.Name = "rdbPDF";
+            rdbPDF.Size = new Size(100, 35);
+            rdbPDF.TabIndex = 0;
+            rdbPDF.TabStop = true;
+            rdbPDF.Text = "pdf";
+            rdbPDF.UseVisualStyleBackColor = true;
             // 
             // btnExport
             // 
-            this.btnExport.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnExport.Location = new System.Drawing.Point(226, 213);
-            this.btnExport.Name = "btnExport";
-            this.btnExport.Size = new System.Drawing.Size(118, 35);
-            this.btnExport.TabIndex = 20;
-            this.btnExport.Text = "&Export";
-            this.btnExport.UseVisualStyleBackColor = true;
-            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
+            btnExport.FlatStyle = FlatStyle.Popup;
+            btnExport.Location = new Point(206, 243);
+            btnExport.Name = "btnExport";
+            btnExport.Size = new Size(103, 35);
+            btnExport.TabIndex = 20;
+            btnExport.Text = "&Export";
+            btnExport.UseVisualStyleBackColor = true;
+            btnExport.Click += btnExport_Click;
             // 
             // btnCancel
             // 
-            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnCancel.Location = new System.Drawing.Point(369, 213);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(118, 35);
-            this.btnCancel.TabIndex = 21;
-            this.btnCancel.Text = "&Close";
-            this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            btnCancel.FlatStyle = FlatStyle.Popup;
+            btnCancel.Location = new Point(323, 243);
+            btnCancel.Name = "btnCancel";
+            btnCancel.Size = new Size(103, 35);
+            btnCancel.TabIndex = 21;
+            btnCancel.Text = "&Close";
+            btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.Click += btnCancel_Click;
             // 
             // btnOpenFolder
             // 
-            this.btnOpenFolder.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnOpenFolder.Location = new System.Drawing.Point(24, 213);
-            this.btnOpenFolder.Name = "btnOpenFolder";
-            this.btnOpenFolder.Size = new System.Drawing.Size(118, 35);
-            this.btnOpenFolder.TabIndex = 22;
-            this.btnOpenFolder.Text = "&Open Folder";
-            this.btnOpenFolder.UseVisualStyleBackColor = true;
-            this.btnOpenFolder.Click += new System.EventHandler(this.btnOpenFolder_Click);
+            btnOpenFolder.FlatStyle = FlatStyle.Popup;
+            btnOpenFolder.Location = new Point(21, 243);
+            btnOpenFolder.Name = "btnOpenFolder";
+            btnOpenFolder.Size = new Size(153, 35);
+            btnOpenFolder.TabIndex = 22;
+            btnOpenFolder.Text = "&Open Folder";
+            btnOpenFolder.UseVisualStyleBackColor = true;
+            btnOpenFolder.Click += btnOpenFolder_Click;
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.rdbXML);
-            this.groupBox1.Controls.Add(this.rdbCSV);
-            this.groupBox1.Location = new System.Drawing.Point(24, 135);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(463, 63);
-            this.groupBox1.TabIndex = 23;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Export Data File Type";
+            groupBox1.Controls.Add(rdbXML);
+            groupBox1.Controls.Add(rdbCSV);
+            groupBox1.Location = new Point(21, 150);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(405, 86);
+            groupBox1.TabIndex = 23;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Export Data File Type";
             // 
             // rdbXML
             // 
-            this.rdbXML.AutoSize = true;
-            this.rdbXML.Enabled = false;
-            this.rdbXML.Location = new System.Drawing.Point(172, 27);
-            this.rdbXML.Name = "rdbXML";
-            this.rdbXML.Size = new System.Drawing.Size(49, 21);
-            this.rdbXML.TabIndex = 1;
-            this.rdbXML.Text = "xml";
-            this.rdbXML.UseVisualStyleBackColor = true;
-            this.rdbXML.Visible = false;
+            rdbXML.Enabled = false;
+            rdbXML.Location = new Point(150, 25);
+            rdbXML.Name = "rdbXML";
+            rdbXML.Size = new Size(100, 35);
+            rdbXML.TabIndex = 1;
+            rdbXML.Text = "xml";
+            rdbXML.UseVisualStyleBackColor = true;
+            rdbXML.Visible = false;
             // 
             // rdbCSV
             // 
-            this.rdbCSV.AutoSize = true;
-            this.rdbCSV.Checked = true;
-            this.rdbCSV.Location = new System.Drawing.Point(40, 27);
-            this.rdbCSV.Name = "rdbCSV";
-            this.rdbCSV.Size = new System.Drawing.Size(50, 21);
-            this.rdbCSV.TabIndex = 0;
-            this.rdbCSV.TabStop = true;
-            this.rdbCSV.Text = "csv";
-            this.rdbCSV.UseVisualStyleBackColor = true;
+            rdbCSV.Checked = true;
+            rdbCSV.Location = new Point(35, 25);
+            rdbCSV.Name = "rdbCSV";
+            rdbCSV.Size = new Size(100, 35);
+            rdbCSV.TabIndex = 0;
+            rdbCSV.TabStop = true;
+            rdbCSV.Text = "csv";
+            rdbCSV.UseVisualStyleBackColor = true;
             // 
             // frmExport
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(510, 263);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.btnOpenFolder);
-            this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.btnExport);
-            this.Controls.Add(this.grbFileTypes);
-            this.Controls.Add(this.cbxStatus);
-            this.Controls.Add(this.label1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "frmExport";
-            this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Export Documents";
-            this.Activated += new System.EventHandler(this.frmExport_Activated);
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmExport_FormClosing);
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmExport_FormClosed);
-            this.Load += new System.EventHandler(this.frmExport_Load);
-            this.Resize += new System.EventHandler(this.frmExport_Resize);
-            this.grbFileTypes.ResumeLayout(false);
-            this.grbFileTypes.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AutoScaleMode = AutoScaleMode.None;
+            ClientSize = new Size(466, 346);
+            Controls.Add(label1);
+            Controls.Add(grbFileTypes);
+            Controls.Add(groupBox1);
+            Controls.Add(btnOpenFolder);
+            Controls.Add(btnCancel);
+            Controls.Add(btnExport);
+            Controls.Add(cbxStatus);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
+            MinimizeBox = false;
+            Name = "frmExport";
+            ShowInTaskbar = false;
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Export Documents";
+            Activated += frmExport_Activated;
+            FormClosing += frmExport_FormClosing;
+            FormClosed += frmExport_FormClosed;
+            Load += frmExport_Load;
+            Paint += frmExport_Paint;
+            Resize += frmExport_Resize;
+            grbFileTypes.ResumeLayout(false);
+            groupBox1.ResumeLayout(false);
+            ResumeLayout(false);
 
         }
 

@@ -120,11 +120,14 @@
   <metadata name="ProcToolStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <metadata name="ProcToolStrip.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="btnProcRefreshStrip.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAGOSURBVFhH7ZdtTQQxGIRXAhKQgANwABJwABJwAA44B+AA
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAGOSURBVFhH7ZdtTQQxGIRXAhKQgANwABJwABJwAA44B+AA
         CeAAHIADmIfQZPKmd9ev2xxJJ3n+7LXTad9uu7dMTU1N/epEnAf2ydvSf7jOxL14F99beBU34lREebsL
         HowSgz0KH6AEJuMr5b8NC4jRp3DzGujLyiN/PiTgtXBT+BIbcSW8jAzIs2cR+6SQ/qw7IAZuCAye21tR
         tIlBYxW6AjJANGQ1a3Ur3MPpCkgJ3awlXNKdcK9Ec8C4VyhVr3L7sjngg0gmvBAlew7l9uwumgP6IUyp
@@ -142,5 +145,8 @@
   </metadata>
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>745, 17</value>
+  </metadata>
+  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>25</value>
   </metadata>
 </root>

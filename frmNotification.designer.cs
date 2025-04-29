@@ -47,7 +47,7 @@ namespace SRDocScanIDP
             NotifyToolStrip.Items.AddRange(new ToolStripItem[] { btnDeleteAllStrip });
             NotifyToolStrip.Location = new Point(0, 0);
             NotifyToolStrip.Name = "NotifyToolStrip";
-            NotifyToolStrip.Size = new Size(699, 38);
+            NotifyToolStrip.Size = new Size(612, 30);
             NotifyToolStrip.TabIndex = 1;
             NotifyToolStrip.Text = "toolStrip1";
             // 
@@ -57,7 +57,7 @@ namespace SRDocScanIDP
             btnDeleteAllStrip.Image = Properties.Resources.Delete_All;
             btnDeleteAllStrip.ImageTransparentColor = Color.Magenta;
             btnDeleteAllStrip.Name = "btnDeleteAllStrip";
-            btnDeleteAllStrip.Size = new Size(29, 35);
+            btnDeleteAllStrip.Size = new Size(28, 27);
             btnDeleteAllStrip.Text = "Delete all";
             btnDeleteAllStrip.Click += btnDeleteAllStrip_Click;
             // 
@@ -66,11 +66,10 @@ namespace SRDocScanIDP
             lvwNotice.Columns.AddRange(new ColumnHeader[] { colItem, colMark, colDateTime, colRef, colDesc });
             lvwNotice.FullRowSelect = true;
             lvwNotice.GridLines = true;
-            lvwNotice.Location = new Point(1, 38);
-            lvwNotice.Margin = new Padding(3, 4, 3, 4);
+            lvwNotice.Location = new Point(1, 32);
             lvwNotice.MultiSelect = false;
             lvwNotice.Name = "lvwNotice";
-            lvwNotice.Size = new Size(697, 343);
+            lvwNotice.Size = new Size(610, 254);
             lvwNotice.TabIndex = 2;
             lvwNotice.UseCompatibleStateImageBehavior = false;
             lvwNotice.View = View.Details;
@@ -103,12 +102,11 @@ namespace SRDocScanIDP
             // 
             // frmNotification
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(699, 391);
+            ClientSize = new Size(612, 311);
             Controls.Add(lvwNotice);
             Controls.Add(NotifyToolStrip);
-            Margin = new Padding(3, 4, 3, 4);
             MaximizeBox = false;
             Name = "frmNotification";
             ShowIcon = false;

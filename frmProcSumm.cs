@@ -91,7 +91,43 @@ namespace SRDocScanIDP
 
         private void frmProcSumm_Resize(object sender, EventArgs e)
         {
-            formResize();
+            try
+            {
+                formResize();
+
+                ProcToolStrip.Height = 40;
+                ProcStatusStrip.Height = 35;                
+
+                //this.ProcStatusBar2.Width = ProcStatusStrip.Width - this.ProcStatusBar.Width - this.ProcStatusBar1.Width - this.CurrDateTime.Width;
+                //if (this.WindowState == FormWindowState.Normal && this.ProcStatusBar2.Width > 220)
+                //    this.ProcStatusBar2.Width = 280;
+                //else if (this.WindowState == FormWindowState.Maximized && this.ProcStatusBar2.Width > 220)
+                //{
+                //    //if (this.Width > ProcToolStrip.Width)
+                //        this.ProcStatusBar2.Width = ProcToolStrip.Width - this.ProcStatusBar.Width - this.ProcStatusBar1.Width - this.CurrDateTime.Width - iFormOffset;
+                //}
+
+                if (tvwProcess.Width + lvwBatches.Width < this.Width)
+                {
+                    //tvwProcess.Height = this.Height - ProcToolStrip.Height - ProcStatusStrip.Height - 60;
+                    //lvwBatches.Height = this.Height - ProcToolStrip.Height - ProcStatusStrip.Height - 60;
+                    lvwBatches.Width = this.Width - tvwProcess.Width - 40;
+                    //if (ProcToolStrip.Height + tvwProcess.Location.Y + tvwProcess.Height > ProcStatusStrip.Location.Y)
+                    //{
+                    //    tvwProcess.Height = this.Height - ProcToolStrip.Height - ProcStatusStrip.Height - 75;
+                    //    lvwBatches.Height = tvwProcess.Height;
+                    //}
+                    //else
+                    //{
+                    tvwProcess.Height = this.Height - ProcToolStrip.Height - ProcStatusStrip.Height - 75;
+                    lvwBatches.Height = tvwProcess.Height;
+                    //}
+                }
+                
+            }
+            catch (Exception ex)
+            {
+            }
         }
 
         private void formResize()
@@ -107,22 +143,12 @@ namespace SRDocScanIDP
                     if (this.Height < FORM_MIN_HEIGHT) this.Height = FORM_MIN_HEIGHT;
                 }
 
-                tvwProcess.Height = this.Height - ProcToolStrip.Height - ProcStatusStrip.Height - 60;
-                lvwBatches.Height = this.Height - ProcToolStrip.Height - ProcStatusStrip.Height - 60;
-                lvwBatches.Width = this.Width - tvwProcess.Width - 25 - iFormOffset;
+                this.ProcStatusBar2.Width = ProcToolStrip.Width - this.ProcStatusBar.Width - this.ProcStatusBar1.Width - this.CurrDateTime.Width - iFormOffset;
 
-                this.ProcStatusBar2.Width = this.Width - this.ProcStatusBar.Width - this.ProcStatusBar1.Width - this.CurrDateTime.Width - iFormOffset;
-
-                if (this.WindowState == FormWindowState.Normal && this.ProcStatusBar2.Width > 506)
-                    this.ProcStatusBar2.Width = 506;
-                else if (this.WindowState == FormWindowState.Maximized && this.ProcStatusBar2.Width > 506)
-                {
-                    if (this.Width > ProcToolStrip.Width)
-                        this.ProcStatusBar2.Width = ProcToolStrip.Width - this.ProcStatusBar.Width - this.ProcStatusBar1.Width - this.CurrDateTime.Width - iFormOffset;
-                }
-
-                if (this.ProcStatusBar1.Width < 713)
-                    this.ProcStatusBar1.Width = 713;
+                if (this.ProcStatusBar1.Width < 380)
+                    this.ProcStatusBar1.Width = 380;
+                if (this.ProcStatusBar2.Width < 220)
+                    this.ProcStatusBar2.Width = 220;
             }
         }
 

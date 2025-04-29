@@ -116,10 +116,10 @@ namespace SRDocScanIDP
             // 
             // tvwBatch
             // 
-            tvwBatch.Location = new Point(7, 62);
+            tvwBatch.Location = new Point(6, 47);
             tvwBatch.Margin = new Padding(3, 2, 3, 2);
             tvwBatch.Name = "tvwBatch";
-            tvwBatch.Size = new Size(293, 826);
+            tvwBatch.Size = new Size(257, 620);
             tvwBatch.TabIndex = 12;
             tvwBatch.AfterSelect += tvwBatch_AfterSelect;
             tvwBatch.NodeMouseClick += tvwBatch_NodeMouseClick;
@@ -127,31 +127,32 @@ namespace SRDocScanIDP
             // 
             // dsvImg
             // 
-            dsvImg.Location = new Point(307, 62);
+            dsvImg.Location = new Point(269, 47);
+            dsvImg.Margin = new Padding(3, 2, 3, 2);
             dsvImg.Name = "dsvImg";
             dsvImg.RightToLeft = RightToLeft.No;
             dsvImg.SelectionRectAspectRatio = 0D;
-            dsvImg.Size = new Size(963, 787);
+            dsvImg.Size = new Size(843, 590);
             dsvImg.TabIndex = 15;
             // 
             // txtInfo
             // 
             txtInfo.BackColor = SystemColors.ControlLight;
-            txtInfo.Location = new Point(306, 860);
+            txtInfo.Location = new Point(268, 642);
             txtInfo.Margin = new Padding(3, 2, 3, 2);
             txtInfo.Name = "txtInfo";
             txtInfo.ReadOnly = true;
-            txtInfo.Size = new Size(616, 27);
+            txtInfo.Size = new Size(540, 23);
             txtInfo.TabIndex = 20;
             // 
             // ScanStatusStrip
             // 
             ScanStatusStrip.ImageScalingSize = new Size(24, 24);
             ScanStatusStrip.Items.AddRange(new ToolStripItem[] { ScanStatusBar, ScanProgressBar, ScanStatusBar1, CurrDateTime });
-            ScanStatusStrip.Location = new Point(0, 894);
+            ScanStatusStrip.Location = new Point(0, 674);
             ScanStatusStrip.Name = "ScanStatusStrip";
-            ScanStatusStrip.Padding = new Padding(1, 0, 12, 0);
-            ScanStatusStrip.Size = new Size(1464, 35);
+            ScanStatusStrip.Padding = new Padding(1, 0, 10, 0);
+            ScanStatusStrip.Size = new Size(1278, 35);
             ScanStatusStrip.TabIndex = 80;
             ScanStatusStrip.Text = "statusStrip1";
             // 
@@ -162,13 +163,13 @@ namespace SRDocScanIDP
             ScanStatusBar.BorderStyle = Border3DStyle.Sunken;
             ScanStatusBar.ImageScaling = ToolStripItemImageScaling.None;
             ScanStatusBar.Name = "ScanStatusBar";
-            ScanStatusBar.Size = new Size(206, 36);
+            ScanStatusBar.Size = new Size(206, 30);
             // 
             // ScanProgressBar
             // 
             ScanProgressBar.AutoSize = false;
             ScanProgressBar.Name = "ScanProgressBar";
-            ScanProgressBar.Size = new Size(708, 34);
+            ScanProgressBar.Size = new Size(600, 29);
             // 
             // ScanStatusBar1
             // 
@@ -176,7 +177,7 @@ namespace SRDocScanIDP
             ScanStatusBar1.BorderSides = ToolStripStatusLabelBorderSides.Left | ToolStripStatusLabelBorderSides.Top | ToolStripStatusLabelBorderSides.Right | ToolStripStatusLabelBorderSides.Bottom;
             ScanStatusBar1.BorderStyle = Border3DStyle.Sunken;
             ScanStatusBar1.Name = "ScanStatusBar1";
-            ScanStatusBar1.Size = new Size(350, 36);
+            ScanStatusBar1.Size = new Size(200, 30);
             ScanStatusBar1.Text = "   ";
             // 
             // CurrDateTime
@@ -185,7 +186,7 @@ namespace SRDocScanIDP
             CurrDateTime.BorderSides = ToolStripStatusLabelBorderSides.Left | ToolStripStatusLabelBorderSides.Top | ToolStripStatusLabelBorderSides.Right | ToolStripStatusLabelBorderSides.Bottom;
             CurrDateTime.BorderStyle = Border3DStyle.Sunken;
             CurrDateTime.Name = "CurrDateTime";
-            CurrDateTime.Size = new Size(180, 36);
+            CurrDateTime.Size = new Size(250, 30);
             CurrDateTime.Text = "Curr. Date Time";
             CurrDateTime.TextAlign = ContentAlignment.MiddleRight;
             // 
@@ -196,7 +197,7 @@ namespace SRDocScanIDP
             ScanToolStrip.Items.AddRange(new ToolStripItem[] { btnCloseStrip, toolStripSeparator1, SendStripBtn, toolStripSeparator14, btnRotateRightStrip, btnRotateLeftStrip, btnMirrorStrip, btnFlipStrip, btnDeskewStrip, toolStripSeparator4, btnActualStrip, btnFitStrip, btnZoomOutStrip, btnZoomInStrip, btnExpaAllStrip, btnCollAllStrip, toolStripSeparator5, btnDeleteStrip, btnDeleteAllStrip, btnLoadImgStrip, toolStripSeparator10, btnNoticeStrip, toolStripSeparator2, txtBrighttoolStrip, txtContrtoolStrip, toolStripSeparator3, ViewStripSplitBtn, toolStripSeparator11, boxStripLbl, BoxNoStripTxt, boxLabelStripLbl, boxLabelStripTxt });
             ScanToolStrip.Location = new Point(0, 0);
             ScanToolStrip.Name = "ScanToolStrip";
-            ScanToolStrip.Size = new Size(1464, 60);
+            ScanToolStrip.Size = new Size(1278, 45);
             ScanToolStrip.TabIndex = 1;
             ScanToolStrip.Text = "toolStrip1";
             // 
@@ -205,7 +206,7 @@ namespace SRDocScanIDP
             btnCloseStrip.Image = (Image)resources.GetObject("btnCloseStrip.Image");
             btnCloseStrip.ImageTransparentColor = Color.Magenta;
             btnCloseStrip.Name = "btnCloseStrip";
-            btnCloseStrip.Size = new Size(97, 57);
+            btnCloseStrip.Size = new Size(78, 42);
             btnCloseStrip.Text = "Close Screen";
             btnCloseStrip.TextAlign = ContentAlignment.BottomCenter;
             btnCloseStrip.TextImageRelation = TextImageRelation.ImageAboveText;
@@ -214,14 +215,14 @@ namespace SRDocScanIDP
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(6, 60);
+            toolStripSeparator1.Size = new Size(6, 45);
             // 
             // SendStripBtn
             // 
             SendStripBtn.Image = (Image)resources.GetObject("SendStripBtn.Image");
             SendStripBtn.ImageTransparentColor = Color.Magenta;
             SendStripBtn.Name = "SendStripBtn";
-            SendStripBtn.Size = new Size(46, 57);
+            SendStripBtn.Size = new Size(37, 42);
             SendStripBtn.Text = "Send";
             SendStripBtn.TextAlign = ContentAlignment.BottomCenter;
             SendStripBtn.TextImageRelation = TextImageRelation.ImageAboveText;
@@ -231,14 +232,14 @@ namespace SRDocScanIDP
             // toolStripSeparator14
             // 
             toolStripSeparator14.Name = "toolStripSeparator14";
-            toolStripSeparator14.Size = new Size(6, 60);
+            toolStripSeparator14.Size = new Size(6, 45);
             // 
             // btnRotateRightStrip
             // 
             btnRotateRightStrip.Image = (Image)resources.GetObject("btnRotateRightStrip.Image");
             btnRotateRightStrip.ImageTransparentColor = Color.Magenta;
             btnRotateRightStrip.Name = "btnRotateRightStrip";
-            btnRotateRightStrip.Size = new Size(96, 57);
+            btnRotateRightStrip.Size = new Size(76, 42);
             btnRotateRightStrip.Text = "Rotate Right";
             btnRotateRightStrip.TextAlign = ContentAlignment.BottomCenter;
             btnRotateRightStrip.TextImageRelation = TextImageRelation.ImageAboveText;
@@ -249,7 +250,7 @@ namespace SRDocScanIDP
             btnRotateLeftStrip.Image = (Image)resources.GetObject("btnRotateLeftStrip.Image");
             btnRotateLeftStrip.ImageTransparentColor = Color.Magenta;
             btnRotateLeftStrip.Name = "btnRotateLeftStrip";
-            btnRotateLeftStrip.Size = new Size(86, 57);
+            btnRotateLeftStrip.Size = new Size(68, 42);
             btnRotateLeftStrip.Text = "Rotate Left";
             btnRotateLeftStrip.TextAlign = ContentAlignment.BottomCenter;
             btnRotateLeftStrip.TextImageRelation = TextImageRelation.ImageAboveText;
@@ -260,7 +261,7 @@ namespace SRDocScanIDP
             btnMirrorStrip.Image = (Image)resources.GetObject("btnMirrorStrip.Image");
             btnMirrorStrip.ImageTransparentColor = Color.Magenta;
             btnMirrorStrip.Name = "btnMirrorStrip";
-            btnMirrorStrip.Size = new Size(54, 57);
+            btnMirrorStrip.Size = new Size(44, 42);
             btnMirrorStrip.Text = "Mirror";
             btnMirrorStrip.TextAlign = ContentAlignment.BottomCenter;
             btnMirrorStrip.TextImageRelation = TextImageRelation.ImageAboveText;
@@ -271,7 +272,7 @@ namespace SRDocScanIDP
             btnFlipStrip.Image = (Image)resources.GetObject("btnFlipStrip.Image");
             btnFlipStrip.ImageTransparentColor = Color.Magenta;
             btnFlipStrip.Name = "btnFlipStrip";
-            btnFlipStrip.Size = new Size(37, 57);
+            btnFlipStrip.Size = new Size(30, 42);
             btnFlipStrip.Text = "Flip";
             btnFlipStrip.TextAlign = ContentAlignment.BottomCenter;
             btnFlipStrip.TextImageRelation = TextImageRelation.ImageAboveText;
@@ -282,7 +283,7 @@ namespace SRDocScanIDP
             btnDeskewStrip.Image = (Image)resources.GetObject("btnDeskewStrip.Image");
             btnDeskewStrip.ImageTransparentColor = Color.Magenta;
             btnDeskewStrip.Name = "btnDeskewStrip";
-            btnDeskewStrip.Size = new Size(81, 57);
+            btnDeskewStrip.Size = new Size(65, 42);
             btnDeskewStrip.Text = "Straighten";
             btnDeskewStrip.TextAlign = ContentAlignment.BottomCenter;
             btnDeskewStrip.TextImageRelation = TextImageRelation.ImageAboveText;
@@ -291,14 +292,14 @@ namespace SRDocScanIDP
             // toolStripSeparator4
             // 
             toolStripSeparator4.Name = "toolStripSeparator4";
-            toolStripSeparator4.Size = new Size(6, 60);
+            toolStripSeparator4.Size = new Size(6, 45);
             // 
             // btnActualStrip
             // 
             btnActualStrip.Image = (Image)resources.GetObject("btnActualStrip.Image");
             btnActualStrip.ImageTransparentColor = Color.Magenta;
             btnActualStrip.Name = "btnActualStrip";
-            btnActualStrip.Size = new Size(86, 57);
+            btnActualStrip.Size = new Size(68, 42);
             btnActualStrip.Text = "Actual Size";
             btnActualStrip.TextAlign = ContentAlignment.BottomCenter;
             btnActualStrip.TextImageRelation = TextImageRelation.ImageAboveText;
@@ -309,7 +310,7 @@ namespace SRDocScanIDP
             btnFitStrip.Image = (Image)resources.GetObject("btnFitStrip.Image");
             btnFitStrip.ImageTransparentColor = Color.Magenta;
             btnFitStrip.Name = "btnFitStrip";
-            btnFitStrip.Size = new Size(77, 57);
+            btnFitStrip.Size = new Size(62, 42);
             btnFitStrip.Text = "Fit Screen";
             btnFitStrip.TextAlign = ContentAlignment.BottomCenter;
             btnFitStrip.TextImageRelation = TextImageRelation.ImageAboveText;
@@ -320,7 +321,7 @@ namespace SRDocScanIDP
             btnZoomOutStrip.Image = (Image)resources.GetObject("btnZoomOutStrip.Image");
             btnZoomOutStrip.ImageTransparentColor = Color.Magenta;
             btnZoomOutStrip.Name = "btnZoomOutStrip";
-            btnZoomOutStrip.Size = new Size(81, 57);
+            btnZoomOutStrip.Size = new Size(66, 42);
             btnZoomOutStrip.Text = "Zoom Out";
             btnZoomOutStrip.TextAlign = ContentAlignment.BottomCenter;
             btnZoomOutStrip.TextImageRelation = TextImageRelation.ImageAboveText;
@@ -331,7 +332,7 @@ namespace SRDocScanIDP
             btnZoomInStrip.Image = (Image)resources.GetObject("btnZoomInStrip.Image");
             btnZoomInStrip.ImageTransparentColor = Color.Magenta;
             btnZoomInStrip.Name = "btnZoomInStrip";
-            btnZoomInStrip.Size = new Size(69, 57);
+            btnZoomInStrip.Size = new Size(56, 42);
             btnZoomInStrip.Text = "Zoom In";
             btnZoomInStrip.TextAlign = ContentAlignment.BottomCenter;
             btnZoomInStrip.TextImageRelation = TextImageRelation.ImageAboveText;
@@ -342,7 +343,7 @@ namespace SRDocScanIDP
             btnExpaAllStrip.Image = (Image)resources.GetObject("btnExpaAllStrip.Image");
             btnExpaAllStrip.ImageTransparentColor = Color.Magenta;
             btnExpaAllStrip.Name = "btnExpaAllStrip";
-            btnExpaAllStrip.Size = new Size(98, 57);
+            btnExpaAllStrip.Size = new Size(78, 42);
             btnExpaAllStrip.Text = "Expand View";
             btnExpaAllStrip.TextAlign = ContentAlignment.BottomCenter;
             btnExpaAllStrip.TextImageRelation = TextImageRelation.ImageAboveText;
@@ -353,7 +354,7 @@ namespace SRDocScanIDP
             btnCollAllStrip.Image = (Image)resources.GetObject("btnCollAllStrip.Image");
             btnCollAllStrip.ImageTransparentColor = Color.Magenta;
             btnCollAllStrip.Name = "btnCollAllStrip";
-            btnCollAllStrip.Size = new Size(106, 57);
+            btnCollAllStrip.Size = new Size(84, 42);
             btnCollAllStrip.Text = "Collapse View";
             btnCollAllStrip.TextAlign = ContentAlignment.BottomCenter;
             btnCollAllStrip.TextImageRelation = TextImageRelation.ImageAboveText;
@@ -362,14 +363,14 @@ namespace SRDocScanIDP
             // toolStripSeparator5
             // 
             toolStripSeparator5.Name = "toolStripSeparator5";
-            toolStripSeparator5.Size = new Size(6, 60);
+            toolStripSeparator5.Size = new Size(6, 45);
             // 
             // btnDeleteStrip
             // 
             btnDeleteStrip.Image = (Image)resources.GetObject("btnDeleteStrip.Image");
             btnDeleteStrip.ImageTransparentColor = Color.Magenta;
             btnDeleteStrip.Name = "btnDeleteStrip";
-            btnDeleteStrip.Size = new Size(103, 57);
+            btnDeleteStrip.Size = new Size(80, 42);
             btnDeleteStrip.Text = "Delete Image";
             btnDeleteStrip.TextAlign = ContentAlignment.BottomCenter;
             btnDeleteStrip.TextImageRelation = TextImageRelation.ImageAboveText;
@@ -381,7 +382,7 @@ namespace SRDocScanIDP
             btnDeleteAllStrip.Image = (Image)resources.GetObject("btnDeleteAllStrip.Image");
             btnDeleteAllStrip.ImageTransparentColor = Color.Magenta;
             btnDeleteAllStrip.Name = "btnDeleteAllStrip";
-            btnDeleteAllStrip.Size = new Size(79, 57);
+            btnDeleteAllStrip.Size = new Size(61, 42);
             btnDeleteAllStrip.Text = "Delete All";
             btnDeleteAllStrip.TextAlign = ContentAlignment.BottomCenter;
             btnDeleteAllStrip.TextImageRelation = TextImageRelation.ImageAboveText;
@@ -392,7 +393,7 @@ namespace SRDocScanIDP
             btnLoadImgStrip.Image = (Image)resources.GetObject("btnLoadImgStrip.Image");
             btnLoadImgStrip.ImageTransparentColor = Color.Magenta;
             btnLoadImgStrip.Name = "btnLoadImgStrip";
-            btnLoadImgStrip.Size = new Size(98, 57);
+            btnLoadImgStrip.Size = new Size(78, 42);
             btnLoadImgStrip.Text = "Load Images";
             btnLoadImgStrip.TextAlign = ContentAlignment.BottomCenter;
             btnLoadImgStrip.TextImageRelation = TextImageRelation.ImageAboveText;
@@ -401,14 +402,14 @@ namespace SRDocScanIDP
             // toolStripSeparator10
             // 
             toolStripSeparator10.Name = "toolStripSeparator10";
-            toolStripSeparator10.Size = new Size(6, 60);
+            toolStripSeparator10.Size = new Size(6, 45);
             // 
             // btnNoticeStrip
             // 
             btnNoticeStrip.Image = (Image)resources.GetObject("btnNoticeStrip.Image");
             btnNoticeStrip.ImageTransparentColor = Color.Magenta;
             btnNoticeStrip.Name = "btnNoticeStrip";
-            btnNoticeStrip.Size = new Size(92, 57);
+            btnNoticeStrip.Size = new Size(74, 42);
             btnNoticeStrip.Text = "Notification";
             btnNoticeStrip.TextAlign = ContentAlignment.BottomCenter;
             btnNoticeStrip.TextImageRelation = TextImageRelation.ImageAboveText;
@@ -416,13 +417,13 @@ namespace SRDocScanIDP
             // toolStripSeparator2
             // 
             toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new Size(6, 60);
+            toolStripSeparator2.Size = new Size(6, 45);
             // 
             // txtBrighttoolStrip
             // 
             txtBrighttoolStrip.MaxLength = 3;
             txtBrighttoolStrip.Name = "txtBrighttoolStrip";
-            txtBrighttoolStrip.Size = new Size(50, 27);
+            txtBrighttoolStrip.Size = new Size(44, 45);
             txtBrighttoolStrip.Text = "1";
             txtBrighttoolStrip.ToolTipText = "Brightness (1-100)";
             txtBrighttoolStrip.KeyDown += txtBrighttoolStrip_KeyDown;
@@ -430,7 +431,7 @@ namespace SRDocScanIDP
             // txtContrtoolStrip
             // 
             txtContrtoolStrip.Name = "txtContrtoolStrip";
-            txtContrtoolStrip.Size = new Size(50, 27);
+            txtContrtoolStrip.Size = new Size(44, 45);
             txtContrtoolStrip.Text = "1";
             txtContrtoolStrip.ToolTipText = "Contrast (1-255)";
             txtContrtoolStrip.KeyDown += txtContrtoolStrip_KeyDown;
@@ -438,7 +439,7 @@ namespace SRDocScanIDP
             // toolStripSeparator3
             // 
             toolStripSeparator3.Name = "toolStripSeparator3";
-            toolStripSeparator3.Size = new Size(6, 60);
+            toolStripSeparator3.Size = new Size(6, 45);
             // 
             // ViewStripSplitBtn
             // 
@@ -447,13 +448,13 @@ namespace SRDocScanIDP
             ViewStripSplitBtn.Image = (Image)resources.GetObject("ViewStripSplitBtn.Image");
             ViewStripSplitBtn.ImageTransparentColor = Color.Magenta;
             ViewStripSplitBtn.Name = "ViewStripSplitBtn";
-            ViewStripSplitBtn.Size = new Size(60, 24);
+            ViewStripSplitBtn.Size = new Size(48, 19);
             ViewStripSplitBtn.Text = "View";
             // 
             // remarksStripMni
             // 
             remarksStripMni.Name = "remarksStripMni";
-            remarksStripMni.Size = new Size(148, 26);
+            remarksStripMni.Size = new Size(119, 22);
             remarksStripMni.Text = "Remarks";
             remarksStripMni.Click += remarksStripMni_Click;
             // 
@@ -465,7 +466,7 @@ namespace SRDocScanIDP
             // boxStripLbl
             // 
             boxStripLbl.Name = "boxStripLbl";
-            boxStripLbl.Size = new Size(43, 20);
+            boxStripLbl.Size = new Size(34, 15);
             boxStripLbl.Text = "Box#";
             // 
             // BoxNoStripTxt
@@ -474,12 +475,12 @@ namespace SRDocScanIDP
             BoxNoStripTxt.Font = new Font("Arial", 8F);
             BoxNoStripTxt.MaxLength = 8;
             BoxNoStripTxt.Name = "BoxNoStripTxt";
-            BoxNoStripTxt.Size = new Size(78, 23);
+            BoxNoStripTxt.Size = new Size(69, 20);
             // 
             // boxLabelStripLbl
             // 
             boxLabelStripLbl.Name = "boxLabelStripLbl";
-            boxLabelStripLbl.Size = new Size(74, 20);
+            boxLabelStripLbl.Size = new Size(58, 15);
             boxLabelStripLbl.Text = "Box Label";
             // 
             // boxLabelStripTxt
@@ -487,7 +488,7 @@ namespace SRDocScanIDP
             boxLabelStripTxt.Font = new Font("Arial", 8F);
             boxLabelStripTxt.MaxLength = 30;
             boxLabelStripTxt.Name = "boxLabelStripTxt";
-            boxLabelStripTxt.Size = new Size(210, 23);
+            boxLabelStripTxt.Size = new Size(210, 20);
             // 
             // timer1
             // 
@@ -501,12 +502,12 @@ namespace SRDocScanIDP
             // dsvThumbnailList
             // 
             dsvThumbnailList.AutoScroll = true;
-            dsvThumbnailList.Location = new Point(1275, 62);
+            dsvThumbnailList.Location = new Point(1116, 47);
             dsvThumbnailList.Margin = new Padding(3, 2, 3, 2);
             dsvThumbnailList.Name = "dsvThumbnailList";
             dsvThumbnailList.RightToLeft = RightToLeft.No;
             dsvThumbnailList.SelectionRectAspectRatio = 0D;
-            dsvThumbnailList.Size = new Size(180, 826);
+            dsvThumbnailList.Size = new Size(158, 620);
             dsvThumbnailList.TabIndex = 70;
             dsvThumbnailList.OnMouseClick += dsvThumbnailList_OnMouseClick;
             // 
@@ -519,107 +520,107 @@ namespace SRDocScanIDP
             cmnuTvwStrip.ImageScalingSize = new Size(20, 20);
             cmnuTvwStrip.Items.AddRange(new ToolStripItem[] { mnuScanRepStrip, mnuImpRepStrip, toolStripSeparator9, mnuInsStrip, mnuImpStrip, toolStripSeparator8, mnuDeleteSetStrip, mnuDeleteImgStrip, toolStripSeparator6, mnuCopyStrip, mnuCutStrip, toolStripSeparator7, mnuReplaceStrip, mnuPasteStrip, toolStripSeparator13, mnuInsSepStrip, mnuImpSepStrip });
             cmnuTvwStrip.Name = "cmnuTvwStrip";
-            cmnuTvwStrip.Size = new Size(197, 322);
+            cmnuTvwStrip.Size = new Size(168, 298);
             // 
             // mnuScanRepStrip
             // 
             mnuScanRepStrip.Name = "mnuScanRepStrip";
-            mnuScanRepStrip.Size = new Size(196, 24);
+            mnuScanRepStrip.Size = new Size(167, 22);
             mnuScanRepStrip.Text = "Scan && Replace";
             mnuScanRepStrip.Click += mnuScanRepStrip_Click;
             // 
             // mnuImpRepStrip
             // 
             mnuImpRepStrip.Name = "mnuImpRepStrip";
-            mnuImpRepStrip.Size = new Size(196, 24);
+            mnuImpRepStrip.Size = new Size(167, 22);
             mnuImpRepStrip.Text = "Import && Replace";
             mnuImpRepStrip.Click += mnuImpRepStrip_Click;
             // 
             // toolStripSeparator9
             // 
             toolStripSeparator9.Name = "toolStripSeparator9";
-            toolStripSeparator9.Size = new Size(193, 6);
+            toolStripSeparator9.Size = new Size(164, 6);
             // 
             // mnuInsStrip
             // 
             mnuInsStrip.Name = "mnuInsStrip";
-            mnuInsStrip.Size = new Size(196, 24);
+            mnuInsStrip.Size = new Size(167, 22);
             mnuInsStrip.Text = "Insert Image";
             mnuInsStrip.Click += mnuInsStrip_Click;
             // 
             // mnuImpStrip
             // 
             mnuImpStrip.Name = "mnuImpStrip";
-            mnuImpStrip.Size = new Size(196, 24);
+            mnuImpStrip.Size = new Size(167, 22);
             mnuImpStrip.Text = "Import Image";
             mnuImpStrip.Click += mnuImpStrip_Click;
             // 
             // toolStripSeparator8
             // 
             toolStripSeparator8.Name = "toolStripSeparator8";
-            toolStripSeparator8.Size = new Size(193, 6);
+            toolStripSeparator8.Size = new Size(164, 6);
             // 
             // mnuDeleteSetStrip
             // 
             mnuDeleteSetStrip.Name = "mnuDeleteSetStrip";
-            mnuDeleteSetStrip.Size = new Size(196, 24);
+            mnuDeleteSetStrip.Size = new Size(167, 22);
             mnuDeleteSetStrip.Text = "Delete Set";
             mnuDeleteSetStrip.Click += mnuDeleteSetStrip_Click;
             // 
             // mnuDeleteImgStrip
             // 
             mnuDeleteImgStrip.Name = "mnuDeleteImgStrip";
-            mnuDeleteImgStrip.Size = new Size(196, 24);
+            mnuDeleteImgStrip.Size = new Size(167, 22);
             mnuDeleteImgStrip.Text = "Delete Image";
             mnuDeleteImgStrip.Click += mnuDeleteImgStrip_Click;
             // 
             // toolStripSeparator6
             // 
             toolStripSeparator6.Name = "toolStripSeparator6";
-            toolStripSeparator6.Size = new Size(193, 6);
+            toolStripSeparator6.Size = new Size(164, 6);
             // 
             // mnuCopyStrip
             // 
             mnuCopyStrip.Name = "mnuCopyStrip";
-            mnuCopyStrip.Size = new Size(196, 24);
+            mnuCopyStrip.Size = new Size(167, 22);
             mnuCopyStrip.Text = "C&opy Image";
             mnuCopyStrip.Click += mnuCopyStrip_Click;
             // 
             // mnuCutStrip
             // 
             mnuCutStrip.Name = "mnuCutStrip";
-            mnuCutStrip.Size = new Size(196, 24);
+            mnuCutStrip.Size = new Size(167, 22);
             mnuCutStrip.Text = "&Cut Image";
             mnuCutStrip.Click += mnuCutStrip_Click;
             // 
             // toolStripSeparator7
             // 
             toolStripSeparator7.Name = "toolStripSeparator7";
-            toolStripSeparator7.Size = new Size(193, 6);
+            toolStripSeparator7.Size = new Size(164, 6);
             // 
             // mnuReplaceStrip
             // 
             mnuReplaceStrip.Name = "mnuReplaceStrip";
-            mnuReplaceStrip.Size = new Size(196, 24);
+            mnuReplaceStrip.Size = new Size(167, 22);
             mnuReplaceStrip.Text = "Replace Image";
             mnuReplaceStrip.Click += mnuReplaceStrip_Click;
             // 
             // mnuPasteStrip
             // 
             mnuPasteStrip.Name = "mnuPasteStrip";
-            mnuPasteStrip.Size = new Size(196, 24);
+            mnuPasteStrip.Size = new Size(167, 22);
             mnuPasteStrip.Text = "&Paste Image";
             mnuPasteStrip.Click += mnuPasteStrip_Click;
             // 
             // toolStripSeparator13
             // 
             toolStripSeparator13.Name = "toolStripSeparator13";
-            toolStripSeparator13.Size = new Size(193, 6);
+            toolStripSeparator13.Size = new Size(164, 6);
             // 
             // mnuInsSepStrip
             // 
             mnuInsSepStrip.Name = "mnuInsSepStrip";
-            mnuInsSepStrip.Size = new Size(196, 24);
+            mnuInsSepStrip.Size = new Size(167, 22);
             mnuInsSepStrip.Text = "Insert Separator";
             mnuInsSepStrip.Visible = false;
             mnuInsSepStrip.Click += mnuInsSepStrip_Click;
@@ -627,7 +628,7 @@ namespace SRDocScanIDP
             // mnuImpSepStrip
             // 
             mnuImpSepStrip.Name = "mnuImpSepStrip";
-            mnuImpSepStrip.Size = new Size(196, 24);
+            mnuImpSepStrip.Size = new Size(167, 22);
             mnuImpSepStrip.Text = "Import Separator";
             mnuImpSepStrip.Visible = false;
             mnuImpSepStrip.Click += mnuImpSepStrip_Click;
@@ -646,30 +647,31 @@ namespace SRDocScanIDP
             panel1.Controls.Add(picboxNext);
             panel1.Controls.Add(picboxLast);
             panel1.Controls.Add(picboxFirst);
-            panel1.Location = new Point(929, 855);
+            panel1.Location = new Point(813, 641);
+            panel1.Margin = new Padding(3, 2, 3, 2);
             panel1.Name = "panel1";
-            panel1.Size = new Size(338, 33);
+            panel1.Size = new Size(296, 27);
             panel1.TabIndex = 21;
             // 
             // txtTotImgNum
             // 
             txtTotImgNum.Enabled = false;
-            txtTotImgNum.Location = new Point(178, 5);
+            txtTotImgNum.Location = new Point(156, 2);
             txtTotImgNum.Margin = new Padding(3, 2, 3, 2);
             txtTotImgNum.Name = "txtTotImgNum";
             txtTotImgNum.ReadOnly = true;
-            txtTotImgNum.Size = new Size(55, 27);
+            txtTotImgNum.Size = new Size(49, 23);
             txtTotImgNum.TabIndex = 73;
             txtTotImgNum.Text = "0";
             // 
             // txtCurrImgIdx
             // 
             txtCurrImgIdx.Enabled = false;
-            txtCurrImgIdx.Location = new Point(103, 5);
+            txtCurrImgIdx.Location = new Point(90, 2);
             txtCurrImgIdx.Margin = new Padding(3, 2, 3, 2);
             txtCurrImgIdx.Name = "txtCurrImgIdx";
             txtCurrImgIdx.ReadOnly = true;
-            txtCurrImgIdx.Size = new Size(55, 27);
+            txtCurrImgIdx.Size = new Size(49, 23);
             txtCurrImgIdx.TabIndex = 71;
             txtCurrImgIdx.Text = "0";
             txtCurrImgIdx.TextAlign = HorizontalAlignment.Right;
@@ -678,9 +680,9 @@ namespace SRDocScanIDP
             // 
             lbDiv.AutoSize = true;
             lbDiv.BackColor = Color.Transparent;
-            lbDiv.Location = new Point(162, 9);
+            lbDiv.Location = new Point(142, 6);
             lbDiv.Name = "lbDiv";
-            lbDiv.Size = new Size(15, 20);
+            lbDiv.Size = new Size(12, 15);
             lbDiv.TabIndex = 72;
             lbDiv.Text = "/";
             // 
@@ -688,10 +690,10 @@ namespace SRDocScanIDP
             // 
             picboxPrevious.BorderStyle = BorderStyle.FixedSingle;
             picboxPrevious.Image = Properties.Resources.picboxPrevious_Enter;
-            picboxPrevious.Location = new Point(54, 5);
+            picboxPrevious.Location = new Point(47, 4);
             picboxPrevious.Margin = new Padding(3, 2, 3, 2);
             picboxPrevious.Name = "picboxPrevious";
-            picboxPrevious.Size = new Size(45, 24);
+            picboxPrevious.Size = new Size(40, 18);
             picboxPrevious.SizeMode = PictureBoxSizeMode.CenterImage;
             picboxPrevious.TabIndex = 70;
             picboxPrevious.TabStop = false;
@@ -702,10 +704,10 @@ namespace SRDocScanIDP
             // 
             picboxNext.BorderStyle = BorderStyle.FixedSingle;
             picboxNext.Image = Properties.Resources.picboxNext_Enter;
-            picboxNext.Location = new Point(238, 5);
+            picboxNext.Location = new Point(208, 4);
             picboxNext.Margin = new Padding(3, 2, 3, 2);
             picboxNext.Name = "picboxNext";
-            picboxNext.Size = new Size(45, 24);
+            picboxNext.Size = new Size(40, 18);
             picboxNext.SizeMode = PictureBoxSizeMode.CenterImage;
             picboxNext.TabIndex = 74;
             picboxNext.TabStop = false;
@@ -716,10 +718,10 @@ namespace SRDocScanIDP
             // 
             picboxLast.BorderStyle = BorderStyle.FixedSingle;
             picboxLast.Image = Properties.Resources.picboxLast_Enter;
-            picboxLast.Location = new Point(287, 5);
+            picboxLast.Location = new Point(251, 4);
             picboxLast.Margin = new Padding(3, 2, 3, 2);
             picboxLast.Name = "picboxLast";
-            picboxLast.Size = new Size(45, 24);
+            picboxLast.Size = new Size(40, 18);
             picboxLast.SizeMode = PictureBoxSizeMode.CenterImage;
             picboxLast.TabIndex = 75;
             picboxLast.TabStop = false;
@@ -730,10 +732,10 @@ namespace SRDocScanIDP
             // 
             picboxFirst.BorderStyle = BorderStyle.FixedSingle;
             picboxFirst.Image = Properties.Resources.picboxFirst_Enter;
-            picboxFirst.Location = new Point(4, 5);
+            picboxFirst.Location = new Point(4, 4);
             picboxFirst.Margin = new Padding(3, 2, 3, 2);
             picboxFirst.Name = "picboxFirst";
-            picboxFirst.Size = new Size(46, 24);
+            picboxFirst.Size = new Size(40, 18);
             picboxFirst.SizeMode = PictureBoxSizeMode.CenterImage;
             picboxFirst.TabIndex = 69;
             picboxFirst.TabStop = false;
@@ -742,10 +744,9 @@ namespace SRDocScanIDP
             // 
             // frmRescanBox1
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.None;
             AutoScroll = true;
-            ClientSize = new Size(1464, 929);
+            ClientSize = new Size(1278, 709);
             Controls.Add(panel1);
             Controls.Add(ScanStatusStrip);
             Controls.Add(dsvThumbnailList);

@@ -55,6 +55,10 @@ namespace SRDocScanIDP
         private static List<Task> lTasks;
         private static List<Task> lSearchTasks;
 
+        private const int FORM_MIN_WIDTH = 482;
+        private const int FORM_MIN_HEIGHT = 385;
+        private int iFormOffset = 70;
+
         public frmExport()
         {
             InitializeComponent();
@@ -121,12 +125,78 @@ namespace SRDocScanIDP
             staMain.sessionRestart();
         }
 
+        private void frmExport_Paint(object sender, PaintEventArgs e)
+        {
+            try
+            {
+                if (System.Windows.Forms.Screen.AllScreens[0].Bounds.Width == FORM_MIN_WIDTH && System.Windows.Forms.Screen.AllScreens[0].Bounds.Height == FORM_MIN_HEIGHT)
+                {
+                    iFormOffset = 60;
+                }
+                else
+                {
+                    iFormOffset = 175;
+                }
+                //formResize();
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
         private void frmExport_Resize(object sender, EventArgs e)
         {
             try
             {
-                this.Width = btnCancel.Location.X + btnCancel.Width + 55;
-                this.Height = btnOpenFolder.Location.Y + btnOpenFolder.Height + 70;
+                formResize();
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
+        private void formResize()
+        {
+            try
+            {
+                System.Drawing.Point oPoint = new System.Drawing.Point();
+                if (this.WindowState != FormWindowState.Minimized)
+                {
+                    btnOpenFolder.Height = 50;
+                    if (this.WindowState == FormWindowState.Normal)
+                    {
+                        if (this.Width > FORM_MIN_WIDTH) Width = FORM_MIN_WIDTH;
+                        if (this.Height > FORM_MIN_HEIGHT) Height = FORM_MIN_HEIGHT;
+                        if (this.Width < FORM_MIN_WIDTH) Width = FORM_MIN_WIDTH + iFormOffset;
+                        if (this.Height < FORM_MIN_HEIGHT) Height = FORM_MIN_HEIGHT + btnOpenFolder.Location.Y + btnOpenFolder.Height + iFormOffset + 995;
+                        //iFormOffset = -20;
+                    }
+                    //this.Width = btnCancel.Location.X + btnCancel.Width + 95;
+                    //this.Height = btnOpenFolder.Location.Y + btnOpenFolder.Height + 50;
+                    oPoint.X = grbFileTypes.Location.X;
+                    oPoint.Y = cbxStatus.Location.Y + label1.Height + 15;
+                    grbFileTypes.Location = oPoint;
+                    oPoint.X = groupBox1.Location.X;
+                    oPoint.Y = grbFileTypes.Location.Y + grbFileTypes.Height + 15;
+                    groupBox1.Location = oPoint;
+
+                    oPoint.X = btnOpenFolder.Location.X;
+                    oPoint.Y = groupBox1.Location.Y + groupBox1.Height + 10;
+                    btnOpenFolder.Location = oPoint;
+                    oPoint.X = btnOpenFolder.Location.X + btnOpenFolder.Width + 35;
+                    oPoint.Y = btnOpenFolder.Location.Y;
+                    btnExport.Location = oPoint;
+                    btnExport.Height = btnOpenFolder.Height;
+                    oPoint.X = btnExport.Location.X + btnExport.Width + 8;
+                    oPoint.Y = btnExport.Location.Y;
+                    btnCancel.Location = oPoint;
+                    btnCancel.Height = btnOpenFolder.Height;
+
+                    if (this.WindowState == FormWindowState.Normal)
+                    {
+                        if (this.Height < FORM_MIN_HEIGHT) Height = FORM_MIN_HEIGHT + btnOpenFolder.Location.Y + btnOpenFolder.Height + iFormOffset + 995;
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -154,7 +224,7 @@ namespace SRDocScanIDP
                     sFileExt = rdbTIFF.Text;
                 }
 
-                if (MessageBox.Show("Confirm to export " + cbxStatus.Text + " document sets to " + sFileExt.ToUpper() + "?","Confirmation", 
+                if (MessageBox.Show("Confirm to export " + cbxStatus.Text + " document sets to " + sFileExt.ToUpper() + "?", "Confirmation",
                     MessageBoxButtons.OKCancel) == DialogResult.Cancel)
                 {
                     return;
@@ -291,7 +361,7 @@ namespace SRDocScanIDP
                     stcXmlInfo = new staMain._stcExportInfo();
                     initExportInfo(1);
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -307,7 +377,7 @@ namespace SRDocScanIDP
                 btnCancel.Enabled = true;
                 btnOpenFolder.Enabled = true;
                 staMain.sessionRestart();
-            }    
+            }
         }
 
         private void loadDocSetStatus()
@@ -349,7 +419,8 @@ namespace SRDocScanIDP
             }
             catch (Exception ex)
             {
-                mGlobal.Write2Log("Work.." + ex.Message + Environment.NewLine + ex.StackTrace.ToString());
+                mGlobal.Write2Log("Work.." + ex.Message);
+                mGlobal.Write2Log("Work.." + ex.StackTrace.ToString());
                 MessageBox.Show("Error! " + ex.Message, "Message");
             }
             finally
@@ -447,7 +518,6 @@ namespace SRDocScanIDP
                         {
                             sSetNum = sFiles[iType].Split('|').GetValue(5).ToString().Trim().PadLeft(sSetNumFmt.Length, '0');
                         }
-
                         //stcXmlInfo.BatchCodes[iType] = sBatchCode;
                         //stcXmlInfo.DocTypes[iType] = sDocType;
                         //stcXmlInfo.Setnum[iType] = sSetNum;
@@ -793,7 +863,7 @@ namespace SRDocScanIDP
 
                         //iTotPages += 1;
                         fi = new FileInfo(sFiles[iF].Split('|').GetValue(2).ToString());
-                        
+
                         if (fi != null)
                         {
                             if (fi.Exists)
@@ -892,13 +962,13 @@ namespace SRDocScanIDP
                             //stcXmlInfo.DocTypes[stcXmlInfo.ExpFiles.Count - 1] = sDocType;
                             stcXmlInfo.TotPages.Add(iTotPages);
 
-                            File.Copy(fi.FullName, TIFFFilename, true);                            
+                            File.Copy(fi.FullName, TIFFFilename, true);
                         }
 
                         iType += 1;
                         iF = iType;
                     }
-                    
+
                 }
 
             }
@@ -979,7 +1049,7 @@ namespace SRDocScanIDP
                                             if (fi.Extension.ToLower() == ".tif" || fi.Extension.ToLower() == ".tiff")
                                             {
                                                 //docPDF = oTiff.tiff2PDF(fi.FullName, docPDF);                                                
-                                                docPDF = oTiff.tiff2PDF(fi.FullName, docPDF);                                                
+                                                docPDF = oTiff.tiff2PDF(fi.FullName, docPDF);
                                             }
                                         }
                                         else
@@ -1022,7 +1092,7 @@ namespace SRDocScanIDP
                                     //stcXmlInfo.TotPages.Add(docPDF.PageCount);
                                     if (docPDF.Pages.Count > 0)
                                     {
-                                        docPDF.Save(PDFFilename);                                       
+                                        docPDF.Save(PDFFilename);
                                     }
                                     else
                                         mGlobal.Write2Log("PDF file is zero pages! The file is not saved. " + PDFFilename);
@@ -1136,8 +1206,8 @@ namespace SRDocScanIDP
         private static void savePDFByDocTypeMany(string sSet)
         {
             //PdfSharp.Pdf.PdfDocument docPDF = null;
-            //Syncfusion.Pdf.PdfDocument docPDF = null;
-            IronPdf.PdfDocument docPDF = null;
+            Syncfusion.Pdf.PdfDocument docPDF = null;
+            //IronPdf.PdfDocument docPDF = null;
             string[] sFiles = null;
             string sStatus = "'V','TF'";
             string PDFFilename = "";
@@ -1157,8 +1227,8 @@ namespace SRDocScanIDP
                     sStatus = "'I','TF'";
 
                 initExportInfo(1);
-                Task<IronPdf.PdfDocument> t1;
-                //Task<Syncfusion.Pdf.PdfDocument> t1;
+                //Task<IronPdf.PdfDocument> t1;
+                Task<Syncfusion.Pdf.PdfDocument> t1;
                 Task st1;
 
                 if (sSet.ToLower() == "scanned")
@@ -1172,9 +1242,9 @@ namespace SRDocScanIDP
                     IronPdf.License.LicenseKey = mGlobal.GetAppCfg("IRPDFLicKey");
                     Tiff2PdfConverter.clsTiffSplitter oTiff = new Tiff2PdfConverter.clsTiffSplitter(MDIMain.strIronLic);
                     //docPDF = new PdfSharp.Pdf.PdfDocument();
-                    //docPDF = new Syncfusion.Pdf.PdfDocument();
-                    //docPDF.EnableMemoryOptimization = true;
-                    //docPDF.Compression = Syncfusion.Pdf.PdfCompressionLevel.Best;
+                    docPDF = new Syncfusion.Pdf.PdfDocument();
+                    docPDF.EnableMemoryOptimization = true;
+                    docPDF.Compression = Syncfusion.Pdf.PdfCompressionLevel.Best;
 
                     string sFmt = "", sValue = ""; int i = 0, iHdr = 0; string sDir = ""; FileInfo fi = null;
 
@@ -1189,6 +1259,7 @@ namespace SRDocScanIDP
                         {
                             sSetNum = sFiles[iType].Split('|').GetValue(5).ToString().Trim().PadLeft(sSetNumFmt.Length, '0');
                         }
+
                         //stcXmlInfo.BatchCodes[iType] = sBatchCode;
                         //stcXmlInfo.DocTypes[iType] = sDocType;
                         //stcXmlInfo.Setnum[iType] = sSetNum;
@@ -1211,8 +1282,8 @@ namespace SRDocScanIDP
                                         else
                                         {
                                             //docPDF = oTiff.tiff2PDF(fi.FullName, docPDF);
-                                            t1 = Task<IronPdf.PdfDocument>.Factory.StartNew(() => oTiff.tiff2PDF(fi.FullName, docPDF));
-                                            //t1 = Task<Syncfusion.Pdf.PdfDocument>.Factory.StartNew(() => oTiff.tiff2PDF(fi.FullName, docPDF));
+                                            //t1 = Task<IronPdf.PdfDocument>.Factory.StartNew(() => oTiff.tiff2PDF(fi.FullName, docPDF));
+                                            t1 = Task<Syncfusion.Pdf.PdfDocument>.Factory.StartNew(() => oTiff.tiff2PDF(fi.FullName, docPDF));
                                             lTasks.Add(t1);
                                             Task.WaitAll(t1); //this will wait till t1 get finished.
                                             docPDF = t1.Result; //get the result of tiff2PDF method like this.
@@ -1223,8 +1294,8 @@ namespace SRDocScanIDP
                                     else
                                     {
                                         //docPDF = oTiff.tiff2PDF(fi.FullName, docPDF);
-                                        t1 = Task<IronPdf.PdfDocument>.Factory.StartNew(() => oTiff.tiff2PDF(fi.FullName, docPDF));
-                                        //t1 = Task<Syncfusion.Pdf.PdfDocument>.Factory.StartNew(() => oTiff.tiff2PDF(fi.FullName, docPDF));
+                                        //t1 = Task<IronPdf.PdfDocument>.Factory.StartNew(() => oTiff.tiff2PDF(fi.FullName, docPDF));
+                                        t1 = Task<Syncfusion.Pdf.PdfDocument>.Factory.StartNew(() => oTiff.tiff2PDF(fi.FullName, docPDF));
                                         lTasks.Add(t1);
                                         Task.WaitAll(t1); //this will wait till t1 get finished.
                                         docPDF = t1.Result; //get the result of tiff2PDF method like this.
@@ -1315,8 +1386,8 @@ namespace SRDocScanIDP
                             //stcXmlInfo.TotPages.Add(docPDF.PageCount);
                             if (docPDF.Pages.Count > 0)
                             {
-                                //docPDF.Save(PDFFilename);
-                                docPDF.SaveAs(PDFFilename); //uncomment this line for IronPDF.
+                                docPDF.Save(PDFFilename);
+                                //docPDF.SaveAs(PDFFilename);
 
                                 if (staMain.stcProjCfg.ExpSearchPDF.Trim().ToUpper() == "Y")
                                 {
@@ -1342,21 +1413,21 @@ namespace SRDocScanIDP
 
                             stcXmlInfo.TotPages.Add(docPDF.Pages.Count);
 
-                            //docPDF.Close();
+                            docPDF.Close();
                             docPDF.Dispose();
 
                             //docPDF = new PdfSharp.Pdf.PdfDocument();
-                            //docPDF = new Syncfusion.Pdf.PdfDocument();
-                            //docPDF.EnableMemoryOptimization = true;
-                            //docPDF.Compression = Syncfusion.Pdf.PdfCompressionLevel.Best;
-                            docPDF = null; //uncomment this line for IronPDF.
+                            docPDF = new Syncfusion.Pdf.PdfDocument();
+                            docPDF.EnableMemoryOptimization = true;
+                            docPDF.Compression = Syncfusion.Pdf.PdfCompressionLevel.Best;
+                            //docPDF = null; //uncomment this line for IronPDF.
                         }
                         else
                         {
-                            //docPDF = new Syncfusion.Pdf.PdfDocument(); //Init.
-                            //docPDF.EnableMemoryOptimization = true;
-                            //docPDF.Compression = Syncfusion.Pdf.PdfCompressionLevel.Best;
-                            docPDF = null; //uncomment this line for IronPDF.
+                            docPDF = new Syncfusion.Pdf.PdfDocument(); //Init.
+                            docPDF.EnableMemoryOptimization = true;
+                            docPDF.Compression = Syncfusion.Pdf.PdfCompressionLevel.Best;
+                            //docPDF = null; //uncomment this line for IronPDF.
                         }
 
                         iType += 1;
@@ -1373,7 +1444,7 @@ namespace SRDocScanIDP
             {
                 if (docPDF != null)
                 {
-                    //docPDF.Close();
+                    docPDF.Close();
                     docPDF.Dispose();
                 }
             }
@@ -1382,8 +1453,8 @@ namespace SRDocScanIDP
         private static void savePDFByDocTypeMerge(string sSet)
         {
             //PdfSharp.Pdf.PdfDocument docPDF = null;
-            //Syncfusion.Pdf.PdfDocument docPDF = null;
-            IronPdf.PdfDocument docPDF = null;
+            Syncfusion.Pdf.PdfDocument docPDF = null;
+            //IronPdf.PdfDocument docPDF = null;
             string[] sFiles = null;
             string sStatus = "'V','TF'";
             string PDFFilename = "";
@@ -1403,8 +1474,8 @@ namespace SRDocScanIDP
                     sStatus = "'I','TF'";
 
                 initExportInfo(1);
-                Task<IronPdf.PdfDocument> t1;
-                //Task<Syncfusion.Pdf.PdfDocument> t1;
+                //Task<IronPdf.PdfDocument> t1;
+                Task<Syncfusion.Pdf.PdfDocument> t1;
                 Task st1;
 
                 if (sSet.ToLower() == "scanned")
@@ -1418,9 +1489,9 @@ namespace SRDocScanIDP
                     IronPdf.License.LicenseKey = mGlobal.GetAppCfg("IRPDFLicKey");
                     Tiff2PdfConverter.clsTiffSplitter oTiff = new Tiff2PdfConverter.clsTiffSplitter(MDIMain.strIronLic);
                     //docPDF = new PdfSharp.Pdf.PdfDocument();
-                    //docPDF = new Syncfusion.Pdf.PdfDocument();
-                    //docPDF.EnableMemoryOptimization = true;
-                    //docPDF.Compression = Syncfusion.Pdf.PdfCompressionLevel.Best;
+                    docPDF = new Syncfusion.Pdf.PdfDocument();
+                    docPDF.EnableMemoryOptimization = true;
+                    docPDF.Compression = Syncfusion.Pdf.PdfCompressionLevel.Best;
                     string sFmt = "", sValue = ""; int i = 0, iHdr = 0; string sDir = ""; FileInfo fi = null;
 
                     int iF = 0; int iType = 0; int iTotType = 1; int iTotPages = 0;
@@ -1434,6 +1505,7 @@ namespace SRDocScanIDP
                         {
                             sSetNum = sFiles[iType].Split('|').GetValue(5).ToString().Trim().PadLeft(sSetNumFmt.Length, '0');
                         }
+
                         //stcXmlInfo.BatchCodes[iType] = sBatchCode;
                         //stcXmlInfo.DocTypes[iType] = sDocType;
                         //stcXmlInfo.Setnum[iType] = sSetNum;
@@ -1474,8 +1546,8 @@ namespace SRDocScanIDP
                                                     if (!ReadFromImageBarcode(fi.FullName))
                                                     {
                                                         //docPDF = oTiff.tiff2PDF(fi.FullName, docPDF);
-                                                        t1 = Task<IronPdf.PdfDocument>.Factory.StartNew(() => oTiff.tiff2PDF(fi.FullName, docPDF));
-                                                        //t1 = Task<Syncfusion.Pdf.PdfDocument>.Factory.StartNew(() => oTiff.tiff2PDF(fi.FullName, docPDF));
+                                                        //t1 = Task<IronPdf.PdfDocument>.Factory.StartNew(() => oTiff.tiff2PDF(fi.FullName, docPDF));
+                                                        t1 = Task<Syncfusion.Pdf.PdfDocument>.Factory.StartNew(() => oTiff.tiff2PDF(fi.FullName, docPDF));
                                                         lTasks.Add(t1);
                                                         Task.WaitAll(t1); //this will wait till t1 get finished.
                                                         //docPDF = t1.Result; //get the result of tiff2PDF method like this.
@@ -1487,22 +1559,22 @@ namespace SRDocScanIDP
                                                 else
                                                 {
                                                     //docPDF = oTiff.tiff2PDF(fi.FullName, docPDF);
-                                                    t1 = Task<IronPdf.PdfDocument>.Factory.StartNew(() => oTiff.tiff2PDF(fi.FullName, docPDF));
-                                                    //t1 = Task<Syncfusion.Pdf.PdfDocument>.Factory.StartNew(() => oTiff.tiff2PDF(fi.FullName, docPDF));
-                                                    lTasks.Add(t1);                                                    
+                                                    //t1 = Task<IronPdf.PdfDocument>.Factory.StartNew(() => oTiff.tiff2PDF(fi.FullName, docPDF));
+                                                    t1 = Task<Syncfusion.Pdf.PdfDocument>.Factory.StartNew(() => oTiff.tiff2PDF(fi.FullName, docPDF));
+                                                    lTasks.Add(t1);
                                                     Task.WaitAll(t1); //this will wait till t1 get finished.
                                                     //docPDF = t1.Result; //get the result of tiff2PDF method like this.
                                                     docPDF = t1.Result;
 
                                                     if (t1 != null) t1.Dispose();
-                                                }                                                
+                                                }
                                             }
                                         }
                                         else
                                             mGlobal.Write2Log("Image file does not exists." + fi.FullName);
                                     }
                                     else
-                                        mGlobal.Write2Log("File not found..!" + sFiles[iF].Split('|').GetValue(2).ToString());                                    
+                                        mGlobal.Write2Log("File not found..!" + sFiles[iF].Split('|').GetValue(2).ToString());
 
                                     iF += 1;
                                     if (iTotPages == iTotType)
@@ -1592,8 +1664,8 @@ namespace SRDocScanIDP
                                     //stcXmlInfo.TotPages.Add(docPDF.PageCount);
                                     if (docPDF.Pages.Count > 0)
                                     {
-                                        //docPDF.Save(PDFFilename);
-                                        docPDF.SaveAs(PDFFilename);
+                                        docPDF.Save(PDFFilename);
+                                        //docPDF.SaveAs(PDFFilename);
 
                                         if (staMain.stcProjCfg.ExpSearchPDF.Trim().ToUpper() == "Y")
                                         {
@@ -1620,23 +1692,23 @@ namespace SRDocScanIDP
 
                                     stcXmlInfo.TotPages.Add(docPDF.Pages.Count);
 
-                                    //docPDF.Close();
+                                    docPDF.Close();
                                     docPDF.Dispose();
 
                                     //docPDF = new PdfSharp.Pdf.PdfDocument();
-                                    //docPDF = new Syncfusion.Pdf.PdfDocument();
-                                    //docPDF.EnableMemoryOptimization = true;
-                                    //docPDF.Compression = Syncfusion.Pdf.PdfCompressionLevel.Best;
-                                    docPDF = null; //uncomment this line for IronPDF.
+                                    docPDF = new Syncfusion.Pdf.PdfDocument();
+                                    docPDF.EnableMemoryOptimization = true;
+                                    docPDF.Compression = Syncfusion.Pdf.PdfCompressionLevel.Best;
+                                    //docPDF = null; //uncomment this line for IronPDF.
 
                                     iTotType = 1;
                                 }
                                 else
                                 {
-                                    docPDF = null; //uncomment this line for IronPDF.
-                                    //docPDF = new Syncfusion.Pdf.PdfDocument();
-                                    //docPDF.EnableMemoryOptimization = true;
-                                    //docPDF.Compression = Syncfusion.Pdf.PdfCompressionLevel.Best;
+                                    //docPDF = null; //uncomment this line for IronPDF.
+                                    docPDF = new Syncfusion.Pdf.PdfDocument();
+                                    docPDF.EnableMemoryOptimization = true;
+                                    docPDF.Compression = Syncfusion.Pdf.PdfCompressionLevel.Best;
                                 }
                             }
                         }
@@ -1660,8 +1732,8 @@ namespace SRDocScanIDP
                                                 if (!ReadFromImageBarcode(fi.FullName))
                                                 {
                                                     //docPDF = oTiff.tiff2PDF(fi.FullName, docPDF);
-                                                    t1 = Task<IronPdf.PdfDocument>.Factory.StartNew(() => oTiff.tiff2PDF(fi.FullName, docPDF));
-                                                    //t1 = Task<Syncfusion.Pdf.PdfDocument>.Factory.StartNew(() => oTiff.tiff2PDF(fi.FullName, docPDF));
+                                                    //t1 = Task<IronPdf.PdfDocument>.Factory.StartNew(() => oTiff.tiff2PDF(fi.FullName, docPDF));
+                                                    t1 = Task<Syncfusion.Pdf.PdfDocument>.Factory.StartNew(() => oTiff.tiff2PDF(fi.FullName, docPDF));
                                                     lTasks.Add(t1);
                                                     Task.WaitAll(t1); //this will wait till t1 get finished.
                                                     docPDF = t1.Result; //get the result of tiff2PDF method like this.
@@ -1672,8 +1744,7 @@ namespace SRDocScanIDP
                                             else
                                             {
                                                 //docPDF = oTiff.tiff2PDF(fi.FullName, docPDF);
-                                                t1 = Task<IronPdf.PdfDocument>.Factory.StartNew(() => oTiff.tiff2PDF(fi.FullName, docPDF));
-                                                //t1 = Task<Syncfusion.Pdf.PdfDocument>.Factory.StartNew(() => oTiff.tiff2PDF(fi.FullName, docPDF));
+                                                t1 = Task<Syncfusion.Pdf.PdfDocument>.Factory.StartNew(() => oTiff.tiff2PDF(fi.FullName, docPDF));
                                                 lTasks.Add(t1);
                                                 Task.WaitAll(t1); //this will wait till t1 get finished.
                                                 docPDF = t1.Result; //get the result of tiff2PDF method like this.
@@ -1774,8 +1845,8 @@ namespace SRDocScanIDP
                                 //    mGlobal.Write2Log("PDF file is zero pages! The file is not saved. " + PDFFilename);
                                 if (docPDF.Pages.Count > 0)
                                 {
-                                    //docPDF.Save(PDFFilename);
-                                    docPDF.SaveAs(PDFFilename);
+                                    docPDF.Save(PDFFilename);
+                                    //docPDF.SaveAs(PDFFilename);
 
                                     if (staMain.stcProjCfg.ExpSearchPDF.Trim().ToUpper() == "Y")
                                     {
@@ -1803,23 +1874,23 @@ namespace SRDocScanIDP
                                 //stcXmlInfo.TotPages.Add(docPDF.PageCount);
                                 stcXmlInfo.TotPages.Add(docPDF.Pages.Count);
 
-                                //docPDF.Close();
+                                docPDF.Close();
                                 docPDF.Dispose();
 
                                 //docPDF = new PdfSharp.Pdf.PdfDocument();
-                                //docPDF = new Syncfusion.Pdf.PdfDocument();
-                                //docPDF.EnableMemoryOptimization = true;
-                                //docPDF.Compression = Syncfusion.Pdf.PdfCompressionLevel.Best;
-                                docPDF = null; //uncomment this line for IronPDF.
+                                docPDF = new Syncfusion.Pdf.PdfDocument();
+                                docPDF.EnableMemoryOptimization = true;
+                                docPDF.Compression = Syncfusion.Pdf.PdfCompressionLevel.Best;
+                                //docPDF = null; //uncomment this line for IronPDF.
 
                                 iTotType = 1;
                             }
                             else
                             {
-                                docPDF = null; //uncomment this line for IronPDF.
-                                //docPDF = new Syncfusion.Pdf.PdfDocument();
-                                //docPDF.EnableMemoryOptimization = true;
-                                //docPDF.Compression = Syncfusion.Pdf.PdfCompressionLevel.Best;
+                                //docPDF = null; //uncomment this line for IronPDF.
+                                docPDF = new Syncfusion.Pdf.PdfDocument();
+                                docPDF.EnableMemoryOptimization = true;
+                                docPDF.Compression = Syncfusion.Pdf.PdfCompressionLevel.Best;
                             }
                         }
 
@@ -1836,7 +1907,7 @@ namespace SRDocScanIDP
             {
                 if (docPDF != null)
                 {
-                    //docPDF.Close();
+                    docPDF.Close();
                     docPDF.Dispose();
                 }
             }
@@ -1998,7 +2069,7 @@ namespace SRDocScanIDP
                             //stcXmlInfo.DocTypes[stcXmlInfo.ExpFiles.Count - 1] = sDocType;
                             stcXmlInfo.TotPages.Add(iTotPages);
 
-                            File.Copy(fi.FullName, TIFFFilename, true);                            
+                            File.Copy(fi.FullName, TIFFFilename, true);
 
                             if (staMain.stcProjCfg.ExpSearchPDF.Trim().ToUpper() == "Y")
                             {
@@ -2491,12 +2562,12 @@ namespace SRDocScanIDP
 
                         while (i < drs.Count)
                         {
-                            bRet[i] = drs[i][0].ToString() + "|" + drs[i][1].ToString() + "|" + drs[i][2].ToString() + "|" 
+                            bRet[i] = drs[i][0].ToString() + "|" + drs[i][1].ToString() + "|" + drs[i][2].ToString() + "|"
                                 + drs[i][3].ToString() + "|" + drs[i][4].ToString() + "|" + drs[i][5].ToString();
 
                             i += 1;
                         }
-                    }                    
+                    }
                 }
                 else
                     bRet = null;
@@ -2551,7 +2622,7 @@ namespace SRDocScanIDP
                         sTextFilename = sDir + DateTime.Now.ToString("yyyyMMddhhmmss") + ".csv";
                     }
                     else if (staMain.stcProjCfg.ExpSubDirFmt.Trim() != string.Empty)
-                    {                       
+                    {
                         sDir = staMain.stcProjCfg.ExpDir;
 
                         if (!Directory.Exists(sDir))
@@ -2581,23 +2652,23 @@ namespace SRDocScanIDP
                     DataRowCollection drs = null;
                     drs = getExportIndexHeaderDB(_currScanProj, _appNum, _docDefId);
 
-                    int iSet = 0; int iFld = 0; int i = 0; int j = 0; 
+                    int iSet = 0; int iFld = 0; int i = 0; int j = 0;
                     while (i <= sFiles.Length)
                     {
                         //Header
                         if (i == 0)
                         {
-                            
+
                             if (drs != null)
                             {
                                 j = 0;
                                 while (j < drs.Count)
                                 {
-                                    sNextLines += drs[j]["fldname"].ToString().Trim().Replace(" ","_").Replace("#","_Number").Replace(".","") + sDelim;
+                                    sNextLines += drs[j]["fldname"].ToString().Trim().Replace(" ", "_").Replace("#", "_Number").Replace(".", "") + sDelim;
                                     j += 1;
                                 }
                             }
-                            
+
                             while (iFld < iTotFld)
                             {
                                 switch (iFld)
@@ -2653,7 +2724,7 @@ namespace SRDocScanIDP
                                         sNextLines += "" + sDelim;
                                         j += 1;
                                     }
-                                }                                
+                                }
                             }
                             else
                             {
@@ -2806,10 +2877,10 @@ namespace SRDocScanIDP
         //    DataRowCollection drs = null;
         //    try
         //    {
-                
+
         //        initExportIndex(1);
         //        drs = getExportIndexValueDB(pPrjCode, pAppNum, pBatchCode, pDocDefId);
-                
+
         //        if (drs != null)
         //        {
         //            initExportIndex(drs.Count);
@@ -2837,19 +2908,19 @@ namespace SRDocScanIDP
         public static List<string> getExportIndexValueDB(string pPrjCode, string pAppNum, string pSetNum, string pBatchCode, string pDocDefId, int iHdrCnt)
         {
             List<string> lval = new List<string>();
-            string sSQL = "";   
+            string sSQL = "";
             try
-            {   
+            {
                 mGlobal.LoadAppDBCfg();
 
                 sSQL = "SELECT TOP " + iHdrCnt + " rowid FROM " + mGlobal.strDBName.Trim().Replace("'", "") + ".dbo.TDocuDefiSet ";
-			
+
                 sSQL += "WHERE scanpjcode='" + pPrjCode.Trim().Replace("'", "") + "' ";
                 sSQL += "AND sysappnum='" + pAppNum.Trim().Replace("'", "") + "' ";
-																				  
-																					  
+
+
                 sSQL += "AND docdefid='" + pDocDefId.Trim().Replace("'", "") + "' ";
-																					   
+
                 sSQL += "ORDER BY flddispseq,modifieddate desc,createddate desc ";
 
                 DataRowCollection drs = mGlobal.objDB.ReturnRows(sSQL);
@@ -2911,7 +2982,7 @@ namespace SRDocScanIDP
             {
                 mGlobal.LoadAppDBCfg();
 
-                sSQL = "SELECT TOP 1 a.rowid FROM " + mGlobal.strDBName.Trim().Replace("'", "") + ".dbo.TDocuDefiSet a ";               
+                sSQL = "SELECT TOP 1 a.rowid FROM " + mGlobal.strDBName.Trim().Replace("'", "") + ".dbo.TDocuDefiSet a ";
                 sSQL += "WHERE a.scanpjcode='" + pPrjCode.Trim().Replace("'", "") + "' ";
                 sSQL += "AND a.sysappnum='" + pAppNum.Trim().Replace("'", "") + "' ";
                 sSQL += "AND a.docdefid='" + pDocDefId.Trim().Replace("'", "") + "' ";
@@ -3099,7 +3170,7 @@ namespace SRDocScanIDP
                 BarcodeResult[] results = textResults.Result.ToArray();
 
                 if (results.Length > 0)
-                {                    
+                {
                     isDocSep = true;
                 }
 
@@ -3248,7 +3319,6 @@ namespace SRDocScanIDP
             {
             }
         }
-
 
 
     }

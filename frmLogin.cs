@@ -87,6 +87,7 @@ namespace SRDocScanIDP
         {
             try
             {
+                System.Drawing.Point oPoint = new System.Drawing.Point();
                 if (this.WindowState != FormWindowState.Minimized)
                 {
                     if (this.WindowState == FormWindowState.Normal)
@@ -95,6 +96,10 @@ namespace SRDocScanIDP
                         if (this.Height > FORM_MIN_HEIGHT) Height = FORM_MIN_HEIGHT;
                         //iFormOffset = -20;
                     }
+                    pictureBox1.Height = 125;
+                    oPoint.X = panel1.Location.X;
+                    oPoint.Y = pictureBox1.Height + 5;
+                    panel1.Location = oPoint;
                 }
             }
             catch (Exception ex)
@@ -286,5 +291,7 @@ namespace SRDocScanIDP
                 btnLogin_Click(sender, e);
             }
         }
+
+
     }
 }

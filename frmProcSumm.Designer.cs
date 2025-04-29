@@ -58,18 +58,18 @@ namespace SRDocScanIDP
             // ProcToolStrip
             // 
             ProcToolStrip.AutoSize = false;
-            ProcToolStrip.ImageScalingSize = new Size(24, 24);
+            ProcToolStrip.ImageScalingSize = new Size(30, 30);
             ProcToolStrip.Items.AddRange(new ToolStripItem[] { toolStripSeparator1, btnProcRefreshStrip, toolStripSeparator2 });
             ProcToolStrip.Location = new Point(0, 0);
             ProcToolStrip.Name = "ProcToolStrip";
-            ProcToolStrip.Size = new Size(1704, 48);
+            ProcToolStrip.Size = new Size(1154, 40);
             ProcToolStrip.TabIndex = 1;
             ProcToolStrip.Text = "toolStrip1";
             // 
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(6, 48);
+            toolStripSeparator1.Size = new Size(6, 40);
             // 
             // btnProcRefreshStrip
             // 
@@ -77,23 +77,23 @@ namespace SRDocScanIDP
             btnProcRefreshStrip.Image = (Image)resources.GetObject("btnProcRefreshStrip.Image");
             btnProcRefreshStrip.ImageTransparentColor = Color.Magenta;
             btnProcRefreshStrip.Name = "btnProcRefreshStrip";
-            btnProcRefreshStrip.Size = new Size(29, 45);
+            btnProcRefreshStrip.Size = new Size(34, 37);
             btnProcRefreshStrip.Text = "Refresh Process List";
             btnProcRefreshStrip.Click += btnProcRefreshStrip_Click;
             // 
             // toolStripSeparator2
             // 
             toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new Size(6, 48);
+            toolStripSeparator2.Size = new Size(6, 40);
             // 
             // ProcStatusStrip
             // 
             ProcStatusStrip.ImageScalingSize = new Size(24, 24);
             ProcStatusStrip.Items.AddRange(new ToolStripItem[] { ProcStatusBar, ProcStatusBar1, ProcStatusBar2, CurrDateTime });
-            ProcStatusStrip.Location = new Point(0, 898);
+            ProcStatusStrip.Location = new Point(0, 564);
             ProcStatusStrip.Name = "ProcStatusStrip";
-            ProcStatusStrip.Padding = new Padding(1, 0, 12, 0);
-            ProcStatusStrip.Size = new Size(1704, 35);
+            ProcStatusStrip.Padding = new Padding(1, 0, 10, 0);
+            ProcStatusStrip.Size = new Size(1154, 35);
             ProcStatusStrip.TabIndex = 70;
             // 
             // ProcStatusBar
@@ -103,7 +103,7 @@ namespace SRDocScanIDP
             ProcStatusBar.BorderStyle = Border3DStyle.Sunken;
             ProcStatusBar.ImageScaling = ToolStripItemImageScaling.None;
             ProcStatusBar.Name = "ProcStatusBar";
-            ProcStatusBar.Size = new Size(268, 29);
+            ProcStatusBar.Size = new Size(268, 30);
             // 
             // ProcStatusBar1
             // 
@@ -111,7 +111,7 @@ namespace SRDocScanIDP
             ProcStatusBar1.BorderSides = ToolStripStatusLabelBorderSides.Left | ToolStripStatusLabelBorderSides.Top | ToolStripStatusLabelBorderSides.Right | ToolStripStatusLabelBorderSides.Bottom;
             ProcStatusBar1.BorderStyle = Border3DStyle.Sunken;
             ProcStatusBar1.Name = "ProcStatusBar1";
-            ProcStatusBar1.Size = new Size(713, 29);
+            ProcStatusBar1.Size = new Size(380, 30);
             ProcStatusBar1.Text = "   ";
             // 
             // ProcStatusBar2
@@ -120,7 +120,7 @@ namespace SRDocScanIDP
             ProcStatusBar2.BorderSides = ToolStripStatusLabelBorderSides.Left | ToolStripStatusLabelBorderSides.Top | ToolStripStatusLabelBorderSides.Right | ToolStripStatusLabelBorderSides.Bottom;
             ProcStatusBar2.BorderStyle = Border3DStyle.Sunken;
             ProcStatusBar2.Name = "ProcStatusBar2";
-            ProcStatusBar2.Size = new Size(506, 29);
+            ProcStatusBar2.Size = new Size(220, 30);
             // 
             // CurrDateTime
             // 
@@ -128,7 +128,7 @@ namespace SRDocScanIDP
             CurrDateTime.BorderSides = ToolStripStatusLabelBorderSides.Left | ToolStripStatusLabelBorderSides.Top | ToolStripStatusLabelBorderSides.Right | ToolStripStatusLabelBorderSides.Bottom;
             CurrDateTime.BorderStyle = Border3DStyle.Sunken;
             CurrDateTime.Name = "CurrDateTime";
-            CurrDateTime.Size = new Size(190, 29);
+            CurrDateTime.Size = new Size(250, 30);
             CurrDateTime.Text = "Curr. Date Time";
             CurrDateTime.TextAlign = ContentAlignment.MiddleRight;
             // 
@@ -138,10 +138,10 @@ namespace SRDocScanIDP
             // 
             // tvwProcess
             // 
-            tvwProcess.Location = new Point(8, 56);
+            tvwProcess.Location = new Point(7, 43);
             tvwProcess.Margin = new Padding(3, 2, 3, 2);
             tvwProcess.Name = "tvwProcess";
-            tvwProcess.Size = new Size(294, 838);
+            tvwProcess.Size = new Size(258, 516);
             tvwProcess.TabIndex = 20;
             tvwProcess.AfterSelect += tvwProcess_AfterSelect;
             // 
@@ -151,11 +151,10 @@ namespace SRDocScanIDP
             lvwBatches.Columns.AddRange(new ColumnHeader[] { colBatchCode, colTotPage, colScanStart, colScanEnd, colFrom, colCreatDate, colModifDate });
             lvwBatches.FullRowSelect = true;
             lvwBatches.GridLines = true;
-            lvwBatches.Location = new Point(307, 56);
-            lvwBatches.Margin = new Padding(3, 4, 3, 4);
+            lvwBatches.Location = new Point(269, 43);
             lvwBatches.MultiSelect = false;
             lvwBatches.Name = "lvwBatches";
-            lvwBatches.Size = new Size(1388, 838);
+            lvwBatches.Size = new Size(877, 516);
             lvwBatches.TabIndex = 30;
             lvwBatches.UseCompatibleStateImageBehavior = false;
             lvwBatches.View = View.Details;
@@ -205,15 +204,13 @@ namespace SRDocScanIDP
             // 
             // frmProcSumm
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1704, 933);
+            AutoScaleMode = AutoScaleMode.None;
+            ClientSize = new Size(1154, 599);
             Controls.Add(ProcStatusStrip);
             Controls.Add(lvwBatches);
             Controls.Add(tvwProcess);
             Controls.Add(ProcToolStrip);
             FormBorderStyle = FormBorderStyle.FixedSingle;
-            Margin = new Padding(3, 4, 3, 4);
             MinimizeBox = false;
             Name = "frmProcSumm";
             ShowIcon = false;

@@ -414,29 +414,46 @@ namespace SRDocScanIDP
                 formResize();
 
                 System.Drawing.Point oPoint = new System.Drawing.Point();
-                if (tvwBatch.Width + dsvImg.Width + dsvThumbnailList.Width + 65 < this.Width)
-                {
+                //if (tvwBatch.Width + dsvImg.Width + dsvThumbnailList.Width + 65 < this.Width)
+                //{
+                    ScanToolStrip.Height = 45;
+                    ScanStatusStrip.Height = 35;
+                    oPoint.X = tvwBatch.Location.X;
+                    oPoint.Y = ScanToolStrip.Height + 2;
+                    tvwBatch.Location = oPoint;
+                    oPoint.X = tvwBatch.Location.X + tvwBatch.Width + 5;
+                    oPoint.Y = tvwBatch.Location.Y;
+                    dsvImg.Location = oPoint;
+                    oPoint.X = dsvThumbnailList.Location.X;
+                    oPoint.Y = tvwBatch.Location.Y;
+                    dsvThumbnailList.Location = oPoint;
+
                     //tvwBatch.Height = ScanStatusStrip.Location.Y - tvwBatch.Location.Y - 10;
-                    tvwBatch.Height = Height - ScanStatusStrip.Height - ScanToolStrip.Height - 23;
+                    tvwBatch.Height = Height - ScanStatusStrip.Height - ScanToolStrip.Height - 5;
 
                     dsvImg.Width = this.Width - tvwBatch.Width - dsvThumbnailList.Width - 65;
                     //dsvImg.Height = txtInfo.Location.Y - dsvImg.Location.Y - 5;
-                    dsvImg.Height = Height - ScanStatusStrip.Height - ScanToolStrip.Height - txtInfo.Height - 25;
+                    dsvImg.Height = Height - ScanStatusStrip.Height - ScanToolStrip.Height - txtInfo.Height - 15;
 
-                    txtInfo.Width = dsvImg.Width - panel1.Width - 5;
-                    oPoint.Y = dsvImg.Location.Y + dsvImg.Height + 5;
+                    txtInfo.Width = dsvImg.Width - panel1.Width - 10;
+                    oPoint.Y = dsvImg.Location.Y + dsvImg.Height + 7;
                     oPoint.X = dsvImg.Location.X;
                     txtInfo.Location = oPoint;
-                    dsvImg.Height = txtInfo.Location.Y - dsvImg.Location.Y - 5;
+                    //dsvImg.Height = txtInfo.Location.Y - dsvImg.Location.Y - 5;
 
-                    oPoint.Y = dsvImg.Location.Y + dsvImg.Height;
+                    oPoint.Y = txtInfo.Location.Y - 5;
                     oPoint.X = txtInfo.Location.X + txtInfo.Width + 5;
                     panel1.Location = oPoint;
-                    oPoint.Y = dsvThumbnailList.Location.Y;
+                    oPoint.Y = tvwBatch.Location.Y;
                     oPoint.X = dsvImg.Location.X + dsvImg.Width + 5;
                     dsvThumbnailList.Location = oPoint;
                     dsvThumbnailList.Height = tvwBatch.Height;
-                }
+                    //if (tvwBatch.Location.Y + tvwBatch.Height > ScanStatusStrip.Location.Y)
+                    //{
+                    //    tvwBatch.Height = dsvImg.Height + txtInfo.Height - 5;
+                    //    dsvThumbnailList.Height = tvwBatch.Height;
+                    //}
+                //}
             }
             catch (Exception)
             {
@@ -467,11 +484,12 @@ namespace SRDocScanIDP
                 //MessageBox.Show(this.Width.ToString() + "," + this.ScanStatusStrip.Width.ToString());
                 //this.ScanStatusStrip.Width = this.Width;
                 //this.ScanStatusBar1.Width = this.ScanStatusBar1.Width + 135;
+                this.CurrDateTime.Width = 250;
                 if (this.WindowState == FormWindowState.Normal)
                 {
                     if (this.Width < FORM_MIN_WIDTH) this.Width = FORM_MIN_WIDTH;
                     if (this.Height < FORM_MIN_HEIGHT) this.Height = FORM_MIN_HEIGHT;
-                    iFormOffset = -this.CurrDateTime.Width;
+                    //iFormOffset = -this.CurrDateTime.Width;
                 }
                 //else if (this.WindowState == FormWindowState.Maximized)
                 //{
@@ -479,12 +497,14 @@ namespace SRDocScanIDP
                 //}
 
                 if (MDIMain.sIsAddOn == "")
-                    this.ScanProgressBar.Width = this.Width - this.ScanStatusBar.Width - this.ScanStatusBar1.Width - this.CurrDateTime.Width - iFormOffset;
+                    this.ScanProgressBar.Width = ScanStatusStrip.Width - this.ScanStatusBar.Width - this.ScanStatusBar1.Width - this.CurrDateTime.Width - iFormOffset;
 
-                if (this.ScanStatusBar1.Width > 350)
-                    this.ScanStatusBar1.Width = 350;
-                if (this.ScanProgressBar.Width < 708)
-                    this.ScanProgressBar.Width = 708;
+                if (this.ScanStatusBar.Width > 206)
+                    this.ScanStatusBar.Width = 206;
+                if (this.ScanProgressBar.Width < 600)
+                    this.ScanProgressBar.Width = 600;
+                if (this.ScanStatusBar1.Width < 200)
+                    this.ScanStatusBar1.Width = 200;
             }
         }
 
@@ -9300,7 +9320,7 @@ namespace SRDocScanIDP
                     }
                     oReq.baseString = Convert.ToBase64String(data);
                     oReq.classify = "Yes";
-                    oReq.model = "DocClassDemo";
+                    oReq.model = clsIDP.stcIDPMapping.ClsModelId.Trim();
 
                     string sMsg = "";
                     Task<dynamic> dResult = Task.Run(async () => oIDP.docClassify(sLocalEndPoint, oReq, ref sMsg));

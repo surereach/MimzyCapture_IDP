@@ -161,7 +161,13 @@ namespace SRDocScanIDP
             {
                 clsIDP.loadIDPMappingDB(_currScanProj, _appNum, _docDefId);
                 staMain.loadIndexConfigDB(_currScanProj, _appNum, _docDefId);
-                loadIndexFieldsConfig();
+                if (_noSeparator.Trim() == "C")
+                {
+                    clsIDP.loadIDPFieldMappingDB(_currScanProj, _appNum, _docDefId);
+                    loadMapIndexFieldsConfig();
+                }
+                else
+                    loadIndexFieldsConfig();
 
                 bSingleView = false;
 
@@ -297,7 +303,6 @@ namespace SRDocScanIDP
                         syncPageIndexFieldDB(_batchCode, "TDocuIndex");
                     else
                         syncPageIndexFieldDB(_batchCode, "TDocuScan");
-
                 }
                 //if (_batchCode != "")
                 //    loadIndexFieldValue();
@@ -388,15 +393,38 @@ namespace SRDocScanIDP
                 //if (tvwSet.Width + dsvImg.Width + pnlIdxFld.Width + 65 < this.Width)
                 if (tvwSet.Width + dsvImg.Width + tabMainFields.Width + 65 < this.Width)
                 {
+                    btnSave.Height = 22;
+                    btnNext.Height = btnSave.Height;
+                    IndexingToolStrip.Height = 45;
+                    IndexStatusStrip.Height = 35;
+                    oPoint.X = label1.Location.X;
+                    oPoint.Y = IndexingToolStrip.Height + 2;
+                    label1.Location = oPoint;
+                    oPoint.X = dsvImg.Location.X;
+                    oPoint.Y = label1.Location.Y;
+                    dsvImg.Location = oPoint;
+                    oPoint.X = btnSave.Location.X;
+                    oPoint.Y = label1.Location.Y;
+                    btnSave.Location = oPoint;
+                    oPoint.X = btnNext.Location.X;
+                    oPoint.Y = label1.Location.Y;
+                    btnNext.Location = oPoint;
+                    oPoint.X = tvwSet.Location.X;
+                    oPoint.Y = label1.Location.Y + label1.Height + 2;
+                    tvwSet.Location = oPoint;
                     //dsvImg.Width = this.Width - tvwSet.Width - pnlIdxFld.Width - 65;
                     dsvImg.Width = this.Width - tvwSet.Width - tabMainFields.Width - 65;
 
-                    dgdTable.Width = dsvImg.Width;
-
                     //dsvImg.Height = txtInfo.Location.Y - dsvImg.Location.Y - 5;
+                    dsvThumbnailList.Height = 75;
                     tvwSet.Height = Height - IndexStatusStrip.Height - IndexingToolStrip.Height - dsvThumbnailList.Height - 23;
                     dsvImg.Height = Height - IndexStatusStrip.Height - IndexingToolStrip.Height - dsvThumbnailList.Height - txtInfo.Height;
                     dsvImg.Height = dsvImg.Height - dgdTable.Height - 15;
+
+                    oPoint.X = dsvImg.Location.X;
+                    oPoint.Y = dsvImg.Location.Y + dsvImg.Height + 5;
+                    dgdTable.Location = oPoint;
+                    dgdTable.Width = dsvImg.Width;
 
                     txtInfo.Width = dsvImg.Width - cbxTables.Width - panel1.Width - 10;
                     oPoint.Y = dsvImg.Location.Y + dsvImg.Height + dgdTable.Height + 10;
@@ -408,7 +436,7 @@ namespace SRDocScanIDP
                     oPoint.X = txtInfo.Location.X + txtInfo.Width + 5;
                     cbxTables.Location = oPoint;
 
-                    oPoint.Y = tabMainFields.Location.Y;
+                    oPoint.Y = btnSave.Location.Y + btnSave.Height + 5;
                     oPoint.X = dsvImg.Location.X + dsvImg.Width + 5;
                     tabMainFields.Location = oPoint;
 
@@ -432,7 +460,7 @@ namespace SRDocScanIDP
                     btnNext.Location = oPoint;
 
                     //dsvThumbnailList.Width = pnlIdxFld.Location.X + pnlIdxFld.Width - 5;
-                    dsvThumbnailList.Width = tabMainFields.Location.X + tabMainFields.Width - 5;
+                    dsvThumbnailList.Width = tabMainFields.Location.X + tabMainFields.Width - 5;                    
                     oPoint.Y = tvwSet.Location.Y + tvwSet.Height + 5;
                     oPoint.X = tvwSet.Location.X;
                     dsvThumbnailList.Location = oPoint;
@@ -440,8 +468,9 @@ namespace SRDocScanIDP
                     //pnlIdxFld.Height = dsvThumbnailList.Location.Y - pnlIdxFld.Location.Y - 5;
                     tabMainFields.Height = Height - IndexStatusStrip.Height - IndexingToolStrip.Height - dsvThumbnailList.Height - 27;
                     pnlIdxFld.Height = tabMainFields.Height - 5;
+                    pnlIdxFld.Width = tabMainFields.Width - 5;
                     pnlKeyFld.Height = tabMainFields.Height - 5;
-                    pnlKeyFld.Width = tabKeyValues.Width - 5;
+                    pnlKeyFld.Width = tabMainFields.Width - 5;
                     //pnlIdxFld.Height = Height - IndexStatusStrip.Height - IndexingToolStrip.Height - dsvThumbnailList.Height - 23;
                     //pnlKeyFld.Height = Height - IndexStatusStrip.Height - IndexingToolStrip.Height - dsvThumbnailList.Height - 23;
                 }
@@ -455,6 +484,7 @@ namespace SRDocScanIDP
         {
             if (this.WindowState != FormWindowState.Minimized)
             {
+                this.CurrDateTime.Width = 250;
                 if (this.WindowState == FormWindowState.Normal)
                 {
                     if (this.Width < FORM_MIN_WIDTH) this.Width = FORM_MIN_WIDTH;
@@ -465,12 +495,14 @@ namespace SRDocScanIDP
                 //    iFormOffset = 0;
                 //}
 
-                this.IndexingStatusBar1.Width = this.Width - this.IndexingStatusBar.Width - this.IndexingStatusBar2.Width - this.CurrDateTime.Width - iFormOffset;
+                this.IndexingStatusBar1.Width = IndexStatusStrip.Width - this.IndexingStatusBar.Width - this.IndexingStatusBar2.Width - this.CurrDateTime.Width - iFormOffset;
 
                 if (this.IndexingStatusBar.Width > 268)
                     this.IndexingStatusBar.Width = 268;
-                if (this.IndexingStatusBar1.Width < 658)
-                    this.IndexingStatusBar1.Width = 658;
+                if (this.IndexingStatusBar1.Width < 608)
+                    this.IndexingStatusBar1.Width = 608;
+                if (this.IndexingStatusBar2.Width < 308)
+                    this.IndexingStatusBar2.Width = 308;
             }
         }
 
@@ -541,6 +573,7 @@ namespace SRDocScanIDP
                             if (staMain.stcIndexSetting.FieldDataType[i].Trim().ToLower() == "valuelist")
                             {
                                 lblField.Text = drs[i].ToString();
+                                lblField.Visible = true;
                                 txtField.Visible = false;
                                 dtpField.Visible = false;
                                 cbxField.Visible = true;
@@ -582,6 +615,7 @@ namespace SRDocScanIDP
                                 || staMain.stcIndexSetting.FieldDataType[i].Trim().ToLower() == "barcode") //Or MultiLine
                             {
                                 lblField.Text = drs[i].ToString();
+                                lblField.Visible = true;
                                 txtField.MaxLength = Convert.ToInt32(staMain.stcIndexSetting.FieldSize[i].ToString());
 
                                 txtField.Text = staMain.stcIndexSetting.FieldDefault[i].Trim();
@@ -631,6 +665,7 @@ namespace SRDocScanIDP
                             else if (staMain.stcIndexSetting.FieldDataType[i].Trim().ToLower() == "date" || staMain.stcIndexSetting.FieldDataType[i].Trim().ToLower() == "datetime")
                             {
                                 lblField.Text = drs[i].ToString();
+                                lblField.Visible = true;
                                 txtField.Visible = false;
                                 dtpField.Visible = true;
                                 cbxField.Visible = false;
@@ -684,6 +719,7 @@ namespace SRDocScanIDP
                                 oLblFld.Name = "lblField" + (i).ToString();
                                 oLblFld.Location = currLoc1;
                                 oLblFld.Text = drs[i].ToString().Trim();
+                                oLblFld.Visible = true;
                                 oLblFld.SendToBack();
 
                                 oCbxFld = new ComboBox();
@@ -758,6 +794,7 @@ namespace SRDocScanIDP
                                 oLblFld.Name = "lblField" + (i).ToString();
                                 oLblFld.Location = currLoc1;
                                 oLblFld.Text = drs[i].ToString().Trim();
+                                oLblFld.Visible = true;
                                 oLblFld.SendToBack();
 
                                 oTxtFld = new TextBox();
@@ -862,6 +899,7 @@ namespace SRDocScanIDP
                                 oLblFld.Name = "lblField" + (i).ToString();
                                 oLblFld.Location = currLoc1;
                                 oLblFld.Text = drs[i].ToString().Trim();
+                                oLblFld.Visible = true;
                                 oLblFld.SendToBack();
 
                                 oDtpFld = new DateTimePicker();
@@ -971,6 +1009,11 @@ namespace SRDocScanIDP
                 int iCnt = staMain.stcIndexSetting.RowId.Count;
                 int i = 0; Control oCtrl = null; Label oLblExist = null; string sCtrlType = "";
 
+                if (_noSeparator.Trim() == "C")
+                {
+                    iCnt = clsIDP.stcIDPFieldMap.FieldName.Count;
+                }
+
                 while (i < iCnt)
                 {
                     sCtrlType = "";
@@ -1027,6 +1070,10 @@ namespace SRDocScanIDP
             {
                 int iCnt = staMain.stcIndexSetting.RowId.Count;
                 int i = 0; Control oCtrl = null; Label oLblExist = null; string sCtrlType = "";
+                if (_noSeparator.Trim() == "C")
+                {
+                    iCnt = clsIDP.stcIDPFieldMap.FieldName.Count;
+                }
                 while (i < iCnt)
                 {
                     sCtrlType = "";
@@ -1089,6 +1136,10 @@ namespace SRDocScanIDP
                         int iCnt = staMain.stcIndexSetting.RowId.Count;
                         int i = 0, j = 0; ; Control oCtrl = null; Label oLblExist = null; string sCtrlType = "";
                         ComboBox oCbx; DateTimePicker oDate; DateTime oDateParsed; string sDate = "";
+                        if (_noSeparator.Trim() == "C")
+                        {
+                            iCnt = clsIDP.stcIDPFieldMap.FieldName.Count;
+                        }
 
                         while (i < iCnt)
                         {
@@ -1392,7 +1443,13 @@ namespace SRDocScanIDP
                             setIndexFieldAutoValue(staMain.stcImgInfoBySet.DocType[0].ToString());
 
                             sCurrSetNum = staMain.stcImgInfoBySet.SetNum[0].ToString();
-                            loadIndexFieldValue(sCurrSetNum);
+                            if (_noSeparator.Trim() == "C")
+                            {
+                                string sPageId = staMain.stcImgInfoBySet.Rowid[0].ToString();
+                                loadIndexFieldValue(sCurrSetNum, sPageId);
+                            }
+                            else
+                                loadIndexFieldValue(sCurrSetNum);
                         }
                     }
 
@@ -1427,7 +1484,7 @@ namespace SRDocScanIDP
                     {
                         staMain.stcImgInfoBySet.CurrImgIdx = sImageIndex;
                         //txtField.Text = staMain.stcImgInfoBySet.DocType[sImageIndex].Trim();
-                        if (bIndexValue)
+                        if (_noSeparator.Trim() != "C" && bIndexValue)
                             loadIndexFieldValue(sCurrSetNum);
                         IndexingStatusBar1.Text = "Document Set " + staMain.stcImgInfoBySet.BatchCode + " : " + staMain.stcImgInfoBySet.DocType[sImageIndex];
                         IndexingStatusBar2.Text = "Total Page: " + _totPage;
@@ -1800,7 +1857,6 @@ namespace SRDocScanIDP
                         //        break;
                         //    }
                         //}
-
                         if (sKeyDataType.Trim().ToLower() == "date" && oTxt.Text.Trim() != "")
                         {
                             string[] dDateFormats = new string[] { "dd/MM/yyyy", "MM/dd/yyyy" };
@@ -1966,13 +2022,16 @@ namespace SRDocScanIDP
                             else
                                 oCtrl = pnlIdxFld.Controls["cbxField" + i];
 
-                            ComboBox oCbx = (ComboBox)oCtrl;
-                            if (oCbx.SelectedValue != null)
-                                sValue = oCbx.SelectedValue.ToString();
-                            else
+                            if (oCtrl != null)
                             {
-                                MessageBox.Show(this, "Value is not selected or not matched! Please select from the list.", "Message");
-                                throw new Exception("Value is not selected or not matched!");
+                                ComboBox oCbx = (ComboBox)oCtrl;
+                                if (oCbx.SelectedValue != null)
+                                    sValue = oCbx.SelectedValue.ToString();
+                                else
+                                {
+                                    MessageBox.Show(this, "Value is not selected or not matched! Please select from the list.", "Message");
+                                    throw new Exception("Value is not selected or not matched!");
+                                }
                             }
                         }
                         else
@@ -2266,6 +2325,7 @@ namespace SRDocScanIDP
                     btnSaveIndex_Click(sender, e);
                     btnSaveKey_Click(sender, e);
                 }
+                tabFields.Focus();
             }
             catch (Exception ex)
             {
@@ -3261,6 +3321,11 @@ namespace SRDocScanIDP
                 }
                 else if (sep.Trim().ToLower() == "sep1")
                 {
+                    if (_noSeparator.Trim() == "C")
+                    {                        
+                        initIDPIndexFieldConfig(e.Node.Text.Trim());
+                        tabFields.Focus();
+                    }
                     if (_batchType.ToLower().Trim() == "set") //Doc. Type.
                     {
                         IndexingStatusBar1.Text = "Document Set " + staMain.stcImgInfoBySet.BatchCode + " : " + e.Node.Text.Trim();
@@ -3302,7 +3367,6 @@ namespace SRDocScanIDP
                         //End.
 
                         setIndexFieldDefaultValue();
-
                         loadIndexFieldValue(sCurrSetNum);
 
                         mnuInsStrip.Enabled = true;
@@ -3403,13 +3467,23 @@ namespace SRDocScanIDP
                         txtInfo.Text = e.Node.Text;
 
                         setIndexFieldDefaultValue();
-
-                        loadIndexFieldValue(sCurrSetNum);
+                        if (_noSeparator.Trim() == "C")
+                        {
+                            string pageId = e.Node.Nodes[0].Tag.ToString().Split('|').GetValue(3).ToString();
+                            loadIndexFieldValue(sCurrSetNum, pageId);
+                        }
+                        else
+                            loadIndexFieldValue(sCurrSetNum);
                         IndexingStatusBar1.Text = "Document Set " + staMain.stcImgInfoBySet.BatchCode + " : " + sCurrSetNum;
                     }
                 }
                 else if (sep.Trim().ToLower() == "sep2")
                 {
+                    if (_noSeparator.Trim() == "C")
+                    {
+                        initIDPIndexFieldConfig(e.Node.Text.Trim());
+                        tabFields.Focus();
+                    }
                     if (_batchType.ToLower().Trim() == "batch" || _batchType.ToLower().Trim() == "box") //Doc type.
                     {
                         //txtField.Text = e.Node.Text.Trim();
@@ -3496,6 +3570,12 @@ namespace SRDocScanIDP
 
                     if (_noSeparator.Trim() == "C")
                     {
+                        string rowid = e.Node.Tag.ToString().Trim().Split('|').GetValue(3).ToString();
+                        string docType = e.Node.Tag.ToString().Trim().Split('|').GetValue(2).ToString();
+                        _docType = docType;
+                        _pageId = Convert.ToInt32(rowid);
+
+                        bIndexed = staMain.checkIsSetIndexed(_currScanProj, _appNum, _batchCode, sCurrSetNum, _pageId, false);
                         if (dgdTable.DataSource != null)
                         {
                             //dgdTable.Rows.Clear();
@@ -3508,8 +3588,12 @@ namespace SRDocScanIDP
                         }
 
                         resetIndexFieldsConfig();
-                        loadIndexFieldsConfig();
-                        _fldCnt = lPosition.Count;
+                        if (bIndexed)
+                        {
+                            //loadIndexFieldsConfig();
+                            loadMapIndexFieldsConfig();
+                            _fldCnt = lPosition.Count;
+                        }
 
                         resetKeyFieldsConfig();
                     }
@@ -3565,8 +3649,8 @@ namespace SRDocScanIDP
 
                         txtInfo.Text = "Document Set : " + sCurrSetNum + " : " + docType + " : " + txtInfo.Text;
 
-                        bIndexed = staMain.checkIsSetIndexed(_currScanProj, _appNum, _batchCode, sCurrSetNum, _pageId, false);
-                        setIndexFieldDefaultValue();
+                        if (bIndexed)
+                            setIndexFieldDefaultValue();
 
                         if (_noSeparator.Trim() == "0")
                         {
@@ -3577,15 +3661,22 @@ namespace SRDocScanIDP
                         }
                         else
                         {
-                            loadIndexFieldValue(sCurrSetNum, rowid);
+                            if (bIndexed)
+                            {
+                                initIDPIndexFieldConfig(_docType);
+                                loadIndexFieldValue(sCurrSetNum, rowid);
+                            }
                         }
 
                         IndexingStatusBar1.Text = "Document Set " + staMain.stcImgInfoBySet.BatchCode + " : " + sCurrSetNum + " : " + docType;
 
-                        if (_noSeparator.Trim() == "C")
-                            setIndexFieldAutoValue(sCurrSetNum);
-                        else
-                            setIndexFieldAutoValue(e.Node.Parent.Text);
+                        if (bIndexed)
+                        {
+                            if (_noSeparator.Trim() == "C")
+                                setIndexFieldAutoValue(sCurrSetNum);
+                            else
+                                setIndexFieldAutoValue(e.Node.Parent.Text);
+                        }
 
                         bKeyIndexed = staMain.checkIsSetKeyIndexed(_currScanProj, _appNum, _batchCode, sCurrSetNum, _docType, _pageId, false);
                     }
@@ -3600,7 +3691,7 @@ namespace SRDocScanIDP
                         string sModelId = "";
                         int iPageNum = Convert.ToInt32(e.Node.Text.Split(" ", StringSplitOptions.TrimEntries)[1].ToString());
 
-                        if (_docType.ToUpper().Trim() == "FORM")
+                        if (_docType.ToUpper().Trim().IndexOf("FORM") != -1)                        
                             sModelId = "prebuilt-document"; //"BTNForm";
                         else
                             sModelId = clsIDP.stcIDPMapping.ModelId.Trim(); //"prebuilt-invoice"; //"InvoiceSample";
@@ -3611,7 +3702,7 @@ namespace SRDocScanIDP
                             string sResult = clsIDP.getIDPResultDB(_currScanProj, _appNum, _batchCode, _setNum, _docType, iPageNum, clsIDP.stcIDPMapping.EndPoint.Trim(), sModelId);
                             if (sResult.Trim() != string.Empty)
                             {
-                                if (_docType.ToUpper().Trim() == "FORM")
+                                if (_docType.ToUpper().Trim().IndexOf("FORM") != -1)
                                     _result = SRDocScanIDPForm.FormAnalysisResult.FromJson(sResult);
                                 else
                                     _result = AnalysisResult.FromJson(sResult);
@@ -3624,9 +3715,9 @@ namespace SRDocScanIDP
 
                         if (_result != null)
                         {
-                            if (_docType.ToUpper().Trim() == "FORM")
+                            if (_docType.ToUpper().Trim().IndexOf("FORM") != -1)                            
                             {
-                                if (loadIndexFieldsConfig(_result, ref _fldCnt))
+                                if (loadIndexFieldsConfig(_result, _docType, ref _fldCnt))
                                 {
                                     setIndexFieldDefaultValue();
                                     loadIndexFieldValue(_result);
@@ -3634,9 +3725,7 @@ namespace SRDocScanIDP
 
                                 if (_fldCnt == 0)
                                 {
-                                    resetIndexFieldsConfig();
-                                    lblField.Visible = false;
-                                    txtField.Visible = false;
+                                    initIDPIndexFieldConfig(_docType);
                                 }
 
                                 if (bKeyIndexed == false)
@@ -3663,13 +3752,19 @@ namespace SRDocScanIDP
                                         loadIndexKeyFieldValueDB(sCurrSetNum, _docType, _pageId);
                                     }
                                 }
+                                sCurrDocType = _docType;
                             }
                             else
-                            {
-                                if (loadIndexFieldsConfig(_result, ref _fldCnt))
+                            {                                
+                                if (bIndexed == false)
                                 {
-                                    setIndexFieldDefaultValue();
-                                    loadIndexFieldValue(_result);
+                                    lPosition = new List<int[]>();
+                                    resetIndexFieldsConfig();
+                                    if (loadIndexFieldsConfig(_result, _docType, ref _fldCnt))
+                                    {
+                                        setIndexFieldDefaultValue();
+                                        loadIndexFieldValue(_result);
+                                    }
                                 }
 
                                 if (_fldCnt == 0)
@@ -3682,10 +3777,20 @@ namespace SRDocScanIDP
                                     lblField.Visible = true;
                                     txtField.Visible = true;
                                 }
+                                sCurrDocType = _docType;
                             }
-
+                            
                             loadTableList(_result);
-                            populateGridData(_result, 1);
+                            string sTable = "1";
+                            if (cbxTables.SelectedValue != null) sTable = cbxTables.SelectedValue.ToString();
+                            if (resultTableExistDB(sCurrSetNum, _docType, _pageId, sTable) == false)
+                            {
+                                populateGridData(_result, Convert.ToInt32(sTable));
+                            }
+                            else
+                            {
+                                populateGridDataDB(sCurrSetNum, _docType, _pageId, sTable);
+                            }
                         }
 
                         Cursor.Current = Cursors.Default;
@@ -3716,12 +3821,12 @@ namespace SRDocScanIDP
                         bmp.Dispose();
                         //}
                     }
-                    else //Already Indexed.
+                    else //both index fields and key fields already Indexed.
                     {
                         _fldCnt = lPosition.Count;
                         _result = null;
                         string sModelId = "";
-                        if (_docType.ToUpper().Trim() == "FORM")
+                        if (_docType.ToUpper().Trim().IndexOf("FORM") != -1)
                             sModelId = "prebuilt-document"; //"BTNForm";
                         else
                             sModelId = clsIDP.stcIDPMapping.ModelId.Trim(); //"prebuilt-invoice"; //"InvoiceSample";
@@ -3730,10 +3835,18 @@ namespace SRDocScanIDP
                         string sResult = clsIDP.getIDPResultDB(_currScanProj, _appNum, _batchCode, _setNum, _docType, iPageNum, clsIDP.stcIDPMapping.EndPoint.Trim(), sModelId);
                         if (sResult.Trim() != string.Empty)
                         {
-                            if (_docType.ToUpper().Trim() == "FORM")
+                            if (_docType.ToUpper().Trim().IndexOf("FORM") != -1)
                                 _result = SRDocScanIDPForm.FormAnalysisResult.FromJson(sResult);
                             else
                                 _result = AnalysisResult.FromJson(sResult);
+                        }
+
+                        lPosition = new List<int[]>();
+                        resetIndexFieldsConfig();
+                        if (loadIndexFieldsConfig(_result, _docType, ref _fldCnt))
+                        {
+                            setIndexFieldDefaultValue();
+                            loadIndexFieldValue(_result);
                         }
 
                         if (_fldCnt == 0)
@@ -4271,6 +4384,12 @@ namespace SRDocScanIDP
                 {
                     btnSendStrip.Enabled = false;
                     btnSendStrip.Visible = false;
+                }
+
+                if (tvwSet.Nodes[0].Nodes.Count == 0 && _noSeparator.Trim() == "C")
+                {
+                    initIDPIndexFieldConfig(clsIDP.stcIDPFieldMap.DocType);
+                    tabFields.Focus();
                 }
 
                 //btnNext.Visible = false;
@@ -8867,11 +8986,16 @@ namespace SRDocScanIDP
                 mGlobal.LoadAppDBCfg();
 
                 bExist = oDF.checkDocuSetIndexFieldExist(_currScanProj, _appNum, _batchCode, pSetNum, _docDefId, "", pPageId.ToString());
+                int iCnt = staMain.stcIndexSetting.RowId.Count;
+                if (_noSeparator.Trim() == "C")
+                {
+                    iCnt = clsIDP.stcIDPFieldMap.FieldName.Count;
+                }
 
                 if (bExist)
                 {
                     int iId = 0;
-                    while (i < staMain.stcIndexSetting.RowId.Count)
+                    while (i < iCnt)
                     {
                         iId = staMain.stcIndexSetting.RowId[i];
                         if (i == 0)
@@ -8894,13 +9018,16 @@ namespace SRDocScanIDP
                             else
                                 oCtrl = pnlIdxFld.Controls["cbxField" + i];
 
-                            ComboBox oCbx = (ComboBox)oCtrl;
-                            if (oCbx.SelectedValue != null)
-                                sValue = oCbx.SelectedValue.ToString();
-                            else
+                            if (oCtrl != null)
                             {
-                                MessageBox.Show(this, "Value is not selected or not matched! Please select from the list.", "Message");
-                                throw new Exception("Value is not selected or not matched!");
+                                ComboBox oCbx = (ComboBox)oCtrl;
+                                if (oCbx.SelectedValue != null)
+                                    sValue = oCbx.SelectedValue.ToString();
+                                else
+                                {
+                                    MessageBox.Show(this, "Value is not selected or not matched! Please select from the list.", "Message");
+                                    throw new Exception("Value is not selected or not matched!");
+                                }
                             }
                         }
                         else
@@ -8962,7 +9089,7 @@ namespace SRDocScanIDP
                 else
                 {
                     int iId = 0;
-                    while (i < staMain.stcIndexSetting.RowId.Count)
+                    while (i < iCnt)
                     {
                         iId = staMain.stcIndexSetting.RowId[i];
 
@@ -9744,7 +9871,7 @@ namespace SRDocScanIDP
                         {
                             dynamic oAna;
                             _sendEnd = DateTime.Now;
-                            if (_docType.ToUpper().Trim() == "FORM")
+                            if (_docType.ToUpper().Trim().IndexOf("FORM") != -1)
                                 oAna = SRDocScanIDPForm.FormAnalysisResult.FromJson(dResult.Result);
                             else
                                 oAna = AnalysisResult.FromJson(dResult.Result);
@@ -9756,7 +9883,6 @@ namespace SRDocScanIDP
                                 //    {
                                 //        MessageBox.Show(this,oAna.Documents[0].DocumentType.Trim());                                        
                                 //    }
-
                                 if (clsIDP.IDPResultExistDB(_currScanProj, _appNum, _batchCode, _setNum, _docType, pPageNum, oReq.endPoint, pModelId) == false)
                                 {
                                     oIDP.saveIDPResultDB(_currScanProj, _appNum, _batchCode, _setNum, _docType, oReq.endPoint, pModelId, pPageNum,
@@ -9828,7 +9954,6 @@ namespace SRDocScanIDP
                         i += 1;
                     }
                 }
-
                 oRows = null;
 
                 sSQL = "SELECT * FROM " + mGlobal.strDBName.Trim().Replace("'", "") + ".dbo.TIDPTableValues ";
@@ -10382,11 +10507,11 @@ namespace SRDocScanIDP
             return true;
         }
 
-        private void loadIndexFieldsConfig(List<string> lFieldNames)
+        private void loadMapIndexFieldsConfig()
         {
             try
             {
-                string[] drs = lFieldNames.ToArray();
+                string[] drs = clsIDP.stcIDPFieldMap.FieldName.ToArray();
 
                 if (drs != null)
                 {
@@ -10405,10 +10530,11 @@ namespace SRDocScanIDP
                                 lblField.Text = mGlobal.getMapName(drs[i].ToString(), clsIDP.stcIDPFieldMap.FieldName.ToArray(), clsIDP.stcIDPFieldMap.FieldDispName.ToArray());
                                 txtField.Visible = false;
                                 dtpField.Visible = false;
+                                lblField.Visible = true;
                                 cbxField.Visible = true;
 
                                 cbxField.MaxLength = Convert.ToInt32(staMain.stcIndexSetting.FieldSize[i].ToString());
-
+                                cbxField.Text = "";
                                 cbxField.Text = staMain.stcIndexSetting.FieldDefault[i].Trim();
 
                                 if (staMain.stcIndexSetting.FieldEdit[i].ToString().ToUpper() == "N")
@@ -10444,8 +10570,9 @@ namespace SRDocScanIDP
                                 || staMain.stcIndexSetting.FieldDataType[i].Trim().ToLower() == "barcode") //Or MultiLine
                             {
                                 lblField.Text = mGlobal.getMapName(drs[i].ToString(), clsIDP.stcIDPFieldMap.FieldName.ToArray(), clsIDP.stcIDPFieldMap.FieldDispName.ToArray());
+                                lblField.Visible = true;
                                 txtField.MaxLength = Convert.ToInt32(staMain.stcIndexSetting.FieldSize[i].ToString());
-
+                                txtField.Text = "";
                                 txtField.Text = staMain.stcIndexSetting.FieldDefault[i].Trim();
 
                                 if (staMain.stcIndexSetting.FieldEdit[i].ToString().ToUpper() == "N")
@@ -10486,15 +10613,18 @@ namespace SRDocScanIDP
 
                                 txtField.Tag = i.ToString();
                                 txtField.KeyDown += txtField_KeyDown;
-                                txtField.GotFocus += indexField_Focus;
+                                txtField.GotFocus += indexField_Focus;                                
+                                txtField.Visible = true;
 
                                 lblFieldExist.Text = staMain.stcIndexSetting.FieldDefault[i].Trim();
                             }
                             else if (staMain.stcIndexSetting.FieldDataType[i].Trim().ToLower() == "date" || staMain.stcIndexSetting.FieldDataType[i].Trim().ToLower() == "datetime")
                             {
                                 lblField.Text = mGlobal.getMapName(drs[i].ToString(), clsIDP.stcIDPFieldMap.FieldName.ToArray(), clsIDP.stcIDPFieldMap.FieldDispName.ToArray());
-                                txtField.Visible = false;
+                                lblField.Visible = true;
+                                txtField.Visible = false;                                
                                 dtpField.Visible = true;
+                                dtpField.Text = "";
                                 cbxField.Visible = false;
 
                                 if (staMain.stcIndexSetting.FieldEdit[i].ToString().ToUpper() == "N")
@@ -10546,6 +10676,7 @@ namespace SRDocScanIDP
                                 oLblFld.Name = "lblField" + (i).ToString();
                                 oLblFld.Location = currLoc1;
                                 oLblFld.Text = mGlobal.getMapName(drs[i].ToString(), clsIDP.stcIDPFieldMap.FieldName.ToArray(), clsIDP.stcIDPFieldMap.FieldDispName.ToArray());
+                                oLblFld.Visible = true;
                                 oLblFld.SendToBack();
 
                                 oCbxFld = new ComboBox();
@@ -10563,7 +10694,7 @@ namespace SRDocScanIDP
                                 oLblExist.Text = staMain.stcIndexSetting.FieldDefault[i].Trim();
 
                                 oCbxFld.MaxLength = Convert.ToInt32(staMain.stcIndexSetting.FieldSize[i].ToString());
-
+                                oCbxFld.Text = "";
                                 oCbxFld.Text = staMain.stcIndexSetting.FieldDefault[i].Trim();
 
                                 if (staMain.stcIndexSetting.FieldEdit[i].ToString().ToUpper() == "N")
@@ -10588,7 +10719,8 @@ namespace SRDocScanIDP
                                 else if (staMain.stcIndexSetting.ValueListType[i].Trim().ToLower() == "data source")
                                     loadValueListDS(_currScanProj, _appNum, staMain.stcIndexSetting.DocDefId, "Value List", oLblFld.Text.Trim(), "Data Source", oCbxFld);
 
-                                oCbxFld.GotFocus += indexField_Focus;
+                                oCbxFld.GotFocus += indexField_Focus;                                
+                                oCbxFld.Visible = true;
 
                                 lblFieldExist.Text = staMain.stcIndexSetting.FieldDefault[i].Trim();
 
@@ -10620,6 +10752,7 @@ namespace SRDocScanIDP
                                 oLblFld.Name = "lblField" + (i).ToString();
                                 oLblFld.Location = currLoc1;
                                 oLblFld.Text = mGlobal.getMapName(drs[i].ToString(), clsIDP.stcIDPFieldMap.FieldName.ToArray(), clsIDP.stcIDPFieldMap.FieldDispName.ToArray());
+                                oLblFld.Visible = true;
                                 oLblFld.SendToBack();
 
                                 oTxtFld = new TextBox();
@@ -10679,6 +10812,7 @@ namespace SRDocScanIDP
                                 //}
 
                                 oTxtFld.MaxLength = Convert.ToInt32(staMain.stcIndexSetting.FieldSize[i].ToString());
+                                oTxtFld.Text = "";
                                 oTxtFld.Text = staMain.stcIndexSetting.FieldDefault[i].Trim();
 
                                 if (staMain.stcIndexSetting.FieldEdit[i].ToString().ToUpper() == "N")
@@ -10698,7 +10832,8 @@ namespace SRDocScanIDP
                                 lPosition.Add(new int[] { oTxtFld.Location.Y, oTxtFld.Height });
 
                                 oTxtFld.KeyDown += txtField_KeyDown;
-                                oTxtFld.GotFocus += indexField_Focus;
+                                oTxtFld.GotFocus += indexField_Focus;                                
+                                oTxtFld.Visible = true;
 
                                 pnlIdxFld.Controls.Add(oLblFld);
                                 pnlIdxFld.Controls.Add(oTxtFld);
@@ -10724,6 +10859,7 @@ namespace SRDocScanIDP
                                 oLblFld.Name = "lblField" + (i).ToString();
                                 oLblFld.Location = currLoc1;
                                 oLblFld.Text = mGlobal.getMapName(drs[i].ToString(), clsIDP.stcIDPFieldMap.FieldName.ToArray(), clsIDP.stcIDPFieldMap.FieldDispName.ToArray());
+                                oLblFld.Visible = true;
                                 oLblFld.SendToBack();
 
                                 oDtpFld = new DateTimePicker();
@@ -10748,7 +10884,7 @@ namespace SRDocScanIDP
                                 //    oDtpFld.Location = currLoc2;
                                 //    oLblExist.Location = currLoc3;
                                 //}                                
-
+                                oDtpFld.Text = "";
                                 oDtpFld.Text = staMain.stcIndexSetting.FieldDefault[i].Trim();
 
                                 if (staMain.stcIndexSetting.FieldEdit[i].ToString().ToUpper() == "N")
@@ -10781,6 +10917,7 @@ namespace SRDocScanIDP
 
                                 oDtpFld.KeyDown += dtpField_KeyDown;
                                 oDtpFld.GotFocus += indexField_Focus;
+                                oDtpFld.Visible = true;
 
                                 pnlIdxFld.Controls.Add(oLblFld);
                                 pnlIdxFld.Controls.Add(oDtpFld);
@@ -10826,7 +10963,463 @@ namespace SRDocScanIDP
             }
         }
 
-        private bool loadIndexFieldsConfig(AnalysisResult oResult, ref int pFldCnt)
+        private void loadIndexFieldsConfig(List<string> lFieldNames)
+        {
+            try
+            {
+                string[] drs = lFieldNames.ToArray();
+
+                if (drs != null)
+                {
+                    Label oLblFld = null; TextBox oTxtFld = null; Label oLblExist = null;
+                    ComboBox oCbxFld = null; DateTimePicker oDtpFld = null; Button oLookBtn = null;
+                    System.Drawing.Point currLoc1, currLoc2, currLoc3, currLoc4;
+                    int iDefHeight = txtField.Height; int iDefWidth = txtField.Width; //List<int[]> lPosition = new List<int[]>(); //Position list.
+
+                    int i = 0;
+                    while (i < drs.Length)
+                    {
+                        if (i == 0)
+                        {
+                            if (staMain.stcIndexSetting.FieldDataType[i].Trim().ToLower() == "valuelist")
+                            {
+                                lblField.Text = mGlobal.getMapName(drs[i].ToString(), clsIDP.stcIDPFieldMap.FieldName.ToArray(), clsIDP.stcIDPFieldMap.FieldDispName.ToArray());
+                                lblField.Visible = true;
+                                txtField.Visible = false;
+                                dtpField.Visible = false;
+                                cbxField.Visible = true;
+
+                                cbxField.MaxLength = Convert.ToInt32(staMain.stcIndexSetting.FieldSize[i].ToString());
+
+                                cbxField.Text = staMain.stcIndexSetting.FieldDefault[i].Trim();
+
+                                if (staMain.stcIndexSetting.FieldEdit[i].ToString().ToUpper() == "N")
+                                {
+                                    cbxField.Enabled = false;
+                                    cbxField.BackColor = SystemColors.ControlLight;
+                                }
+                                else
+                                {
+                                    cbxField.Enabled = true;
+                                    if (staMain.stcIndexSetting.FieldMand[i].ToString().ToUpper() == "Y")
+                                        cbxField.BackColor = System.Drawing.Color.LightYellow;
+                                    else
+                                        cbxField.BackColor = System.Drawing.Color.White;
+                                }
+
+                                lPosition.Add(new int[] { cbxField.Location.Y, cbxField.Height });
+
+                                cbxField.Tag = i.ToString();
+                                if (staMain.stcIndexSetting.ValueListType[i].Trim().ToLower() == "listing")
+                                    loadValueList(_currScanProj, _appNum, staMain.stcIndexSetting.DocDefId, "Value List", lblField.Text.Trim(), cbxField);
+                                else if (staMain.stcIndexSetting.ValueListType[i].Trim().ToLower() == "data source")
+                                    loadValueListDS(_currScanProj, _appNum, staMain.stcIndexSetting.DocDefId, "Value List", lblField.Text.Trim(), "Data Source", cbxField);
+
+                                cbxField.GotFocus += indexField_Focus;
+
+                                lblFieldExist.Text = staMain.stcIndexSetting.FieldDefault[i].Trim();
+                            }
+                            else if (staMain.stcIndexSetting.FieldDataType[i].Trim().ToLower() == "string"
+                                || staMain.stcIndexSetting.FieldDataType[i].Trim().ToLower() == "integer"
+                                || staMain.stcIndexSetting.FieldDataType[i].Trim().ToLower() == "multiline"
+                                || staMain.stcIndexSetting.FieldDataType[i].Trim().ToLower() == "lookup"
+                                || staMain.stcIndexSetting.FieldDataType[i].Trim().ToLower() == "barcode") //Or MultiLine
+                            {
+                                lblField.Text = mGlobal.getMapName(drs[i].ToString(), clsIDP.stcIDPFieldMap.FieldName.ToArray(), clsIDP.stcIDPFieldMap.FieldDispName.ToArray());
+                                lblField.Visible = true;
+                                txtField.MaxLength = Convert.ToInt32(staMain.stcIndexSetting.FieldSize[i].ToString());
+                                txtField.Text = "";
+                                txtField.Text = staMain.stcIndexSetting.FieldDefault[i].Trim();
+
+                                if (staMain.stcIndexSetting.FieldEdit[i].ToString().ToUpper() == "N")
+                                {
+                                    txtField.Enabled = false;
+                                    txtField.BackColor = SystemColors.ControlLight;
+                                }
+                                else
+                                {
+                                    txtField.Enabled = true;
+                                    if (staMain.stcIndexSetting.FieldMand[i].ToString().ToUpper() == "Y")
+                                        txtField.BackColor = System.Drawing.Color.LightYellow;
+                                    else
+                                        txtField.BackColor = System.Drawing.Color.White;
+                                }
+
+                                if (staMain.stcIndexSetting.FieldDataType[i].Trim().ToLower() == "multiline")
+                                {
+                                    txtField.Multiline = true;
+                                    txtField.Height = txtField.Height * 8;
+                                    txtField.ScrollBars = ScrollBars.Both;
+                                }
+                                else if (staMain.stcIndexSetting.FieldDataType[i].Trim().ToLower() == "lookup")
+                                {
+                                    mGlobal.Write2Log("Lookup metadata cannot be first index field, dependency is required on first field. Please check with system administrator.");
+                                    //txtField.Width = txtField.Width - btnLook.Width - 2;
+                                    //btnLook.Tag = i.ToString();
+                                    //btnLook.BringToFront();
+                                    //currLoc4 = btnLook.Location;
+                                    //currLoc4.Y = oTxtFld.Location.Y - 2;
+                                    //btnLook.Location = currLoc4;
+
+                                    //btnLook.Visible = true;
+                                    //btnLook.Click += new EventHandler(btnLook_Click);
+                                }
+
+                                lPosition.Add(new int[] { txtField.Location.Y, txtField.Height });
+
+                                txtField.Tag = i.ToString();
+                                txtField.KeyDown += txtField_KeyDown;
+                                txtField.GotFocus += indexField_Focus;
+                                txtField.Visible = true;
+
+                                lblFieldExist.Text = staMain.stcIndexSetting.FieldDefault[i].Trim();
+                            }
+                            else if (staMain.stcIndexSetting.FieldDataType[i].Trim().ToLower() == "date" || staMain.stcIndexSetting.FieldDataType[i].Trim().ToLower() == "datetime")
+                            {
+                                lblField.Text = mGlobal.getMapName(drs[i].ToString(), clsIDP.stcIDPFieldMap.FieldName.ToArray(), clsIDP.stcIDPFieldMap.FieldDispName.ToArray());
+                                lblField.Visible = true;
+                                txtField.Visible = false;
+                                dtpField.Visible = true;
+                                dtpField.Text = "";
+                                cbxField.Visible = false;
+
+                                if (staMain.stcIndexSetting.FieldEdit[i].ToString().ToUpper() == "N")
+                                {
+                                    dtpField.Enabled = false;
+                                    dtpField.BackColor = SystemColors.ControlLight;
+                                }
+                                else
+                                {
+                                    dtpField.Enabled = true;
+                                    if (staMain.stcIndexSetting.FieldMand[i].ToString().ToUpper() == "Y")
+                                        dtpField.BackColor = System.Drawing.Color.LightYellow;
+                                    else
+                                        dtpField.BackColor = System.Drawing.Color.White;
+                                }
+
+                                dtpField.Tag = i.ToString();
+                                dtpField.Format = DateTimePickerFormat.Custom;
+
+                                if (staMain.stcIndexSetting.FieldDataType[i].Trim().ToLower() == "date")
+                                {
+                                    dtpField.CustomFormat = "dd/MM/yyyy";
+                                }
+                                else
+                                {
+                                    dtpField.CustomFormat = "dd/MM/yyyy hh:mm:ss";
+                                }
+
+                                lPosition.Add(new int[] { dtpField.Location.Y, dtpField.Height });
+
+                                dtpField.KeyDown += dtpField_KeyDown;
+                                dtpField.GotFocus += indexField_Focus;
+                                lblFieldExist.Text = staMain.stcIndexSetting.FieldDefault[i].Trim();
+                            }
+                        }
+                        else
+                        {
+                            if (staMain.stcIndexSetting.FieldDataType[i].Trim().ToLower() == "valuelist")
+                            {
+                                currLoc1 = lblField.Location;
+                                currLoc1.Y = lPosition[i - 1][0] + lPosition[i - 1][1] + 5;
+                                currLoc2 = cbxField.Location;
+                                currLoc2.Y = lPosition[i - 1][0] + lPosition[i - 1][1] + 5;
+                                currLoc3 = lblFieldExist.Location;
+                                currLoc3.Y = lPosition[i - 1][0] + lPosition[i - 1][1] + 5;
+
+                                oLblFld = new Label();
+                                oLblFld.AutoSize = true;
+                                oLblFld.Name = "lblField" + (i).ToString();
+                                oLblFld.Location = currLoc1;
+                                oLblFld.Text = mGlobal.getMapName(drs[i].ToString(), clsIDP.stcIDPFieldMap.FieldName.ToArray(), clsIDP.stcIDPFieldMap.FieldDispName.ToArray());
+                                oLblFld.Visible = true;
+                                oLblFld.SendToBack();
+
+                                oCbxFld = new ComboBox();
+                                oCbxFld.Name = "cbxField" + (i).ToString();
+                                oCbxFld.Location = currLoc2;
+                                oCbxFld.Size = cbxField.Size;
+                                oCbxFld.Tag = (i).ToString();
+                                oCbxFld.BringToFront();
+                                oCbxFld.Width = cbxField.Width;
+
+                                oLblExist = new Label();
+                                oLblExist.Name = "lblFieldExist" + (i).ToString();
+                                oLblExist.Location = currLoc3;
+                                oLblExist.Visible = false;
+                                oLblExist.Text = staMain.stcIndexSetting.FieldDefault[i].Trim();
+
+                                oCbxFld.MaxLength = Convert.ToInt32(staMain.stcIndexSetting.FieldSize[i].ToString());
+                                oCbxFld.Text = "";
+                                oCbxFld.Text = staMain.stcIndexSetting.FieldDefault[i].Trim();
+
+                                if (staMain.stcIndexSetting.FieldEdit[i].ToString().ToUpper() == "N")
+                                {
+                                    oCbxFld.Enabled = false;
+                                    oCbxFld.BackColor = SystemColors.ControlLight;
+                                }
+                                else
+                                {
+                                    oCbxFld.Enabled = true;
+                                    if (staMain.stcIndexSetting.FieldMand[i].ToString().ToUpper() == "Y")
+                                        oCbxFld.BackColor = System.Drawing.Color.LightYellow;
+                                    else
+                                        oCbxFld.BackColor = System.Drawing.Color.White;
+                                }
+
+                                lPosition.Add(new int[] { oCbxFld.Location.Y, oCbxFld.Height });
+
+                                oCbxFld.Tag = i.ToString();
+                                if (staMain.stcIndexSetting.ValueListType[i].Trim().ToLower() == "listing")
+                                    loadValueList(_currScanProj, _appNum, staMain.stcIndexSetting.DocDefId, "Value List", oLblFld.Text.Trim(), oCbxFld);
+                                else if (staMain.stcIndexSetting.ValueListType[i].Trim().ToLower() == "data source")
+                                    loadValueListDS(_currScanProj, _appNum, staMain.stcIndexSetting.DocDefId, "Value List", oLblFld.Text.Trim(), "Data Source", oCbxFld);
+
+                                oCbxFld.GotFocus += indexField_Focus;
+                                oCbxFld.Visible = true;
+
+                                lblFieldExist.Text = staMain.stcIndexSetting.FieldDefault[i].Trim();
+
+                                pnlIdxFld.Controls.Add(oLblFld);
+                                pnlIdxFld.Controls.Add(oCbxFld);
+                                pnlIdxFld.Controls.Add(oLblExist);
+                            }
+                            else if (staMain.stcIndexSetting.FieldDataType[i].Trim().ToLower() == "string"
+                                || staMain.stcIndexSetting.FieldDataType[i].Trim().ToLower() == "integer"
+                                || staMain.stcIndexSetting.FieldDataType[i].Trim().ToLower() == "multiline"
+                                || staMain.stcIndexSetting.FieldDataType[i].Trim().ToLower() == "lookup"
+                                || staMain.stcIndexSetting.FieldDataType[i].Trim().ToLower() == "barcode")
+                            {
+                                //currLoc1 = lblField.Location;
+                                //currLoc1.Y = lblField.Location.Y + (30 * i);
+                                //currLoc2 = txtField.Location;
+                                //currLoc2.Y = txtField.Location.Y + (30 * i);
+                                //currLoc3 = lblFieldExist.Location;
+                                //currLoc3.Y = lblFieldExist.Location.Y + (30 * i);
+                                currLoc1 = lblField.Location;
+                                currLoc1.Y = lPosition[i - 1][0] + lPosition[i - 1][1] + 5;
+                                currLoc2 = txtField.Location;
+                                currLoc2.Y = lPosition[i - 1][0] + lPosition[i - 1][1] + 5;
+                                currLoc3 = lblFieldExist.Location;
+                                currLoc3.Y = lPosition[i - 1][0] + lPosition[i - 1][1] + 5;
+
+                                oLblFld = new Label();
+                                oLblFld.AutoSize = true;
+                                oLblFld.Name = "lblField" + (i).ToString();
+                                oLblFld.Location = currLoc1;
+                                oLblFld.Text = mGlobal.getMapName(drs[i].ToString(), clsIDP.stcIDPFieldMap.FieldName.ToArray(), clsIDP.stcIDPFieldMap.FieldDispName.ToArray());
+                                oLblFld.Visible = true;
+                                oLblFld.SendToBack();
+
+                                oTxtFld = new TextBox();
+                                oTxtFld.Name = "txtField" + (i).ToString();
+                                oTxtFld.Location = currLoc2;
+                                oTxtFld.Size = txtField.Size;
+                                oTxtFld.Tag = (i).ToString();
+                                oTxtFld.BringToFront();
+                                oTxtFld.Width = iDefWidth;
+
+                                oLblExist = new Label();
+                                oLblExist.Name = "lblFieldExist" + (i).ToString();
+                                oLblExist.Location = currLoc3;
+                                oLblExist.Visible = false;
+                                oLblExist.Text = staMain.stcIndexSetting.FieldDefault[i].Trim();
+
+                                if (staMain.stcIndexSetting.FieldDataType[i].Trim().ToLower() == "multiline")
+                                {
+                                    oTxtFld.Multiline = true;
+                                    oTxtFld.Height = iDefHeight * 8;
+                                    oTxtFld.ScrollBars = ScrollBars.Both;
+                                    //currLoc1.Y = (currLoc1.Y) + oTxtFld.Height;
+                                    //currLoc2.Y = (currLoc2.Y) + oTxtFld.Height;
+                                    //currLoc3.Y = (currLoc3.Y) + oTxtFld.Height;
+                                    //oLblFld.Location = currLoc1;
+                                    //oTxtFld.Location = currLoc2;
+                                    //oLblExist.Location = currLoc3;
+                                }
+                                else if (staMain.stcIndexSetting.FieldDataType[i].Trim().ToLower() == "lookup")
+                                {
+                                    //oLookBtn = new Button();
+                                    //oLookBtn.Name = "btnLook" + (i).ToString();
+                                    //oLookBtn.Text = "Search";
+                                    //oLookBtn.Width = btnLook.Width;
+                                    //oLookBtn.Height = btnLook.Height;
+                                    //oLookBtn.Tag = i.ToString();
+                                    //oLookBtn.BringToFront();
+
+                                    //currLoc4 = btnLook.Location;
+                                    //currLoc4.Y = oTxtFld.Location.Y - 2;
+                                    //oLookBtn.Location = currLoc4;
+
+                                    //oTxtFld.Width = oTxtFld.Width - oLookBtn.Width - 2;
+                                    //oLookBtn.Visible = true;
+                                    //oLookBtn.Click += new EventHandler(btnLook_Click);
+
+                                    //pnlIdxFld.Controls.Add(oLookBtn);
+                                }
+                                //if (currLoc2.Y <= lPosition[i - 1])
+                                //{
+                                //    currLoc1.Y = lPosition[i - 1] + 5;
+                                //    currLoc2.Y = lPosition[i - 1] + 5;
+                                //    currLoc3.Y = lPosition[i - 1] + 5;
+                                //    oLblFld.Location = currLoc1;
+                                //    oTxtFld.Location = currLoc2;
+                                //    oLblExist.Location = currLoc3;
+                                //}
+
+                                oTxtFld.MaxLength = Convert.ToInt32(staMain.stcIndexSetting.FieldSize[i].ToString());
+                                oTxtFld.Text = "";
+                                oTxtFld.Text = staMain.stcIndexSetting.FieldDefault[i].Trim();
+
+                                if (staMain.stcIndexSetting.FieldEdit[i].ToString().ToUpper() == "N")
+                                {
+                                    oTxtFld.Enabled = false;
+                                    oTxtFld.BackColor = SystemColors.ControlLight;
+                                }
+                                else
+                                {
+                                    oTxtFld.Enabled = true;
+                                    if (staMain.stcIndexSetting.FieldMand[i].ToString().ToUpper() == "Y")
+                                        oTxtFld.BackColor = System.Drawing.Color.LightYellow;
+                                    else
+                                        oTxtFld.BackColor = System.Drawing.Color.White;
+                                }
+
+                                lPosition.Add(new int[] { oTxtFld.Location.Y, oTxtFld.Height });
+
+                                oTxtFld.KeyDown += txtField_KeyDown;
+                                oTxtFld.GotFocus += indexField_Focus;
+                                oTxtFld.Visible = true;
+
+                                pnlIdxFld.Controls.Add(oLblFld);
+                                pnlIdxFld.Controls.Add(oTxtFld);
+                                pnlIdxFld.Controls.Add(oLblExist);
+                            }
+                            else if (staMain.stcIndexSetting.FieldDataType[i].Trim().ToLower() == "date" || staMain.stcIndexSetting.FieldDataType[i].Trim().ToLower() == "datetime")
+                            {
+                                //currLoc1 = lblField.Location;
+                                //currLoc1.Y = lblField.Location.Y + (30 * i);
+                                //currLoc2 = txtField.Location;
+                                //currLoc2.Y = txtField.Location.Y + (30 * i);
+                                //currLoc3 = lblFieldExist.Location;
+                                //currLoc3.Y = lblFieldExist.Location.Y + (30 * i);
+                                currLoc1 = lblField.Location;
+                                currLoc1.Y = lPosition[i - 1][0] + lPosition[i - 1][1] + 5;
+                                currLoc2 = txtField.Location;
+                                currLoc2.Y = lPosition[i - 1][0] + lPosition[i - 1][1] + 5;
+                                currLoc3 = lblFieldExist.Location;
+                                currLoc3.Y = lPosition[i - 1][0] + lPosition[i - 1][1] + 5;
+
+                                oLblFld = new Label();
+                                oLblFld.AutoSize = true;
+                                oLblFld.Name = "lblField" + (i).ToString();
+                                oLblFld.Location = currLoc1;
+                                oLblFld.Text = mGlobal.getMapName(drs[i].ToString(), clsIDP.stcIDPFieldMap.FieldName.ToArray(), clsIDP.stcIDPFieldMap.FieldDispName.ToArray());
+                                oLblFld.Visible = true;
+                                oLblFld.SendToBack();
+
+                                oDtpFld = new DateTimePicker();
+                                oDtpFld.Name = "dtpField" + (i).ToString();
+                                oDtpFld.Location = currLoc2;
+                                oDtpFld.Size = dtpField.Size;
+                                oDtpFld.Tag = (i).ToString();
+                                oDtpFld.BringToFront();
+
+                                oLblExist = new Label();
+                                oLblExist.Name = "lblFieldExist" + (i).ToString();
+                                oLblExist.Location = currLoc3;
+                                oLblExist.Visible = false;
+                                oLblExist.Text = staMain.stcIndexSetting.FieldDefault[i].Trim();
+
+                                //if (currLoc2.Y <= lPosition[i - 1][0])
+                                //{
+                                //    currLoc1.Y = (currLoc1.Y) + lPosition[i - 1][1] + 5;
+                                //    currLoc2.Y = (currLoc1.Y) + lPosition[i - 1][1] + 5;
+                                //    currLoc3.Y = (currLoc1.Y) + lPosition[i - 1][1] + 5;
+                                //    oLblFld.Location = currLoc1;
+                                //    oDtpFld.Location = currLoc2;
+                                //    oLblExist.Location = currLoc3;
+                                //}                                
+                                oDtpFld.Text = "";
+                                oDtpFld.Text = staMain.stcIndexSetting.FieldDefault[i].Trim();
+
+                                if (staMain.stcIndexSetting.FieldEdit[i].ToString().ToUpper() == "N")
+                                {
+                                    oDtpFld.Enabled = false;
+                                    oDtpFld.BackColor = SystemColors.ControlLight;
+                                }
+                                else
+                                {
+                                    oDtpFld.Enabled = true;
+                                    if (staMain.stcIndexSetting.FieldMand[i].ToString().ToUpper() == "Y")
+                                        oDtpFld.BackColor = System.Drawing.Color.LightYellow;
+                                    else
+                                        oDtpFld.BackColor = System.Drawing.Color.White;
+                                }
+
+                                oDtpFld.Tag = i.ToString();
+                                oDtpFld.Format = DateTimePickerFormat.Custom;
+
+                                if (staMain.stcIndexSetting.FieldDataType[i].Trim().ToLower() == "date")
+                                {
+                                    oDtpFld.CustomFormat = "dd/MM/yyyy";
+                                }
+                                else
+                                {
+                                    oDtpFld.CustomFormat = "dd/MM/yyyy HH:mm:ss";
+                                }
+
+                                lPosition.Add(new int[] { oDtpFld.Location.Y, oDtpFld.Height });
+
+                                oDtpFld.KeyDown += dtpField_KeyDown;
+                                oDtpFld.GotFocus += indexField_Focus;
+                                oDtpFld.Visible = true;
+
+                                pnlIdxFld.Controls.Add(oLblFld);
+                                pnlIdxFld.Controls.Add(oDtpFld);
+                                pnlIdxFld.Controls.Add(oLblExist);
+                            }
+                        }
+
+                        i += 1;
+                    } //End while.
+
+                    i = 0;
+                    while (i < drs.Length)
+                    {
+                        if (staMain.stcIndexSetting.FieldDataType[i].ToString().ToLower() == "lookup")
+                        {
+                            Control[] oCtrls = null;
+                            if ((i - 1) == 0)
+                            {
+                                oCtrls = pnlIdxFld.Controls.Find("txtField", true); //Previous one only.
+                            }
+                            else
+                                oCtrls = pnlIdxFld.Controls.Find("txtField" + (i - 1), true); //Previous one only.
+
+                            if (oCtrls != null)
+                            {
+                                if (oCtrls.Length > 0)
+                                {
+                                    oCtrls[0].KeyDown += lookupField_KeyDown;
+                                    oCtrls[0].GotFocus += indexField_Focus;
+                                }
+                            }
+                        }
+
+                        i += 1;
+                    } //End while.
+
+                }
+                drs = null;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        private bool loadIndexFieldsConfig(AnalysisResult oResult, string pDocType, ref int pFldCnt)
         {
             try
             {
@@ -10889,7 +11482,7 @@ namespace SRDocScanIDP
                 }
 
                 pFldCnt = lFieldNames.Count;
-                clsIDP.loadIDPFieldMappingDB(_currScanProj, _appNum, _docDefId);
+                clsIDP.loadIDPFieldMappingDB(_currScanProj, _appNum, _docDefId, pDocType);
                 loadIndexFieldsConfig(lFieldNames);
             }
             catch (Exception ex)
@@ -10899,7 +11492,7 @@ namespace SRDocScanIDP
             return true;
         }
 
-        private bool loadIndexFieldsConfig(SRDocScanIDPForm.FormAnalysisResult oResult, ref int pFldCnt)
+        private bool loadIndexFieldsConfig(SRDocScanIDPForm.FormAnalysisResult oResult, string pDocType, ref int pFldCnt)
         {
             try
             {
@@ -10962,7 +11555,7 @@ namespace SRDocScanIDP
                 }
 
                 pFldCnt = lFieldNames.Count;
-                clsIDP.loadIDPFieldMappingDB(_currScanProj, _appNum, _docDefId);
+                clsIDP.loadIDPFieldMappingDB(_currScanProj, _appNum, _docDefId, pDocType);
                 loadIndexFieldsConfig(lFieldNames);
             }
             catch (Exception ex)
@@ -11398,8 +11991,8 @@ namespace SRDocScanIDP
 
                         n += 1;
                     }
-                    pnlIdxFld.Refresh();
                 }
+                pnlIdxFld.Refresh();
             }
             catch (Exception ex)
             {
@@ -11611,8 +12204,10 @@ namespace SRDocScanIDP
                                 lblKeyField.Text = mGlobal.sanitizeValue(sKey, " ").Trim();
                                 lblKeyField.Visible = true;
                                 chkKeyFldVal.Visible = false;
+                                dtpKeyField.Visible = false;
                                 txtKeyFld.MaxLength = 250;
                                 txtKeyFld.Text = "";
+                                txtKeyFld.Visible = true;
 
                                 lPosition.Add(new int[] { txtKeyFld.Location.Y, txtKeyFld.Height });
 
@@ -11654,6 +12249,7 @@ namespace SRDocScanIDP
                                     oChkFld.Text = mGlobal.trimTextWithChars(oChkFld, 500, "...");
                                 }
                                 oChkFld.Width = CHKBOX_MAX_WIDTH;
+                                oChkFld.Visible = true;
                                 oChkFld.BringToFront();
 
                                 oLblExist = new Label();
@@ -11707,6 +12303,7 @@ namespace SRDocScanIDP
                                 oLblFld.Name = "lblKeyField" + (i).ToString();
                                 oLblFld.Location = currLoc1;
                                 oLblFld.Text = mGlobal.sanitizeValue(sKey, " ").Trim();
+                                oLblFld.Visible = true;
                                 oLblFld.SendToBack();
 
                                 oDtpFld = new DateTimePicker();
@@ -11714,6 +12311,7 @@ namespace SRDocScanIDP
                                 oDtpFld.Location = currLoc2;
                                 oDtpFld.Size = dtpKeyField.Size;
                                 oDtpFld.Tag = (i + 1).ToString();
+                                oDtpFld.Visible = true;
                                 oDtpFld.BringToFront();
 
                                 oLblExist = new Label();
@@ -11787,6 +12385,7 @@ namespace SRDocScanIDP
                                 oLblFld.Name = "lblKeyField" + (i).ToString();
                                 oLblFld.Location = currLoc1;
                                 oLblFld.Text = mGlobal.sanitizeValue(sKey, " ").Trim();
+                                oLblFld.Visible = true;
                                 oLblFld.SendToBack();
 
                                 oTxtFld = new TextBox();
@@ -11795,6 +12394,7 @@ namespace SRDocScanIDP
                                 oTxtFld.Size = txtKeyFld.Size;
                                 oTxtFld.Tag = (i + 1).ToString();
                                 oTxtFld.Width = iDefWidth;
+                                oTxtFld.Visible = true;
                                 oTxtFld.BringToFront();
 
                                 oLblExist = new Label();
@@ -11977,7 +12577,8 @@ namespace SRDocScanIDP
                                 txtKeyFld.MaxLength = 250;
                                 txtKeyFld.Text = "";
                                 txtKeyFld.Visible = true;
-                                dtpField.Visible = false;
+                                dtpKeyField.Visible = false;
+                                cbxKeyField.Visible = false;
 
                                 lPosition.Add(new int[] { txtKeyFld.Location.Y, txtKeyFld.Height });
 
@@ -12310,7 +12911,7 @@ namespace SRDocScanIDP
                                 sCtrlType = "Check";
                             else if (sVal.Trim().ToLower().IndexOf("unselected") != -1)
                                 sCtrlType = "Check";
-                            else if (mGlobal.isDate(sVal, new string[] { "dd/MM/yyyy", "dd/MM/yyyy hh:mm:ss" }))
+                            else if (mGlobal.isDate(sVal, new string[] { "dd/MM/yyyy", "MM/dd/yyyy", "dd/MM/yyyy hh:mm:ss" }))
                                 sCtrlType = "Date";
                             else
                                 sCtrlType = "Text";
@@ -12360,7 +12961,7 @@ namespace SRDocScanIDP
                             if (sCtrlType == "Date") //Init.
                             {
                                 oDate = (DateTimePicker)oCtrl;
-                                if (mGlobal.isDate(sVal, new string[] { "dd/MM/yyyy" }))
+                                if (mGlobal.isDate(sVal, new string[] { "dd/MM/yyyy", "MM/dd/yyyy" }))
                                 {
                                     oDate.CustomFormat = "dd/MM/yyyy";
                                 }
@@ -12464,6 +13065,7 @@ namespace SRDocScanIDP
                         } //End While.
                     }
                 }
+                drs = null;
 
             }
             catch (Exception ex)
@@ -12758,7 +13360,7 @@ namespace SRDocScanIDP
                     {
                         sKeyDataType = "check";
                     }
-                    else if (mGlobal.isDate(sVal, new string[] { "dd/MM/yyyy", "dd/MM/yyyy hh:mm:ss" }))
+                    else if (mGlobal.isDate(sVal, new string[] { "dd/MM/yyyy", "MM/dd/yyyy", "dd/MM/yyyy hh:mm:ss" }))
                     {
                         sKeyDataType = "date";
                     }
@@ -12939,17 +13541,7 @@ namespace SRDocScanIDP
                         else
                             oCtrl = pnlKeyFld.Controls["txtKeyFld" + i];
 
-                        if (oCtrl != null) sDataType = "text";
-
-                        if (oCtrl == null || oCtrl.Visible == false)
-                        {
-                            if (i == 0)
-                                oCtrl = pnlKeyFld.Controls["dtpKeyField"];
-                            else
-                                oCtrl = pnlKeyFld.Controls["dtpKeyField" + i];
-
-                            if (oCtrl != null) sDataType = "date";
-                        }
+                        if (oCtrl != null) sDataType = "text";                        
 
                         if (oCtrl == null || oCtrl.Visible == false)
                         {
@@ -12966,81 +13558,93 @@ namespace SRDocScanIDP
                                 sDataType = "check";
                             }
                         }
-                        if (oCtrl == null || oCtrl.Visible == false)
+                        else if (oCtrl == null || oCtrl.Visible == false)
                         {
                             if (i == 0)
-                                oCtrl = pnlKeyFld.Controls["cbxKeyField"];
+                                oCtrl = pnlKeyFld.Controls["dtpKeyField"];
                             else
-                                oCtrl = pnlKeyFld.Controls["cbxKeyField" + i];
+                                oCtrl = pnlKeyFld.Controls["dtpKeyField" + i];
 
-                            if (oCtrl != null) sDataType = "combo";
-
-                            ComboBox oCbx = (ComboBox)oCtrl;
-                            if (oCbx.SelectedValue != null)
-                                sValue = oCbx.SelectedValue.ToString();
-                            else
-                            {
-                                MessageBox.Show(this, "Key field value is not selected or not matched! Please select from the list.", "Message");
-                                throw new Exception("Key field value is not selected or not matched!");
-                            }
+                            if (oCtrl != null) sDataType = "date";
                         }
+                        //else if (oCtrl == null || oCtrl.Visible == false)
+                        //{
+                        //    if (i == 0)
+                        //        oCtrl = pnlKeyFld.Controls["cbxKeyField"];
+                        //    else
+                        //        oCtrl = pnlKeyFld.Controls["cbxKeyField" + i];
+
+                        //    if (oCtrl != null) sDataType = "combo";
+
+                        //    ComboBox oCbx = (ComboBox)oCtrl;
+                        //    if (oCbx.SelectedValue != null)
+                        //        sValue = oCbx.SelectedValue.ToString();
+                        //    else
+                        //    {
+                        //        //MessageBox.Show(this, "Key field value is not selected or not matched! Please select from the list.", "Message");
+                        //        //throw new Exception("Key field value is not selected or not matched!");
+                        //        mGlobal.Write2Log("Save key value...Key field value is not selected or not matched!");
+                        //    }
+                        //}
                         else if (sValue.Trim() == string.Empty)
                             sValue = oCtrl.Text;
 
-                        sFldId = oCtrl.Tag.ToString().Trim();
-                        bExist = oDF.checkDocuSetKeyFieldExist(_currScanProj, _appNum, _batchCode, pSetNum, pDocType, pPageId.ToString(), sFldId);
-
-                        if (bExist)
+                        if (oCtrl != null)
                         {
-                            sSQL = "UPDATE " + mGlobal.strDBName.Trim().Replace("'", "") + ".dbo.TKeyFieldValue ";
-                            sSQL += "SET [fldvalue]=N'" + sValue.Trim().Replace("'", "''") + "'";
-                            sSQL += ",[keydatatype]='" + sDataType.Trim().Replace("'", "") + "'";
-                            sSQL += ",[modifieddate]='" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' ";
-                            sSQL += "WHERE scanpjcode='" + _currScanProj.Trim().Replace("'", "") + "' ";
-                            sSQL += "AND sysappnum='" + _appNum.Trim().Replace("'", "") + "' ";
-                            sSQL += "AND batchcode='" + _batchCode.Trim().Replace("'", "") + "' ";
-                            sSQL += "AND setnum='" + pSetNum.Trim().Replace("'", "") + "' ";
-                            sSQL += "AND doctype='" + pDocType.Trim().Replace("'", "") + "' ";                            
-                            sSQL += "AND pageid='" + pPageId + "' ";
-                            sSQL += "AND fieldid='" + sFldId.Trim().Replace("'", "") + "' ";
-                            sSQL += "AND keyname=N'" + sKeyName.Trim().Replace("'", "''") + "' ";
+                            sFldId = oCtrl.Tag.ToString().Trim();
+                            bExist = oDF.checkDocuSetKeyFieldExist(_currScanProj, _appNum, _batchCode, pSetNum, pDocType, pPageId.ToString(), sFldId);
 
-                            if (mGlobal.objDB.UpdateRows(sSQL, true) == false)
+                            if (bExist)
                             {
-                                bSaved = false;
-                                throw new Exception("Update document key field data failed!");
+                                sSQL = "UPDATE " + mGlobal.strDBName.Trim().Replace("'", "") + ".dbo.TKeyFieldValue ";
+                                sSQL += "SET [fldvalue]=N'" + sValue.Trim().Replace("'", "''") + "'";
+                                sSQL += ",[keydatatype]='" + sDataType.Trim().Replace("'", "") + "'";
+                                sSQL += ",[modifieddate]='" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' ";
+                                sSQL += "WHERE scanpjcode='" + _currScanProj.Trim().Replace("'", "") + "' ";
+                                sSQL += "AND sysappnum='" + _appNum.Trim().Replace("'", "") + "' ";
+                                sSQL += "AND batchcode='" + _batchCode.Trim().Replace("'", "") + "' ";
+                                sSQL += "AND setnum='" + pSetNum.Trim().Replace("'", "") + "' ";
+                                sSQL += "AND doctype='" + pDocType.Trim().Replace("'", "") + "' ";
+                                sSQL += "AND pageid='" + pPageId + "' ";
+                                sSQL += "AND fieldid='" + sFldId.Trim().Replace("'", "") + "' ";
+                                sSQL += "AND keyname=N'" + sKeyName.Trim().Replace("'", "''") + "' ";
+
+                                if (mGlobal.objDB.UpdateRows(sSQL, true) == false)
+                                {
+                                    bSaved = false;
+                                    throw new Exception("Update document key field data failed!");
+                                }
                             }
-                        }
-                        else
-                        {
-                            sSQL = "INSERT INTO " + mGlobal.strDBName.Trim().Replace("'", "") + ".dbo.TKeyFieldValue ";
-                            sSQL += "([scanpjcode]";
-                            sSQL += ",[sysappnum]";
-                            sSQL += ",[batchcode]";
-                            sSQL += ",[setnum]";
-                            sSQL += ",[doctype]";
-                            sSQL += ",[pageid]";
-                            sSQL += ",[fieldid]";
-                            sSQL += ",[keyname]";
-                            sSQL += ",[fldvalue]";
-                            sSQL += ",[keydatatype]";
-                            sSQL += ") VALUES (";
-                            sSQL += "'" + _currScanProj.Trim().Replace("'", "") + "'";
-                            sSQL += ",'" + _appNum.Trim().Replace("'", "") + "'";
-                            sSQL += ",'" + _batchCode.Trim().Replace("'", "") + "'";
-                            sSQL += ",'" + pSetNum.Trim().Replace("'", "") + "'";
-                            sSQL += ",'" + pDocType.Trim().Replace("'", "") + "'";
-                            sSQL += ",'" + pPageId + "'";
-                            sSQL += ",'" + sFldId.Trim().Replace("'", "") + "'";
-                            sSQL += ",N'" + sKeyName.Trim().Replace("'", "''") + "'";
-                            sSQL += ",N'" + sValue.Trim().Replace("'", "''") + "'";
-                            sSQL += ",'" + sDataType.Trim().Replace("'", "") + "')";
-
-
-                            if (mGlobal.objDB.UpdateRows(sSQL, true) == false)
+                            else
                             {
-                                bSaved = false;
-                                throw new Exception("Saving document key field data failed!");
+                                sSQL = "INSERT INTO " + mGlobal.strDBName.Trim().Replace("'", "") + ".dbo.TKeyFieldValue ";
+                                sSQL += "([scanpjcode]";
+                                sSQL += ",[sysappnum]";
+                                sSQL += ",[batchcode]";
+                                sSQL += ",[setnum]";
+                                sSQL += ",[doctype]";
+                                sSQL += ",[pageid]";
+                                sSQL += ",[fieldid]";
+                                sSQL += ",[keyname]";
+                                sSQL += ",[fldvalue]";
+                                sSQL += ",[keydatatype]";
+                                sSQL += ") VALUES (";
+                                sSQL += "'" + _currScanProj.Trim().Replace("'", "") + "'";
+                                sSQL += ",'" + _appNum.Trim().Replace("'", "") + "'";
+                                sSQL += ",'" + _batchCode.Trim().Replace("'", "") + "'";
+                                sSQL += ",'" + pSetNum.Trim().Replace("'", "") + "'";
+                                sSQL += ",'" + pDocType.Trim().Replace("'", "") + "'";
+                                sSQL += ",'" + pPageId + "'";
+                                sSQL += ",'" + sFldId.Trim().Replace("'", "") + "'";
+                                sSQL += ",N'" + sKeyName.Trim().Replace("'", "''") + "'";
+                                sSQL += ",N'" + sValue.Trim().Replace("'", "''") + "'";
+                                sSQL += ",'" + sDataType.Trim().Replace("'", "") + "')";
+
+                                if (mGlobal.objDB.UpdateRows(sSQL, true) == false)
+                                {
+                                    bSaved = false;
+                                    throw new Exception("Saving document key field data failed!");
+                                }
                             }
                         }
 
@@ -13098,62 +13702,65 @@ namespace SRDocScanIDP
                                 sDataType = "check";
                             }
                         }
-                        if (oCtrl == null || oCtrl.Visible == false)
-                        {
-                            if (i == 0)
-                                oCtrl = pnlKeyFld.Controls["cbxKeyField"];
-                            else
-                                oCtrl = pnlKeyFld.Controls["cbxKeyField" + i];
+                        //else if (oCtrl == null || oCtrl.Visible == false)
+                        //{
+                        //    if (i == 0)
+                        //        oCtrl = pnlKeyFld.Controls["cbxKeyField"];
+                        //    else
+                        //        oCtrl = pnlKeyFld.Controls["cbxKeyField" + i];
 
-                            if (oCtrl != null) sDataType = "combo";
+                        //    if (oCtrl != null) sDataType = "combo";
 
-                            ComboBox oCbx = (ComboBox)oCtrl;
-                            if (oCbx.SelectedValue != null)
-                                sValue = oCbx.SelectedValue.ToString();
-                            else
-                            {
-                                MessageBox.Show(this, "Key field value is not selected or not matched! Please select from the list.", "Message");
-                                throw new Exception("Key field value is not selected or not matched!");
-                            }
-                        }
+                        //    ComboBox oCbx = (ComboBox)oCtrl;
+                        //    if (oCbx.SelectedValue != null)
+                        //        sValue = oCbx.SelectedValue.ToString();
+                        //    else
+                        //    {
+                        //        //MessageBox.Show(this, "Key field value is not selected or not matched! Please select from the list.", "Message");
+                        //        //throw new Exception("Key field value is not selected or not matched!");
+                        //        mGlobal.Write2Log("Save key value..Key field value is not selected or not matched!");
+                        //    }
+                        //}
                         else if (sValue.Trim() == string.Empty)
                             sValue = oCtrl.Text;
 
-                        sFldId = oCtrl.Tag.ToString().Trim();
-
-                        sSQL = "INSERT INTO " + mGlobal.strDBName.Trim().Replace("'", "") + ".dbo.TKeyFieldValue ";
-                        sSQL += "([scanpjcode]";
-                        sSQL += ",[sysappnum]";
-                        sSQL += ",[batchcode]";
-                        sSQL += ",[setnum]";
-                        sSQL += ",[doctype]";
-                        sSQL += ",[pageid]";
-                        sSQL += ",[fieldid]";
-                        sSQL += ",[keyname]";
-                        sSQL += ",[fldvalue]";
-                        sSQL += ",[keydatatype]";
-                        sSQL += ") VALUES (";
-                        sSQL += "'" + _currScanProj.Trim().Replace("'", "") + "'";
-                        sSQL += ",'" + _appNum.Trim().Replace("'", "") + "'";
-                        sSQL += ",'" + _batchCode.Trim().Replace("'", "") + "'";
-                        sSQL += ",'" + pSetNum.Trim().Replace("'", "") + "'";
-                        sSQL += ",'" + pDocType.Trim().Replace("'", "") + "'";
-                        sSQL += ",'" + pPageId + "'";
-                        sSQL += ",'" + sFldId.Trim().Replace("'", "") + "'";
-                        sSQL += ",N'" + sKeyName.Trim().Replace("'", "''") + "'";
-                        sSQL += ",N'" + sValue.Trim().Replace("'", "''") + "'";
-                        sSQL += ",'" + sDataType.Trim().Replace("'", "") + "')";
-
-                        if (mGlobal.objDB.UpdateRows(sSQL, true) == false)
+                        if (oCtrl != null)
                         {
-                            bSaved = false;
-                            throw new Exception("Saving document key field data failed!!");
+                            sFldId = oCtrl.Tag.ToString().Trim();
+
+                            sSQL = "INSERT INTO " + mGlobal.strDBName.Trim().Replace("'", "") + ".dbo.TKeyFieldValue ";
+                            sSQL += "([scanpjcode]";
+                            sSQL += ",[sysappnum]";
+                            sSQL += ",[batchcode]";
+                            sSQL += ",[setnum]";
+                            sSQL += ",[doctype]";
+                            sSQL += ",[pageid]";
+                            sSQL += ",[fieldid]";
+                            sSQL += ",[keyname]";
+                            sSQL += ",[fldvalue]";
+                            sSQL += ",[keydatatype]";
+                            sSQL += ") VALUES (";
+                            sSQL += "'" + _currScanProj.Trim().Replace("'", "") + "'";
+                            sSQL += ",'" + _appNum.Trim().Replace("'", "") + "'";
+                            sSQL += ",'" + _batchCode.Trim().Replace("'", "") + "'";
+                            sSQL += ",'" + pSetNum.Trim().Replace("'", "") + "'";
+                            sSQL += ",'" + pDocType.Trim().Replace("'", "") + "'";
+                            sSQL += ",'" + pPageId + "'";
+                            sSQL += ",'" + sFldId.Trim().Replace("'", "") + "'";
+                            sSQL += ",N'" + sKeyName.Trim().Replace("'", "''") + "'";
+                            sSQL += ",N'" + sValue.Trim().Replace("'", "''") + "'";
+                            sSQL += ",'" + sDataType.Trim().Replace("'", "") + "')";
+
+                            if (mGlobal.objDB.UpdateRows(sSQL, true) == false)
+                            {
+                                bSaved = false;
+                                throw new Exception("Saving document key field data failed!!");
+                            }
                         }
 
                         i += 1;
                     }
                 }
-
             }
             catch (Exception ex)
             {
@@ -13230,80 +13837,84 @@ namespace SRDocScanIDP
                                 sDataType = "check";
                             }
                         }
-                        if (oCtrl == null || oCtrl.Visible == false)
-                        {
-                            if (i == 0)
-                                oCtrl = pnlKeyFld.Controls["cbxKeyField"];
-                            else
-                                oCtrl = pnlKeyFld.Controls["cbxKeyField" + i];
+                        //else if (oCtrl == null || oCtrl.Visible == false)
+                        //{
+                        //    if (i == 0)
+                        //        oCtrl = pnlKeyFld.Controls["cbxKeyField"];
+                        //    else
+                        //        oCtrl = pnlKeyFld.Controls["cbxKeyField" + i];
 
-                            if (oCtrl != null) sDataType = "combo";
+                        //    if (oCtrl != null) sDataType = "combo";
 
-                            ComboBox oCbx = (ComboBox)oCtrl;
-                            if (oCbx.SelectedValue != null)
-                                sValue = oCbx.SelectedValue.ToString();
-                            else
-                            {
-                                MessageBox.Show(this, "Key field value is not selected or not matched! Please select from the list.", "Message");
-                                throw new Exception("Key field value is not selected or not matched!");
-                            }
-                        }
+                        //    ComboBox oCbx = (ComboBox)oCtrl;
+                        //    if (oCbx.SelectedValue != null)
+                        //        sValue = oCbx.SelectedValue.ToString();
+                        //    else
+                        //    {
+                        //        //MessageBox.Show(this, "Key field value is not selected or not matched! Please select from the list.", "Message");
+                        //        //throw new Exception("Key field value is not selected or not matched!");
+                        //        mGlobal.Write2Log("Save key value...Key field value is not selected or not matched!");
+                        //    }
+                        //}
                         else if (sValue.Trim() == string.Empty)
                             sValue = oCtrl.Text;
 
-                        sFldId = oCtrl.Tag.ToString().Trim();
-                        bExist = oDF.checkDocuSetKeyFieldExist(_currScanProj, _appNum, _batchCode, pNewSetNum, pDocType, pPageId.ToString(), sFldId);
-
-                        if (bExist)
+                        if (oCtrl != null)
                         {
-                            sSQL = "UPDATE " + mGlobal.strDBName.Trim().Replace("'", "") + ".dbo.TKeyFieldValue ";
-                            sSQL += "SET [fldvalue]=N'" + sValue.Trim().Replace("'", "''") + "'";
-                            sSQL += ",[keydatatype]='" + sDataType.Trim().Replace("'", "") + "'";
-                            sSQL += ",[modifieddate]='" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' ";
-                            sSQL += "WHERE scanpjcode='" + _currScanProj.Trim().Replace("'", "") + "' ";
-                            sSQL += "AND sysappnum='" + _appNum.Trim().Replace("'", "") + "' ";
-                            sSQL += "AND batchcode='" + _batchCode.Trim().Replace("'", "") + "' ";
-                            sSQL += "AND setnum='" + pNewSetNum.Trim().Replace("'", "") + "' ";
-                            sSQL += "AND doctype='" + pDocType.Trim().Replace("'", "") + "' ";
-                            sSQL += "AND pageid='" + pPageId + "' ";
-                            sSQL += "AND fieldid='" + sFldId.Trim().Replace("'", "") + "' ";
-                            sSQL += "AND keyname=N'" + sKeyName.Trim().Replace("'", "''") + "' ";
+                            sFldId = oCtrl.Tag.ToString().Trim();
+                            bExist = oDF.checkDocuSetKeyFieldExist(_currScanProj, _appNum, _batchCode, pNewSetNum, pDocType, pPageId.ToString(), sFldId);
 
-                            if (mGlobal.objDB.UpdateRows(sSQL, true) == false)
+                            if (bExist)
                             {
-                                bSaved = false;
-                                throw new Exception("Update document key field data failed!");
+                                sSQL = "UPDATE " + mGlobal.strDBName.Trim().Replace("'", "") + ".dbo.TKeyFieldValue ";
+                                sSQL += "SET [fldvalue]=N'" + sValue.Trim().Replace("'", "''") + "'";
+                                sSQL += ",[keydatatype]='" + sDataType.Trim().Replace("'", "") + "'";
+                                sSQL += ",[modifieddate]='" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' ";
+                                sSQL += "WHERE scanpjcode='" + _currScanProj.Trim().Replace("'", "") + "' ";
+                                sSQL += "AND sysappnum='" + _appNum.Trim().Replace("'", "") + "' ";
+                                sSQL += "AND batchcode='" + _batchCode.Trim().Replace("'", "") + "' ";
+                                sSQL += "AND setnum='" + pNewSetNum.Trim().Replace("'", "") + "' ";
+                                sSQL += "AND doctype='" + pDocType.Trim().Replace("'", "") + "' ";
+                                sSQL += "AND pageid='" + pPageId + "' ";
+                                sSQL += "AND fieldid='" + sFldId.Trim().Replace("'", "") + "' ";
+                                sSQL += "AND keyname=N'" + sKeyName.Trim().Replace("'", "''") + "' ";
+
+                                if (mGlobal.objDB.UpdateRows(sSQL, true) == false)
+                                {
+                                    bSaved = false;
+                                    throw new Exception("Update document key field data failed!");
+                                }
                             }
-                        }
-                        else
-                        {
-                            sSQL = "INSERT INTO " + mGlobal.strDBName.Trim().Replace("'", "") + ".dbo.TKeyFieldValue ";
-                            sSQL += "([scanpjcode]";
-                            sSQL += ",[sysappnum]";
-                            sSQL += ",[batchcode]";
-                            sSQL += ",[setnum]";
-                            sSQL += ",[doctype]";
-                            sSQL += ",[pageid]";
-                            sSQL += ",[fieldid]";
-                            sSQL += ",[keyname]";
-                            sSQL += ",[fldvalue]";
-                            sSQL += ",[keydatatype]";
-                            sSQL += ") VALUES (";
-                            sSQL += "'" + _currScanProj.Trim().Replace("'", "") + "'";
-                            sSQL += ",'" + _appNum.Trim().Replace("'", "") + "'";
-                            sSQL += ",'" + _batchCode.Trim().Replace("'", "") + "'";
-                            sSQL += ",'" + pNewSetNum.Trim().Replace("'", "") + "'";
-                            sSQL += ",'" + pDocType.Trim().Replace("'", "") + "'";
-                            sSQL += ",'" + pPageId + "'";
-                            sSQL += ",'" + sFldId.Trim().Replace("'", "") + "'";
-                            sSQL += ",N'" + sKeyName.Trim().Replace("'", "''") + "'";
-                            sSQL += ",N'" + sValue.Trim().Replace("'", "''") + "'";
-                            sSQL += ",'" + sDataType.Trim().Replace("'", "") + "')";
-
-                            if (mGlobal.objDB.UpdateRows(sSQL, true) == false)
+                            else
                             {
-                                bSaved = false;
-                                throw new Exception("Saving document key field data failed!");
+                                sSQL = "INSERT INTO " + mGlobal.strDBName.Trim().Replace("'", "") + ".dbo.TKeyFieldValue ";
+                                sSQL += "([scanpjcode]";
+                                sSQL += ",[sysappnum]";
+                                sSQL += ",[batchcode]";
+                                sSQL += ",[setnum]";
+                                sSQL += ",[doctype]";
+                                sSQL += ",[pageid]";
+                                sSQL += ",[fieldid]";
+                                sSQL += ",[keyname]";
+                                sSQL += ",[fldvalue]";
+                                sSQL += ",[keydatatype]";
+                                sSQL += ") VALUES (";
+                                sSQL += "'" + _currScanProj.Trim().Replace("'", "") + "'";
+                                sSQL += ",'" + _appNum.Trim().Replace("'", "") + "'";
+                                sSQL += ",'" + _batchCode.Trim().Replace("'", "") + "'";
+                                sSQL += ",'" + pNewSetNum.Trim().Replace("'", "") + "'";
+                                sSQL += ",'" + pDocType.Trim().Replace("'", "") + "'";
+                                sSQL += ",'" + pPageId + "'";
+                                sSQL += ",'" + sFldId.Trim().Replace("'", "") + "'";
+                                sSQL += ",N'" + sKeyName.Trim().Replace("'", "''") + "'";
+                                sSQL += ",N'" + sValue.Trim().Replace("'", "''") + "'";
+                                sSQL += ",'" + sDataType.Trim().Replace("'", "") + "')";
+
+                                if (mGlobal.objDB.UpdateRows(sSQL, true) == false)
+                                {
+                                    bSaved = false;
+                                    throw new Exception("Saving document key field data failed!");
+                                }
                             }
                         }
 
@@ -13361,56 +13972,59 @@ namespace SRDocScanIDP
                                 sDataType = "check";
                             }
                         }
-                        if (oCtrl == null || oCtrl.Visible == false)
-                        {
-                            if (i == 0)
-                                oCtrl = pnlKeyFld.Controls["cbxKeyField"];
-                            else
-                                oCtrl = pnlKeyFld.Controls["cbxKeyField" + i];
+                        //else if (oCtrl == null || oCtrl.Visible == false)
+                        //{
+                        //    if (i == 0)
+                        //        oCtrl = pnlKeyFld.Controls["cbxKeyField"];
+                        //    else
+                        //        oCtrl = pnlKeyFld.Controls["cbxKeyField" + i];
 
-                            if (oCtrl != null) sDataType = "combo";
+                        //    if (oCtrl != null) sDataType = "combo";
 
-                            ComboBox oCbx = (ComboBox)oCtrl;
-                            if (oCbx.SelectedValue != null)
-                                sValue = oCbx.SelectedValue.ToString();
-                            else
-                            {
-                                MessageBox.Show(this, "Key field value is not selected or not matched! Please select from the list.", "Message");
-                                throw new Exception("Key field value is not selected or not matched!");
-                            }
-                        }
+                        //    ComboBox oCbx = (ComboBox)oCtrl;
+                        //    if (oCbx.SelectedValue != null)
+                        //        sValue = oCbx.SelectedValue.ToString();
+                        //    else
+                        //    {
+                        //        MessageBox.Show(this, "Key field value is not selected or not matched! Please select from the list.", "Message");
+                        //        throw new Exception("Key field value is not selected or not matched!");
+                        //    }
+                        //}
                         else if (sValue.Trim() == string.Empty)
                             sValue = oCtrl.Text;
 
-                        sFldId = oCtrl.Tag.ToString().Trim();
-
-                        sSQL = "INSERT INTO " + mGlobal.strDBName.Trim().Replace("'", "") + ".dbo.TKeyFieldValue ";
-                        sSQL += "([scanpjcode]";
-                        sSQL += ",[sysappnum]";
-                        sSQL += ",[batchcode]";
-                        sSQL += ",[setnum]";
-                        sSQL += ",[doctype]";
-                        sSQL += ",[pageid]";
-                        sSQL += ",[fieldid]";
-                        sSQL += ",[keyname]";
-                        sSQL += ",[fldvalue]";
-                        sSQL += ",[keydatatype]";
-                        sSQL += ") VALUES (";
-                        sSQL += "'" + _currScanProj.Trim().Replace("'", "") + "'";
-                        sSQL += ",'" + _appNum.Trim().Replace("'", "") + "'";
-                        sSQL += ",'" + _batchCode.Trim().Replace("'", "") + "'";
-                        sSQL += ",'" + pNewSetNum.Trim().Replace("'", "") + "'";
-                        sSQL += ",'" + pDocType.Trim().Replace("'", "") + "'";
-                        sSQL += ",'" + pPageId + "'";
-                        sSQL += ",'" + sFldId.Trim().Replace("'", "") + "'";
-                        sSQL += ",N'" + sKeyName.Trim().Replace("'", "''") + "'";
-                        sSQL += ",N'" + sValue.Trim().Replace("'", "''") + "'";
-                        sSQL += ",'" + sDataType.Trim().Replace("'", "") + "')";
-
-                        if (mGlobal.objDB.UpdateRows(sSQL, true) == false)
+                        if (oCtrl != null)
                         {
-                            bSaved = false;
-                            throw new Exception("Saving document key field data failed!!");
+                            sFldId = oCtrl.Tag.ToString().Trim();
+
+                            sSQL = "INSERT INTO " + mGlobal.strDBName.Trim().Replace("'", "") + ".dbo.TKeyFieldValue ";
+                            sSQL += "([scanpjcode]";
+                            sSQL += ",[sysappnum]";
+                            sSQL += ",[batchcode]";
+                            sSQL += ",[setnum]";
+                            sSQL += ",[doctype]";
+                            sSQL += ",[pageid]";
+                            sSQL += ",[fieldid]";
+                            sSQL += ",[keyname]";
+                            sSQL += ",[fldvalue]";
+                            sSQL += ",[keydatatype]";
+                            sSQL += ") VALUES (";
+                            sSQL += "'" + _currScanProj.Trim().Replace("'", "") + "'";
+                            sSQL += ",'" + _appNum.Trim().Replace("'", "") + "'";
+                            sSQL += ",'" + _batchCode.Trim().Replace("'", "") + "'";
+                            sSQL += ",'" + pNewSetNum.Trim().Replace("'", "") + "'";
+                            sSQL += ",'" + pDocType.Trim().Replace("'", "") + "'";
+                            sSQL += ",'" + pPageId + "'";
+                            sSQL += ",'" + sFldId.Trim().Replace("'", "") + "'";
+                            sSQL += ",N'" + sKeyName.Trim().Replace("'", "''") + "'";
+                            sSQL += ",N'" + sValue.Trim().Replace("'", "''") + "'";
+                            sSQL += ",'" + sDataType.Trim().Replace("'", "") + "')";
+
+                            if (mGlobal.objDB.UpdateRows(sSQL, true) == false)
+                            {
+                                bSaved = false;
+                                throw new Exception("Saving document key field data failed!!");
+                            }
                         }
 
                         i += 1;
@@ -13594,7 +14208,7 @@ namespace SRDocScanIDP
                             if (sCtrlType == "Date") //Init.
                             {
                                 oDate = (DateTimePicker)oCtrl;
-                                if (mGlobal.isDate(sVal, new string[] { "dd/MM/yyyy" }))
+                                if (mGlobal.isDate(sVal, new string[] { "dd/MM/yyyy", "MM/dd/yyyy" }))
                                 {
                                     oDate.CustomFormat = "dd/MM/yyyy";
                                 }
@@ -13764,7 +14378,7 @@ namespace SRDocScanIDP
                                 dtpKeyField.Tag = (i + 1).ToString();
                                 dtpKeyField.Format = DateTimePickerFormat.Custom;
 
-                                if (mGlobal.isDate(sVal, new string[] { "dd/MM/yyyy" }))
+                                if (mGlobal.isDate(sVal, new string[] { "dd/MM/yyyy", "MM/dd/yyyy" }))
                                 {
                                     dtpKeyField.CustomFormat = "dd/MM/yyyy";
                                 }
@@ -13784,8 +14398,10 @@ namespace SRDocScanIDP
                                 lblKeyField.Text = mGlobal.sanitizeValue(sKey, " ").Trim();
                                 lblKeyField.Visible = true;
                                 chkKeyFldVal.Visible = false;
+                                dtpKeyField.Visible = false;
                                 txtKeyFld.MaxLength = 250;
                                 txtKeyFld.Text = "";
+                                txtKeyFld.Visible = true;
 
                                 lPosition.Add(new int[] { txtKeyFld.Location.Y, txtKeyFld.Height });
 
@@ -13885,6 +14501,7 @@ namespace SRDocScanIDP
                                 oLblFld.Name = "lblKeyField" + (i).ToString();
                                 oLblFld.Location = currLoc1;
                                 oLblFld.Text = mGlobal.sanitizeValue(sKey, " ").Trim();
+                                oLblFld.Visible = true;
                                 oLblFld.SendToBack();
 
                                 oDtpFld = new DateTimePicker();
@@ -13940,6 +14557,7 @@ namespace SRDocScanIDP
 
                                 oDtpFld.KeyDown += dtpField_KeyDown;
                                 oDtpFld.GotFocus += keyField_Focus;
+                                oDtpFld.Visible = true;
 
                                 pnlKeyFld.Controls.Add(oLblFld);
                                 pnlKeyFld.Controls.Add(oDtpFld);
@@ -13965,6 +14583,7 @@ namespace SRDocScanIDP
                                 oLblFld.Name = "lblKeyField" + (i).ToString();
                                 oLblFld.Location = currLoc1;
                                 oLblFld.Text = mGlobal.sanitizeValue(sKey, " ").Trim();
+                                oLblFld.Visible = true;
                                 oLblFld.SendToBack();
 
                                 oTxtFld = new TextBox();
@@ -14013,6 +14632,7 @@ namespace SRDocScanIDP
 
                                 oTxtFld.KeyDown += txtField_KeyDown;
                                 oTxtFld.GotFocus += keyField_Focus;
+                                oTxtFld.Visible = true;
 
                                 pnlKeyFld.Controls.Add(oLblFld);
                                 pnlKeyFld.Controls.Add(oTxtFld);
@@ -14066,6 +14686,24 @@ namespace SRDocScanIDP
                 return false;
             }
             return true;
+        }
+
+        private void initIDPIndexFieldConfig(string pDocType)
+        {
+            try
+            {
+                lPosition = new List<int[]>();
+                resetIndexFieldsConfig();
+                lblField.Visible = false;
+                txtField.Visible = false;
+                clsIDP.loadIDPFieldMappingDB(_currScanProj, _appNum, _docDefId, pDocType);
+                loadMapIndexFieldsConfig(); //Load default.
+                _fldCnt = lPosition.Count;
+            }
+            catch (Exception ex)
+            {
+                mGlobal.Write2Log(ex.Message + Environment.NewLine + ex.StackTrace.ToString());
+            }
         }
 
 

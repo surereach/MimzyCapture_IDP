@@ -209,23 +209,40 @@ namespace SRDocScanIDP
                 System.Drawing.Point oPoint = new System.Drawing.Point();
                 if (tvwSet.Width + dsvImg.Width + dsvThumbnailList.Width + 65 < this.Width)
                 {
+                    VerifyToolStrip.Height = 45;
+                    IndexStatusStrip.Height = 35;
+                    oPoint.X = label1.Location.X;
+                    oPoint.Y = VerifyToolStrip.Height + 2;
+                    label1.Location = oPoint;
+                    oPoint.X = dsvImg.Location.X;
+                    oPoint.Y = label1.Location.Y;
+                    dsvImg.Location = oPoint;
+                    oPoint.X = tvwSet.Location.X;
+                    oPoint.Y = label1.Location.Y + label1.Height + 2;
+                    tvwSet.Location = oPoint;
                     dsvImg.Width = this.Width - tvwSet.Width - dsvThumbnailList.Width - 65;
-                    dsvImg.Height = txtInfo.Location.Y - dsvImg.Location.Y - 5;
+                    //dsvImg.Height = txtInfo.Location.Y - dsvImg.Location.Y - 5;
+
+                    dsvThumbnailList.Height = 75;
+                    tvwSet.Height = Height - IndexStatusStrip.Height - VerifyToolStrip.Height - 23;
+                    dsvImg.Height = Height - IndexStatusStrip.Height - VerifyToolStrip.Height - txtInfo.Height;
+                    dsvImg.Height = dsvImg.Height - 5;
 
                     txtInfo.Width = dsvImg.Width - panel1.Width - 5;
                     oPoint.Y = dsvImg.Location.Y + dsvImg.Height + 5;
                     oPoint.X = dsvImg.Location.X;
                     txtInfo.Location = oPoint;
-                    dsvImg.Height = txtInfo.Location.Y - dsvImg.Location.Y - 5;
+                    //dsvImg.Height = txtInfo.Location.Y - dsvImg.Location.Y - 5;
 
                     oPoint.Y = panel1.Location.Y;
                     oPoint.X = txtInfo.Location.X + txtInfo.Width + 5;
                     panel1.Location = oPoint;
 
-                    oPoint.Y = dsvThumbnailList.Location.Y;
+                    dsvThumbnailList.Height = dsvImg.Height + txtInfo.Location.Y + txtInfo.Height + 3;
+                    oPoint.Y = dsvImg.Location.Y;
                     oPoint.X = dsvImg.Location.X + dsvImg.Width + 5;
                     dsvThumbnailList.Location = oPoint;
-                    dsvThumbnailList.Height = dsvImg.Height + txtInfo.Height + 3;
+                    
                 }
             }
             catch (Exception)
@@ -237,23 +254,26 @@ namespace SRDocScanIDP
         {
             if (this.WindowState != FormWindowState.Minimized)
             {
+                this.CurrDateTime.Width = 250;
                 if (this.WindowState == FormWindowState.Normal)
                 {
                     if (this.Width < FORM_MIN_WIDTH) this.Width = FORM_MIN_WIDTH;
                     if (this.Height < FORM_MIN_HEIGHT) this.Height = FORM_MIN_HEIGHT;
-                    iFormOffset = -this.CurrDateTime.Width;
+                    //iFormOffset = -this.CurrDateTime.Width;
                 }
                 //else if (this.WindowState == FormWindowState.Maximized)
                 //{
                 //    iFormOffset = 0;
                 //}
 
-                this.VerifyingStatusBar1.Width = this.Width - this.VerifyingStatusBar.Width - this.VerifyingStatusBar2.Width - this.CurrDateTime.Width - iFormOffset;
+                this.VerifyingStatusBar1.Width = IndexStatusStrip.Width - this.VerifyingStatusBar.Width - this.VerifyingStatusBar2.Width - this.CurrDateTime.Width - iFormOffset;
 
                 if (this.VerifyingStatusBar.Width > 268)
                     this.VerifyingStatusBar.Width = 268;
-                if (this.VerifyingStatusBar1.Width < 658)
-                    this.VerifyingStatusBar1.Width = 658;
+                if (this.VerifyingStatusBar1.Width < 608)
+                    this.VerifyingStatusBar1.Width = 608;
+                if (this.VerifyingStatusBar2.Width < 308)
+                    this.VerifyingStatusBar2.Width = 308;
             }
         }
 
