@@ -94,6 +94,7 @@ namespace SRDocScanIDP
             public string EndPoint;
             public string IDPKey;
             public string ModelId;
+            public string ClsModelId;
         }
 
         public struct _stcIDPFieldMap
@@ -101,6 +102,7 @@ namespace SRDocScanIDP
             public string PrjCode;
             public string AppNum;
             public string DocDefId;
+            public string DocType;
             public List<string> FieldName;
             public List<string> FieldDispName;
         }
@@ -300,7 +302,6 @@ namespace SRDocScanIDP
                 mGlobal.LoadAppDBCfg();
 
                 mGlobal.objDB.UpdateRows(sSQL);
-
             }
             catch (Exception ex)
             {
@@ -341,7 +342,7 @@ namespace SRDocScanIDP
             return "";
         }
 
-        public static void loadIDPFieldMappingDB(string pProj, string pAppNum, string pDocDefId)
+        public static void loadIDPFieldMappingDB(string pProj, string pAppNum, string pDocDefId, string pDocType = "")
         {
             try
             {
@@ -350,10 +351,13 @@ namespace SRDocScanIDP
                 stcIDPFieldMap.AppNum = pAppNum.Trim();
                 stcIDPFieldMap.DocDefId = pDocDefId.Trim();
 
-                string sSQL = "SELECT fldname,idpfldname FROM " + mGlobal.strDBName.Trim().Replace("'", "") + ".dbo.TIDPMapFields ";
+                string sSQL = "SELECT fldname,idpfldname,idpdoctype ";
+                sSQL += "FROM " + mGlobal.strDBName.Trim().Replace("'", "") + ".dbo.TIDPMapFields ";
                 sSQL += "WHERE scanpjcode='" + pProj.Trim().Replace("'", "") + "' ";
                 sSQL += "AND sysappnum='" + pAppNum.Trim().Replace("'", "") + "' ";
                 sSQL += "AND docdefid='" + pDocDefId.Trim().Replace("'", "") + "' ";
+                if (pDocType.Trim() != "")
+                    sSQL += "AND idpdoctype='" + pDocType.Trim().Replace("'", "") + "' ";
 
                 mGlobal.LoadAppDBCfg();
 
@@ -365,6 +369,9 @@ namespace SRDocScanIDP
                     int i = 0;
                     while (i < oRows.Count)
                     {
+                        if (i == 0)
+                            stcIDPFieldMap.DocType = oRows[i]["idpdoctype"].ToString().Trim();
+
                         stcIDPFieldMap.FieldName.Add(oRows[i]["idpfldname"].ToString().Trim());
                         stcIDPFieldMap.FieldDispName.Add(oRows[i]["fldname"].ToString().Trim());
 
@@ -388,7 +395,8 @@ namespace SRDocScanIDP
                 stcIDPMapping.AppNum = pAppNum.Trim();
                 stcIDPMapping.DocDefId = pDocDefId.Trim();
 
-                string sSQL = "SELECT TOP 1 endpoint,idpkey,modelid FROM " + mGlobal.strDBName.Trim().Replace("'", "") + ".dbo.TIDPMapping ";
+                string sSQL = "SELECT TOP 1 endpoint,idpkey,modelid,classmodelid ";
+                sSQL += "FROM " + mGlobal.strDBName.Trim().Replace("'", "") + ".dbo.TIDPMapping ";
                 sSQL += "WHERE scanpjcode='" + pProj.Trim().Replace("'", "") + "' ";
                 sSQL += "AND sysappnum='" + pAppNum.Trim().Replace("'", "") + "' ";
                 sSQL += "AND docdefid='" + pDocDefId.Trim().Replace("'", "") + "' ";
@@ -401,6 +409,7 @@ namespace SRDocScanIDP
                     stcIDPMapping.EndPoint = oRow["endpoint"].ToString().Trim();
                     stcIDPMapping.IDPKey = oRow["idpkey"].ToString().Trim();
                     stcIDPMapping.ModelId = oRow["modelid"].ToString().Trim();
+                    stcIDPMapping.ClsModelId = oRow["classmodelid"].ToString().Trim();
                 }
             }
             catch (Exception ex)
@@ -409,6 +418,41 @@ namespace SRDocScanIDP
                 throw new Exception(ex.Message);
             }
         }
+
+        public static bool IDPTableValueExistDB(string pProj, string pAppNum, string pBatchCode, string pSetNum, string pDocType,
+            int pPageId, string pTableNum)
+        {
+            try
+            {
+                string sSQL = "SELECT COUNT(IsNull(tableno,0)) ";
+                sSQL += "FROM " + mGlobal.strDBName.Trim().Replace("'", "") + ".dbo.TIDPTableValues ";
+                sSQL += "WHERE scanproj='" + pProj.Trim().Replace("'", "") + "' ";
+                sSQL += "AND appnum='" + pAppNum.Trim().Replace("'", "") + "' ";
+                sSQL += "AND batchcode='" + pBatchCode.Trim().Replace("'", "") + "' ";
+                sSQL += "AND setnum='" + pSetNum.Trim().Replace("'", "") + "' ";
+                sSQL += "AND doctype='" + pDocType.Trim().Replace("'", "") + "' ";
+                sSQL += "AND pageid=" + pPageId + " ";
+                sSQL += "AND tableno='" + pTableNum + "' ";
+
+                mGlobal.LoadAppDBCfg();
+
+                System.Data.DataRow oRow = mGlobal.objDB.ReturnSingleRow(sSQL);
+                if (oRow != null)
+                {
+                    if (Convert.ToInt32(oRow[0].ToString()) > 0) return true; else return false;
+                }
+                else
+                    return false;
+            }
+            catch (Exception ex)
+            {
+                mGlobal.Write2Log(ex.Message + Environment.NewLine + ex.StackTrace.ToString());
+                throw new Exception(ex.Message);
+            }
+            return true;
+        }
+
+
 
     }
 }
