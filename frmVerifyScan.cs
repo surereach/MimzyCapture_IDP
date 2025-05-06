@@ -223,22 +223,21 @@ namespace SRDocScanIDP
                     dsvImg.Width = this.Width - tvwSet.Width - dsvThumbnailList.Width - 65;
                     //dsvImg.Height = txtInfo.Location.Y - dsvImg.Location.Y - 5;
 
-                    dsvThumbnailList.Height = 75;
-                    tvwSet.Height = Height - IndexStatusStrip.Height - VerifyToolStrip.Height - 23;
+                    tvwSet.Height = Height - IndexStatusStrip.Height - VerifyToolStrip.Height - 25;
                     dsvImg.Height = Height - IndexStatusStrip.Height - VerifyToolStrip.Height - txtInfo.Height;
-                    dsvImg.Height = dsvImg.Height - 5;
+                    dsvImg.Height = dsvImg.Height - 10;
 
-                    txtInfo.Width = dsvImg.Width - panel1.Width - 5;
+                    txtInfo.Width = dsvImg.Width - panel1.Width - 10;
                     oPoint.Y = dsvImg.Location.Y + dsvImg.Height + 5;
                     oPoint.X = dsvImg.Location.X;
                     txtInfo.Location = oPoint;
                     //dsvImg.Height = txtInfo.Location.Y - dsvImg.Location.Y - 5;
 
-                    oPoint.Y = panel1.Location.Y;
+                    oPoint.Y = dsvImg.Location.Y + dsvImg.Height;
                     oPoint.X = txtInfo.Location.X + txtInfo.Width + 5;
                     panel1.Location = oPoint;
 
-                    dsvThumbnailList.Height = dsvImg.Height + txtInfo.Location.Y + txtInfo.Height + 3;
+                    dsvThumbnailList.Height = tvwSet.Height + label1.Height - 5;
                     oPoint.Y = dsvImg.Location.Y;
                     oPoint.X = dsvImg.Location.X + dsvImg.Width + 5;
                     dsvThumbnailList.Location = oPoint;
